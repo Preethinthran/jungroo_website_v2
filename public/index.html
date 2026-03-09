@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jungroo AI Labs | Sovereign Intelligence Partner</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        theme: {
+                            bg: 'var(--bg)',
+                            panel: 'var(--panel)',
+                            card: 'var(--card)',
+                            border: 'var(--border)',
+                            text: 'var(--text)',
+                            muted: 'var(--muted)',
+                            accent: '#5e6ad2',
+                            accentGlow: 'var(--accent-glow)',
+                            altBg: 'var(--alt-bg)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-glow': 'var(--hero-glow)',
+                        'grid-pattern': 'linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #fdfcfb;
+            --panel: #ffffff;
+            --card: rgba(255, 255, 255, 0.8);
+            --border: rgba(0, 0, 0, 0.08);
+            --text: #0f172a;
+            --muted: #64748b;
+            --alt-bg: #f8fafc;
+            --grid-color: rgba(0, 0, 0, 0.04);
+            --hero-glow: radial-gradient(circle at 50% -20%, rgba(94, 106, 210, 0.15), transparent 80%);
+            --nav-bg: rgba(252, 251, 249, 0.85);
+            --accent-glow: rgba(94, 106, 210, 0.15);
+            --layer-bg: #ffffff;
+            --layer-active-bg: #ffffff;
+            --layer-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            --layer-inactive-opacity: 0.5;
+            --scroll-thumb: rgba(0,0,0,0.1);
+            --logo-filter: brightness(0);
+        }
+
+        .dark {
+            --bg: #080808;
+            --panel: #111111;
+            --card: rgba(22, 22, 22, 0.6);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f4f4f5;
+            --muted: #a1a1aa;
+            --accent: #5e6ad2;
+            --alt-bg: #0c0c0c;
+            --grid-color: rgba(255, 255, 255, 0.03);
+            --hero-glow: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(94, 106, 210, 0.2), transparent);
+            --nav-bg: rgba(8, 8, 8, 0.7);
+            --accent-glow: rgba(94, 106, 210, 0.3);
+            --layer-bg: rgba(20, 20, 20, 0.8);
+            --layer-active-bg: rgba(25, 25, 30, 0.9);
+            --layer-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            --layer-inactive-opacity: 0.2;
+            --scroll-thumb: rgba(255,255,255,0.1);
+            --logo-filter: brightness(0) invert(1);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background-color 0.5s ease, color 0.5s ease;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .logo-adaptive { filter: var(--logo-filter); transition: filter 0.5s ease; }
+
+        .stack-layer {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--layer-bg);
+            position: relative;
+        }
+        .stack-layer.active {
+            border-color: rgba(94, 106, 210, 0.6);
+            background: var(--layer-active-bg);
+            box-shadow: var(--layer-shadow);
+            transform: translateY(-2px);
+            z-index: 10;
+        }
+        .stack-layer.inactive { opacity: var(--layer-inactive-opacity); transform: scale(0.98); }
+        
+        .governance-pillar {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            transition: all 0.4s ease;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--layer-bg);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .governance-pillar.active { border-color: rgba(94, 106, 210, 0.5); color: #5e6ad2; background: var(--layer-active-bg); }
+
+        .hud-mini-blade {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--panel);
+            opacity: 0.15;
+            transform: translateY(10px);
+        }
+        .hud-mini-blade.active { opacity: 1; border-color: #5e6ad2; transform: translateY(0); box-shadow: 0 0 25px rgba(94, 106, 210, 0.15); }
+        .led-array { display: flex; gap: 4px; }
+        .led-node { width: 4px; height: 4px; border-radius: 50%; background: var(--muted); opacity: 0.3; }
+        .active .led-node { background: #5e6ad2; opacity: 1; box-shadow: 0 0 8px #5e6ad2; animation: led-blink 1.5s infinite; }
+        @keyframes led-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        .ledger-sidebar-item { transition: all 0.2s ease; border-left: 2px solid transparent; cursor: pointer; padding: 10px 14px; border-radius: 6px; }
+        .ledger-sidebar-item.active { border-left-color: #5e6ad2; background: rgba(94, 106, 210, 0.05); color: var(--text); }
+
+        .case-card { transition: all 0.2s ease; cursor: pointer; border-left: 3px solid transparent !important; }
+        .case-card.active { border-left-color: #5e6ad2 !important; background: var(--layer-active-bg); border-color: var(--border); transform: translateX(5px); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(94, 106, 210, 0.2); border-radius: 4px; }
+        .glass-nav { background: var(--nav-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); transition: background-color 0.5s ease; }
+        .text-gradient { background: linear-gradient(to right, var(--text), var(--muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .pillar-satellite:hover { transform: translateY(-8px); border-color: #5e6ad2; box-shadow: 0 20px 40px -15px rgba(94, 106, 210, 0.2); }
+        
+        .view-section { display: none; }
+        .view-section.active { display: block; }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-theme-accent selection:text-white relative">
+
+    <!-- GLOBAL GRID PATTERN -->
+    <div class="fixed inset-0 z-[-1] bg-grid-pattern opacity-[0.8] dark:opacity-[0.15] pointer-events-none" style="background-size: 40px 40px;"></div>
+
+    <!-- GLOBAL NAV -->
+    <nav class="fixed w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" onclick="switchView('home')" class="block flex items-center">
+                <img src="images/logo.webp" alt="Jungroo AI Labs" class="h-7 w-auto object-contain logo-adaptive">
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-10 text-[11px] font-bold text-theme-muted uppercase tracking-[0.2em]">
+                <a href="#capabilities" onclick="navTo('capabilities')" class="hover:text-theme-text transition-colors">Stack</a>
+                <a href="#" onclick="switchView('case-studies')" class="hover:text-theme-text transition-colors text-theme-text">Case Studies</a>
+                <a href="#pillars" onclick="navTo('pillars')" class="hover:text-theme-text transition-colors">Pillars</a>
+                <a href="#media" onclick="navTo('media')" class="hover:text-theme-text transition-colors">Media</a>
+            </div>
+            
+            <div class="flex items-center gap-5">
+                <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full border border-theme-border bg-theme-panel hover:border-theme-accent transition-all">
+                    <span class="text-lg">💡</span>
+                </button>
+                <a href="#contact" onclick="navTo('contact')" class="hidden md:inline-block bg-theme-text text-theme-bg px-5 py-2 text-[13px] font-semibold rounded-lg hover:opacity-90 transition-opacity">Brief Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HOME VIEW -->
+    <main id="view-home" class="view-section active">
+        <!-- HERO SECTION -->
+        <header class="relative pt-40 pb-32 md:pt-56 md:pb-40 px-6 max-w-7xl mx-auto flex flex-col items-center text-center z-10">
+            <div class="absolute top-0 left-0 w-full h-[600px] bg-hero-glow pointer-events-none z-[-1]"></div>
+            <div class="absolute top-0 left-0 w-full h-[600px] bg-grid-pattern opacity-[0.4] dark:opacity-[0.1] pointer-events-none z-[-2]" style="background-size: 60px 60px;"></div>
+            
+            <div class="pill-badge mb-8 inline-flex items-center gap-2 border border-theme-border rounded-full px-4 py-1.5 text-[12px] font-semibold bg-theme-panel shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-theme-accent animate-pulse shadow-[0_0_8px_#5e6ad2]"></span>
+                Sovereign Intelligence Partner
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-[80px] font-semibold tracking-tighter leading-[1.1] mb-8 max-w-5xl text-gradient">
+                Full-Stack Sovereign AI Systems for Enterprises.
+            </h1>
+            
+            <p class="text-lg md:text-xl text-theme-muted font-normal max-w-4xl leading-relaxed mb-12">
+                We bring private intelligence systems to your infrastructure. Sovereign models, robust agentic workflows, and full-stack applications—built, deployed, and governed entirely within your boundaries to meet the rigorous standards of the <span class="text-theme-accent font-semibold">most regulated domains</span>.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#" onclick="switchView('case-studies')" class="bg-theme-text text-theme-bg px-10 py-4 text-center text-[15px] font-bold rounded-xl shadow-lg hover:opacity-90 transition-all">Case Studies</a>
+                <a href="#capabilities" class="bg-theme-panel border border-theme-border text-theme-text px-10 py-4 text-center text-[15px] font-bold rounded-xl hover:border-theme-accent transition-all">Explore Stack</a>
+            </div>
+        </header>
+
+        <!-- STACK SECTION -->
+        <section id="capabilities" class="py-32 border-t border-theme-border bg-theme-bg">
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="mb-16 md:flex justify-between items-end border-b border-theme-border pb-8 text-left">
+                    <div class="max-w-2xl">
+                        <div class="text-theme-accent font-bold text-xs uppercase tracking-widest mb-3 text-[10px]">Architecture Diagnostic</div>
+                        <h2 class="text-3xl md:text-5xl font-semibold tracking-tight mb-4 text-theme-text text-left">The Sovereign AI Stack</h2>
+                        <p class="text-theme-muted leading-relaxed font-light text-left">The foundational blueprint for localized intelligence. Select a system from the feed to visualize its lineage from core to interface.</p>
+                    </div>
+                </div>
+                <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+                    <div class="lg:col-span-5 relative">
+                        <div id="stack-visual-home" class="sticky top-32 flex flex-col gap-3 relative pl-14 w-full">
+                            <!-- JS Injected Stack -->
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 h-[650px] overflow-y-auto pr-3 custom-scrollbar" id="case-studies-container-home"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PILLARS SECTION -->
+        <section id="pillars" class="py-32 border-t border-theme-border bg-theme-altBg relative overflow-hidden">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-theme-accent/10 rounded-full hidden lg:block"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-theme-accent/20 rounded-full hidden lg:block"></div>
+
+            <div class="max-w-7xl mx-auto px-6 relative z-10 text-left lg:text-center">
+                <div class="text-center mb-24 max-w-2xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-theme-text">The 5 Pillars of Excellence</h2>
+                    <p class="text-theme-muted text-lg font-light leading-relaxed">
+                        High-stakes delivery for security-first organizations. Our architecture funnels complexity into measurable business value for regulated domains.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center relative text-left">
+                    <div class="flex flex-col gap-8 order-2 lg:order-1">
+                        <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden">
+                            <div class="text-3xl mb-4">🏛️</div>
+                            <h3 class="text-lg font-bold text-theme-text mb-2 tracking-tight">Sovereign AI</h3>
+                            <p class="text-xs text-theme-muted leading-relaxed font-light mb-4">Operate private intelligence within a Zero-Trust architecture. We guarantee strict data residency compliance, ensuring your most sensitive PII and financial datasets never cross an external perimeter.</p>
+                            <div class="text-[9px] font-bold uppercase tracking-widest text-theme-accent border-t border-theme-border pt-3">Air-Gapped Reasoning</div>
+                        </div>
+                        <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden">
+                            <div class="text-3xl mb-4">💠</div>
+                            <h3 class="text-lg font-bold text-theme-text mb-2 tracking-tight">Full-Stack Engineering</h3>
+                            <p class="text-xs text-theme-muted leading-relaxed font-light mb-4">Robust backend architectures, complex data pipelines, and highly secure web and native mobile front-ends. Engage us for end-to-end deployment or to build the bulletproof application layer for your existing models.</p>
+                            <div class="text-[9px] font-bold uppercase tracking-widest text-theme-accent border-t border-theme-border pt-3">End-to-End Secure Applications</div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center order-1 lg:order-2">
+                        <div class="pillar-hub w-full max-w-[420px] bg-theme-panel border-2 border-theme-accent p-10 md:p-12 rounded-[48px] shadow-2xl relative overflow-hidden text-center">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(94,106,210,0.1),transparent_70%)] pointer-events-none"></div>
+                            <div class="text-center relative z-10">
+                                <div class="inline-block bg-theme-accent text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">The Velocity Engine</div>
+                                <div class="text-5xl mb-6">🚀</div>
+                                <h3 class="text-3xl font-bold text-theme-text mb-4 tracking-tighter uppercase">AI Transformation</h3>
+                                <p class="text-sm text-theme-muted font-light leading-relaxed mb-8">
+                                    We bridge the gap between boardroom strategy and production execution—shipping high-velocity, defensible moats that are pre-aligned with NIST, HIPAA, and emerging AI risk frameworks.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-8 order-3">
+                        <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden">
+                            <div class="text-3xl mb-4">🤖</div>
+                            <h3 class="text-lg font-bold text-theme-text mb-2 tracking-tight">Voice-Native & Agentic Workflows</h3>
+                            <p class="text-xs text-theme-muted leading-relaxed font-light mb-4">Human-parity voice and reasoning agents bound by strict, deterministic guardrails. We automate complex telephony and digital workflows with high-fidelity reasoning—every action is capped, logged, and instantly auditable.</p>
+                            <div class="text-[9px] font-bold uppercase tracking-widest text-theme-accent border-t border-theme-border pt-3">The Autonomous Workforce</div>
+                        </div>
+                        <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden">
+                            <div class="text-3xl mb-4">🧬</div>
+                            <h3 class="text-lg font-bold text-theme-text mb-2 tracking-tight">Proprietary Assets</h3>
+                            <p class="text-xs text-theme-muted leading-relaxed font-light mb-4">Transform your siloed data into a mathematical moat. From predictive analytics and adaptive learning to automated legal reasoning, we build the proprietary IP your competitors cannot buy off a shelf.</p>
+                            <div class="text-[9px] font-bold uppercase tracking-widest text-theme-accent border-t border-theme-border pt-3">Defensible IP Design</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEDIA & MENTIONS -->
+        <section id="media" class="py-32 border-t border-theme-border bg-theme-bg text-left">
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="max-w-3xl mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-theme-text">Media & Mentions</h2>
+                    <p class="text-theme-muted text-lg font-light">Global recognition showcasing our journey and impact.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+                    <div class="media-card bg-theme-panel border border-theme-border p-8 rounded-3xl shadow-sm h-full flex flex-col group">
+                        <a href="https://www.youtube.com/watch?v=4IRCTkKdFkI" target="_blank" class="block flex-1">
+                            <div class="w-full h-48 bg-theme-altBg rounded-2xl mb-6 relative overflow-hidden">
+                                <img src="images/cnbc.jpg" alt="Young Turks" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
+                                    <div class="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
+                                        <div class="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-black border-b-[8px] border-b-transparent ml-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-lg font-bold text-theme-text mb-3 tracking-tight group-hover:text-theme-accent transition-colors">Young Turks</h3>
+                            <p class="text-sm text-theme-muted leading-relaxed font-light">Jungroo AI was recognized on CNBC’s Young Turks as one of India’s most promising AI startups.</p>
+                        </a>
+                    </div>
+
+                    <div class="media-card bg-theme-panel border border-theme-border p-8 rounded-3xl shadow-sm h-full flex flex-col group">
+                        <a href="https://www.youtube.com/watch?v=MxiqIYYG3rc" target="_blank" class="block flex-1">
+                            <div class="w-full h-48 bg-theme-altBg rounded-2xl mb-6 relative overflow-hidden">
+                                <img src="images/ai-good.jpg" alt="AI for Good" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
+                                    <div class="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
+                                        <div class="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-black border-b-[8px] border-b-transparent ml-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="text-lg font-bold text-theme-text mb-3 tracking-tight group-hover:text-theme-accent transition-colors">AI for Good</h3>
+                            <p class="text-sm text-theme-muted leading-relaxed font-light">Insights from the global summit on leveraging intelligent systems to bridge data gaps.</p>
+                        </a>
+                    </div>
+
+                    <div class="media-card bg-theme-panel border border-theme-border p-8 rounded-3xl shadow-sm h-full flex flex-col group">
+                        <a href="https://indiaai.gov.in/article/india-s-ai-journey-the-story-so-far" target="_blank" class="block flex-1">
+                            <div class="w-full h-48 bg-theme-altBg rounded-2xl mb-6 flex items-center justify-center overflow-hidden">
+                                <img src="images/government.webp" alt="India AI" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+                            </div>
+                            <h3 class="text-lg font-bold text-theme-text mb-3 tracking-tight group-hover:text-theme-accent transition-colors">India AI</h3>
+                            <p class="text-sm text-theme-muted leading-relaxed font-light">Spotlighted by the Government of India for innovative AI use in institutional frameworks.</p>
+                        </a>
+                    </div>
+
+                    <div class="media-card bg-theme-panel border border-theme-border p-8 rounded-3xl shadow-sm h-full flex flex-col group">
+                        <a href="https://community.nasscom.in/communities/emerging-tech/ai/ai-for-good-the-shortest-path-to-mastery-is-paved-with-ai.html" target="_blank" class="block flex-1">
+                            <div class="w-full h-48 bg-theme-altBg rounded-2xl mb-6 flex items-center justify-center overflow-hidden">
+                                <img src="images/nasscom.webp" alt="Nasscom" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
+                            </div>
+                            <h3 class="text-lg font-bold text-theme-text mb-3 tracking-tight group-hover:text-theme-accent transition-colors">Nasscom</h3>
+                            <p class="text-sm text-theme-muted leading-relaxed font-light">NASSCOM case study on how deep tech reshapes national-scale data infrastructures.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="awards" class="py-32 border-t border-theme-border bg-theme-altBg">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <div class="max-w-3xl mx-auto mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-theme-text">Awards & Recognition</h2>
+                    <p class="text-theme-muted text-lg font-light">Elite acknowledgments for our commitment to excellence.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                    <div class="award-card bg-theme-panel border border-theme-border p-8 rounded-3xl shadow-sm flex flex-col items-center group">
+                        <div class="w-full h-32 mb-6 flex items-center justify-center bg-theme-bg rounded-2xl overflow-hidden p-6 transition-all duration-300 group-hover:bg-theme-bg/50">
+                            <img src="images/nasscomaward.webp" alt="NASSCOM AI For Good Award" class="max-w-full max-h-full object-contain">
+                        </div>
+                        <h3 class="text-sm font-bold text-theme-text uppercase tracking-widest mb-2">AI FOR GOOD AWARD</h3>
+                        <p class="text-[11px] text-theme-muted">NASSCOM & Govt. of Karnataka</p>
+                    </div>
+
+                    <div class="award-card bg-theme-panel border border-theme-border p-8 rounded-3xl shadow-sm flex flex-col items-center group">
+                        <div class="w-full h-32 mb-6 flex items-center justify-center bg-theme-bg rounded-2xl overflow-hidden p-6 transition-all duration-300 group-hover:bg-theme-bg/50">
+                            <img src="images/aigame.webp" alt="AI Game Changer Award" class="max-w-full max-h-full object-contain">
+                        </div>
+                        <h3 class="text-sm font-bold text-theme-text uppercase tracking-widest mb-2">AI GAME CHANGER AWARD</h3>
+                        <p class="text-[11px] text-theme-muted">NASSCOM, Microsoft & Deloitte</p>
+                    </div>
+
+                    <div class="award-card bg-theme-panel border border-theme-border p-8 rounded-3xl shadow-sm flex flex-col items-center group">
+                        <div class="w-full h-32 mb-6 flex items-center justify-center bg-theme-bg rounded-2xl overflow-hidden p-6 transition-all duration-300 group-hover:bg-theme-bg/50">
+                            <img src="images/elevate.webp" alt="Elevate Grant Winner" class="max-w-full max-h-full object-contain">
+                        </div>
+                        <h3 class="text-sm font-bold text-theme-text uppercase tracking-widest mb-2">WINNER OF ELEVATE GRANT</h3>
+                        <p class="text-[11px] text-theme-muted">Government of Karnataka</p>
+                    </div>
+
+                    <div class="award-card bg-theme-panel border border-theme-border p-8 rounded-3xl shadow-sm flex flex-col items-center group">
+                        <div class="w-full h-32 mb-6 flex items-center justify-center bg-theme-bg rounded-2xl overflow-hidden p-6 transition-all duration-300 group-hover:bg-theme-bg/50">
+                            <img src="images/millenium.webp" alt="Millennium Alliance Grant Awardee" class="max-w-full max-h-full object-contain">
+                        </div>
+                        <h3 class="text-sm font-bold text-theme-text uppercase tracking-widest mb-2 text-wrap leading-tight">MILLENNIUM ALLIANCE GRANT AWARDEE</h3>
+                        <p class="text-[11px] text-theme-muted">Millennium Alliance</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- CONTACT -->
+        <section id="contact" class="py-32 border-t border-theme-border bg-theme-bg relative overflow-hidden text-center">
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <h2 class="text-4xl md:text-6xl font-bold mb-8 tracking-tighter text-theme-text">Deploy with Precision.</h2>
+                <p class="text-theme-muted text-xl mb-16 leading-relaxed font-light max-w-3xl mx-auto lg:text-center text-left">We partner with a limited cohort of enterprises to ensure world-class outcomes. Connect with our leadership to brief us on your roadmap.</p>
+                <div class="w-full grid md:grid-cols-3 gap-12 border-t border-theme-border pt-12">
+                    <div class="flex flex-col items-center">
+                        <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-theme-muted mb-4">Office</h3>
+                        <a href="mailto:hello@jungroo.com" class="text-2xl font-semibold hover:text-theme-accent transition-colors">hello@jungroo.com</a>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-theme-muted mb-4">Leadership</h3>
+                        <h4 class="font-bold text-lg text-theme-text">Sethuraman T A</h4>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-theme-muted">CEO</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-theme-muted mb-4">Engineering</h3>
+                        <h4 class="font-bold text-lg text-theme-text">Cibe Hariharan</h4>
+                        <p class="text-[10px] font-black uppercase tracking-widest text-theme-muted">CTO</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- CASE STUDIES VIEW -->
+    <main id="view-case-studies" class="view-section pt-32 pb-32 min-h-screen bg-theme-bg">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-12 border-b border-theme-border pb-10">
+                <h1 class="text-5xl font-bold tracking-tight mb-3 text-theme-text text-left">Case Studies</h1>
+                <p class="text-theme-muted font-bold text-[10px] uppercase tracking-[0.4em] text-left">Comprehensive Technical Archive</p>
+            </div>
+            <div class="grid lg:grid-cols-12 gap-16">
+                <div class="lg:col-span-4 border-r border-theme-border pr-8 max-h-[800px] overflow-y-auto custom-scrollbar" id="case-studies-sidebar"></div>
+                <div class="lg:col-span-8" id="case-studies-dossier-content">
+                    <div class="flex items-center justify-center h-full text-theme-muted italic font-light tracking-wide animate-pulse">
+                        Initiate diagnostic sequence by selecting a deployment...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-theme-border py-16 text-center text-theme-muted text-[10px] font-black uppercase tracking-[0.4em] bg-theme-panel">
+        <img src="images/logo.webp" alt="Jungroo" class="h-4 mx-auto mb-8 opacity-40 logo-adaptive" />
+        &copy; 2018-2026 Jungroo AI Labs.
+    </footer>
+
+    <script>
+        const caseStudiesData = [
+            { 
+                id: 'cs-gst', 
+                title: 'Legal Reasoning: Adjudication Intelligence', 
+                domain: 'Public Sector / GovTech', 
+                layers: ['sovereign', 'agentic', 'enterprise', 'application'], 
+                desc: 'Deployment of a private reasoning engine for institutional stakeholders to automate high-stakes adjudication. Utilizing domain-specific grounding in statutory provisions and case precedents, the system compresses the order-generation lifecycle from 72 hours to 30 minutes with forensic-grade consistency.', 
+                challenge: 'Institutional stakeholders in highly regulated domains faced a critical interpretative bottleneck in the adjudication lifecycle. Issuing a single adjudication order required a manual 72-hour cycle of document scrutiny, cross-referencing evolving codes, and analyzing historical case precedents. This manual process was vulnerable to "interpretative drift"—where different officers might apply inconsistent logic to similar defaults—risking legal defensibility.', 
+                solution: `In collaboration with Zen Tax Clinic, Jungroo AI engineered a vertically integrated <b>Legal Reasoning Fabric</b> featuring:
+                    <ul class="list-disc pl-5 mt-4 space-y-3">
+                        <li><strong>Domain-Specific Grounding:</strong> The reasoning engine underwent Continued Pre-training (CPT) on the complete corpus of statutory provisions and relevant precedents to ensure mathematical alignment with legal logic.</li>
+                        <li><strong>Deterministic Order Generation:</strong> An agentic workflow that automates the transition from raw data to a structured, legally sound adjudication draft.</li>
+                        <li><strong>Contextual Provision Mapping:</strong> The system performs semantic logic checks, ensuring every flagged default is automatically mapped to the specific statutory provision it violates.</li>
+                        <li><strong>Standardization Engine:</strong> Eliminates subjective bias by enforcing a uniform reasoning template across all institutional nodes, ensuring that every order is robust enough to withstand judicial scrutiny.</li>
+                    </ul>`, 
+                impact: `
+                    <div class="overflow-x-auto mt-6">
+                        <table class="w-full text-[11px] border-collapse">
+                            <thead class="border-b border-theme-border text-theme-muted uppercase font-bold text-left text-[10px]">
+                                <tr><th class="py-2">Metric</th><th class="py-2">Manual (Before)</th><th class="py-2">Reasoning Layer (After)</th></tr>
+                            </thead>
+                            <tbody class="text-theme-text font-light divide-y divide-theme-border/50 text-[12px]">
+                                <tr><td class="py-2">Adjudication Latency</td><td class="py-2">48–72 Hours per Notice</td><td class="py-2 text-theme-accent font-bold">~30 Minutes (Validated)</td></tr>
+                                <tr><td class="py-2">Logic Consistency</td><td class="py-2">Subjective / User-dependent</td><td class="py-2 text-theme-accent font-bold">Deterministic / Statutory-aligned</td></tr>
+                                <tr><td class="py-2">Data Residency</td><td class="py-2">Physical / Local Silos</td><td class="py-2 text-theme-accent font-bold">Private Institutional Memory</td></tr>
+                                <tr><td class="py-2">Audit Posture</td><td class="py-2">Manual review required</td><td class="py-2 text-theme-accent font-bold">Machine-traceable Reasoning</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `, 
+                tags: ['Legal Reasoning', 'Adjudication', 'Statutory Compliance'] 
+            },
+            { 
+                id: 'cs-voice-agent', 
+                title: 'Omni-Channel & Voice-Native Platform: Agentic Orchestration', 
+                domain: 'Customer Intelligence / Agentic Systems', 
+                layers: ['sovereign', 'agentic', 'enterprise', 'application'], 
+                desc: 'Engineering an institutional <b>AI Agent Builder</b> for configuring end-to-end voice and text intelligence. Features private STT/TTS models, knowledgebase grounding, and real-time WebSocket orchestration for sub-second responses across telephony and digital nodes.', 
+                challenge: 'Organizations operated within a fragmented customer engagement landscape where SMS, WhatsApp, and Telephony systems functioned as disconnected silos. Legacy rule-based logic failed to handle nuanced queries, resulting in high human escalation rates (70%+). Furthermore, standard cloud-based voice APIs posed significant data residency risks for sensitive PII and lacked the ability to ground responses in private institutional knowledgebases.', 
+                solution: `Jungroo AI engineered a vertically integrated <b>Agent Builder Platform</b> designed for high-stakes institutional orchestration:
+                    <ul class="list-disc pl-5 mt-4 space-y-3">
+                        <li><strong>Multi-Model Configuration:</strong> A unified interface allowing for the granular configuration of <b>STT (Speech-to-Text)</b>, <b>LLM (Reasoning)</b>, and <b>TTS (Text-to-Speech)</b> parameters to optimize for domain-specific vocal nuances.</li>
+                        <li><strong>Private Knowledgebase Grounding:</strong> Direct semantic integration of internal technical documentation and SOPs, ensuring that voice and text agents are grounded in private institutional truth.</li>
+                        <li><strong>Low-Latency Voice Fabric:</strong> Proprietary voice rails optimized for sub-second execution, enabling natural, human-parity telephony automation.</li>
+                        <li><strong>Omni-Channel WebSocket Sync:</strong> Real-time orchestration across digital and voice nodes (WhatsApp, Telegram, Telephony), ensuring instant context retention.</li>
+                        <li><strong>Dynamic Flow Modulation:</strong> Agentic workflows that perform real-time generation of user metadata to adjust conversational paths on the fly.</li>
+                    </ul>`, 
+                impact: `
+                    <div class="overflow-x-auto mt-6">
+                        <table class="w-full text-[11px] border-collapse">
+                            <thead class="border-b border-theme-border text-theme-muted uppercase font-bold text-left text-[10px]">
+                                <tr><th class="py-2">Metric</th><th class="py-2">Legacy Environment</th><th class="py-2">Builder Platform</th></tr>
+                            </thead>
+                            <tbody class="text-theme-text font-light divide-y divide-theme-border/50 text-[12px]">
+                                <tr><td class="py-2">Operational Efficiency</td><td class="py-2">Manual / Rule-Based Silos</td><td class="py-2 text-theme-accent font-bold">70% Workload Reduction</td></tr>
+                                <tr><td class="py-2">Response Latency</td><td class="py-2">High / Fragmented</td><td class="py-2 text-theme-accent font-bold">Sub-second Execution</td></tr>
+                                <tr><td class="py-2">Human Escalation</td><td class="py-2">70% Escalation Rate</td><td class="py-2 text-theme-accent font-bold">&lt;15% Escalation Rate</td></tr>
+                                <tr><td class="py-2">Data Residency</td><td class="py-2">Public Cloud Egress</td><td class="py-2 text-theme-accent font-bold">100% Private (Zero Egress)</td></tr>
+                                <tr><td class="py-2">Orchestration</td><td class="py-2">Disconnected Channels</td><td class="py-2 text-theme-accent font-bold">Unified WebSocket Fabric</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `, 
+                tags: ['STT', 'TTS', 'Agent Builder', 'Omni-Channel'] 
+            },
+            {
+                id: 'cs-nrlm-nddi',
+                title: 'National Digital Disbursement Infrastructure (NDDI)',
+                domain: 'Public Sector / GovTech',
+                layers: ['enterprise', 'application'],
+                desc: 'Hardening financial subvention lifecycles under the National Rural Livelihoods Mission through institutional-grade digital verification and security auditing.',
+                challenge: 'The interest subvention claim lifecycle under India\'s National Rural Livelihoods Mission was entirely manual. Banks submitted quarterly claims via physical documents—original claim certificates, annexures, and paper trails. Stakeholders including NABARD and government officials had no real-time visibility into claim status or compliance posture. Meanwhile, managing financial records for millions of SHGs across the country produced chronic data inconsistencies and operational bottlenecks.',
+                solution: `Jungroo AI and Finakon Technologies engineered a full-stack digital platform addressing <b>Layer 3 (Knowledge Fabric)</b> and <b>Layer 4 (Application Interface)</b>:
+                    <ul class="list-disc pl-5 mt-4 space-y-3">
+                        <li><strong>Digital Claim Portal:</strong> Automated entry point for banks with real-time field validation, eliminating malformed claims at source.</li>
+                        <li><strong>Automated Verification Engine (Layer 3):</strong> Claims are verified against NRLM guidelines automatically, cross-referencing system records to reduce manual error and processing time.</li>
+                        <li><strong>Centralized SHG Database:</strong> Single source of truth for SHG member details, loan information, and transaction histories across millions of rural groups.</li>
+                        <li><strong>Institutional-Grade Security:</strong> The platform underwent multiple OWASP security audits and independent testing rounds before production deployment to ensure the integrity of sovereign fund flows through multi-stakeholder access.</li>
+                    </ul>`,
+                impact: `
+                    <div class="overflow-x-auto mt-6">
+                        <table class="w-full text-[11px] border-collapse">
+                            <thead class="border-b border-theme-border text-theme-muted uppercase font-bold text-left text-[10px]">
+                                <tr><th class="py-2">Metric</th><th class="py-2">Manual (Before)</th><th class="py-2">NDDI System (After)</th></tr>
+                            </thead>
+                            <tbody class="text-theme-text font-light divide-y divide-theme-border/50 text-[12px]">
+                                <tr><td class="py-2">Claim processing cycle</td><td class="py-2">Quarterly, Manual, Paper-based</td><td class="py-2 text-theme-accent font-bold">Digital, Automated, Validated</td></tr>
+                                <tr><td class="py-2">Processing time</td><td class="py-2">Weeks to Months</td><td class="py-2 text-theme-accent font-bold">Drastically Reduced</td></tr>
+                                <tr><td class="py-2">Stakeholder visibility</td><td class="py-2">None in real-time</td><td class="py-2 text-theme-accent font-bold">Real-time Dashboard Oversight</td></tr>
+                                <tr><td class="py-2">Security posture</td><td class="py-2">No digital perimeter</td><td class="py-2 text-theme-accent font-bold">Hardened (OWASP Certified)</td></tr>
+                                <tr><td class="py-2">Audit readiness</td><td class="py-2">Physical collection</td><td class="py-2 text-theme-accent font-bold">Instant Retrieval</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `,
+                tags: ['NABARD/NRLM', 'GovTech']
+            },
+            { 
+                id: 'cs-cleantech-fabric', 
+                title: 'Sovereign Data Fabric: Ingestion & Analytics Reasoning', 
+                domain: 'Clean Tech / Regulated Systems', 
+                layers: ['sovereign', 'agentic', 'enterprise', 'application'], 
+                desc: 'Deployment of private analysis agents for autonomous data ingestion and cross-schema reasoning across SQL, Cypher, and JSON API streams. Grounded via domain-specific pre-training (CPT) on proprietary technical ontologies, the agents deliver high-fidelity, on-the-fly visualizations for mission-critical clean tech IP within a zero-egress environment.', 
+                challenge: 'A leading clean tech firm managing sensitive sequestration IP and heterogeneous operational telemetry required a unified system to bridge the gap between raw data streams and executive decision-making. Cloud-native ETL and BI tools were non-viable due to strict regulatory compliance and data egress risks. Furthermore, generic models lacked the semantic depth to accurately navigate complex, non-standard schemas across SQL, Cypher, and JSON formats.', 
+                solution: `Jungroo AI engineered a vertically integrated <b>Semantic Intelligence Layer</b> (a private implementation of multi-modal reasoning) featuring:
+                    <ul class="list-disc pl-5 mt-4 space-y-3">
+                        <li><strong>Cross-Schema Reasoning:</strong> A unified natural language interface capable of executing complex queries across relational (SQL), graph (Cypher), and semi-structured (JSON API) data streams.</li>
+                        <li><strong>Domain-Specific Pre-training (CPT):</strong> The reasoning engine underwent Continued Pre-training on the client's internal technical documentation to ensure mathematical alignment with proprietary sequestration logic.</li>
+                        <li><strong>Autonomous Ingestion Worker:</strong> A background agent that automates the transformation of heterogeneous sensor streams into a structured, semantic knowledge graph.</li>
+                        <li><strong>On-the-fly Visualization Engine:</strong> An agentic layer that dynamically interprets SQL/Cypher results to generate context-aware spatial maps and time-series visualizations.</li>
+                    </ul>`, 
+                impact: `
+                    <div class="overflow-x-auto mt-6">
+                        <table class="w-full text-[11px] border-collapse">
+                            <thead class="border-b border-theme-border text-theme-muted uppercase font-bold text-left text-[10px]">
+                                <tr><th class="py-2">Metric</th><th class="py-2">Legacy Environment</th><th class="py-2">Sovereign Data Fabric</th></tr>
+                            </thead>
+                            <tbody class="text-theme-text font-light divide-y divide-theme-border/50 text-[12px]">
+                                <tr><td class="py-2">Logic Mapping</td><td class="py-2">Generic / Error-prone</td><td class="py-2 text-theme-accent font-bold">Domain-specific (CPT) Grounding</td></tr>
+                                <tr><td class="py-2">Query Latency</td><td class="py-2">Manual SQL (Hours/Days)</td><td class="py-2 text-theme-accent font-bold">Real-time Semantic Reasoning</td></tr>
+                                <tr><td class="py-2">Data Perimeter</td><td class="py-2">Cloud-egress risks</td><td class="py-2 text-theme-accent font-bold">100% Private / No Egress</td></tr>
+                                <tr><td class="py-2">Visualization</td><td class="py-2">Static, pre-built reports</td><td class="py-2 text-theme-accent font-bold">On-the-fly Dynamic Visuals</td></tr>
+                                <tr><td class="py-2">Audit Posture</td><td class="py-2">Fragmented Access Logs</td><td class="py-2 text-theme-accent font-bold">Forensic Ingestion Ledger</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `, 
+                tags: ['Multi-Modal Reasoning', 'NL2SQL/Cypher', 'JSON API'] 
+            },
+            { 
+                id: 'cs-probabilistic-reasoning', 
+                title: 'Probabilistic Analysis Reasoning', 
+                domain: 'Institutional Intelligence', 
+                layers: ['sovereign', 'agentic', 'enterprise', 'application'], 
+                desc: 'Engineering adaptive learning systems utilizing Knowledge Maps and Bayesian inference to estimate latent proficiency states. Powered by Markov Decision Processes (MDP) to optimize the path to mastery, the engine performs real-time conceptual gap analysis and deterministic remediation.', 
+                challenge: 'Institutional training and compliance frameworks often rely on static assessment models that fail to capture the sequential logic of user decision-making or prerequisite knowledge gaps.', 
+                solution: `Jungroo AI deployed an <b>Adaptive Learning Engine</b> that moves beyond simple regression to sequential state estimation:
+                    <ul class="list-disc pl-5 mt-4 space-y-3">
+                        <li><strong>Bayesian State Modeling:</strong> Utilizing Bayesian networks to perform real-time inference on latent proficiency across complex Knowledge Maps.</li>
+                        <li><strong>MDP Path Optimization:</strong> Utilizing Markov Decision Processes to determine the optimal sequential path for remediation and mastery based on live interactions.</li>
+                        <li><strong>Concept Relationship Mapping:</strong> Dynamic identification of prerequisite failures, ensuring that reasoning is grounded in the structural logic of the domain.</li>
+                        <li><strong>Real-time Proficiency Visualization:</strong> An agentic interface providing high-fidelity visual dashboards of growth and systemic gaps.</li>
+                    </ul>`, 
+                impact: `
+                    <div class="overflow-x-auto mt-6">
+                        <table class="w-full text-[11px] border-collapse">
+                            <thead class="border-b border-theme-border text-theme-muted uppercase font-bold text-left text-[10px]">
+                                <tr><th class="py-2">Metric</th><th class="py-2">Legacy Assessment</th><th class="py-2">Probabilistic Engine</th></tr>
+                            </thead>
+                            <tbody class="text-theme-text font-light divide-y divide-theme-border/50 text-[12px]">
+                                <tr><td class="py-2">State Estimation</td><td class="py-2">Static Percentile</td><td class="py-2 text-theme-accent font-bold">Bayesian Inference</td></tr>
+                                <tr><td class="py-2">Optimization Path</td><td class="py-2">Linear / Fixed</td><td class="py-2 text-theme-accent font-bold">MDP Optimized</td></tr>
+                                <tr><td class="py-2">Gap Analysis</td><td class="py-2">Surface-level</td><td class="py-2 text-theme-accent font-bold">Prerequisite Logic Mapping</td></tr>
+                                <tr><td class="py-2">Decision Logic</td><td class="py-2">Heuristic-based</td><td class="py-2 text-theme-accent font-bold">Probabilistic Reasoning</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `, 
+                tags: ['MDP', 'Bayesian networks'] 
+            },
+            { 
+                id: 'cs-industrial-cms', 
+                title: 'Scale-Native Multi-Tenant Asset Backbone', 
+                domain: 'Enterprise Systems', 
+                layers: ['enterprise', 'application'], 
+                desc: 'Engineering a high-performance <b>Cloud-Native Backbone</b> for the centralized distribution of educational assets across B2B and B2C clusters. Capable of sustaining 50,000 requests per minute, the system provides isolated multi-tenancy and high-performance asset rails.', 
+                challenge: 'A massive digital ecosystem managing heterogeneous assets (video, interactive modules, assessments) faced a fragmentation crisis across its Student, Doubts, and Live Class applications. Operating across disparate B2B and B2C clusters, the organization lacked a <b>Single Source of Truth</b> for asset distribution. The legacy infrastructure struggled with <b>Tenant Isolation</b> and load balancing, leading to systemic risks during peak hours when traffic exceeded <b>10,000 Requests Per Second (RPS)</b>.', 
+                solution: `Jungroo AI engineered a vertically integrated <b>Scale-Native Asset Backbone</b> built on a resilient, cloud-native architecture:
+                    <ul class="list-disc pl-5 mt-4 space-y-3">
+                        <li><strong>Isolated Multi-Tenancy:</strong> A modular architecture ensuring strict data and asset isolation between institutional clusters while allowing centralized administrative control.</li>
+                        <li><strong>High-Concurrency Auto-Scaling:</strong> Deployment of a hardened infrastructure optimized for extreme loads, handling <b>50,000 RPM</b> with elastic scaling management.</li>
+                        <li><strong>Granular Role-Based Access (RBAC):</strong> A machine-enforced access layer that defines precise permissions across the asset lifecycle (Creator, Editor, Publisher) to ensure <b>100% data integrity</b>.</li>
+                        <li><strong>Secure Asset Rails:</strong> Hardened <b>AWS S3</b> integration featuring a custom permissions engine that serves context-aware assets based on specific institutional entitlements.</li>
+                        <li><strong>High-Fidelity Traceability:</strong> Real-time logging of every approval stage and asset access request, providing 100% visibility into the distribution lifecycle.</li>
+                    </ul>`, 
+                impact: `
+                    <div class="overflow-x-auto mt-6">
+                        <table class="w-full text-[11px] border-collapse">
+                            <thead class="border-b border-theme-border text-theme-muted uppercase font-bold text-left text-[10px]">
+                                <tr><th class="py-2">Metric</th><th class="py-2">Monolithic Environment</th><th class="py-2">Asset Backbone</th></tr>
+                            </thead>
+                            <tbody class="text-theme-text font-light divide-y divide-theme-border/50 text-[12px]">
+                                <tr><td class="py-2">Peak Concurrency</td><td class="py-2">5k RPM (Bottlenecked)</td><td class="py-2 text-theme-accent font-bold">50,000 RPM (Validated)</td></tr>
+                                <tr><td class="py-2">Tenant Isolation</td><td class="py-2">Logical / Shared Risk</td><td class="py-2 text-theme-accent font-bold">Physical & Permission Isolation</td></tr>
+                                <tr><td class="py-2">Asset Delivery</td><td class="py-2">Variable / Unoptimized</td><td class="py-2 text-theme-accent font-bold">High-Throughput Rails</td></tr>
+                                <tr><td class="py-2">Traceability</td><td class="py-2">Surface-level Logs</td><td class="py-2 text-theme-accent font-bold">Forensic-Grade Audit Paths</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `, 
+                tags: ['Multi-Tenancy', 'High-Concurrency', 'Asset Distribution'] 
+            },
+            { 
+                id: 'cs-edge-execution', 
+                title: 'Scale-Native Network-Agnostic Assessment Engine', 
+                domain: 'Enterprise Systems', 
+                layers: ['enterprise', 'application'], 
+                desc: 'Engineering a bandwidth-agnostic operational layer for <b>100,000+ concurrent sessions</b> capable of <b>100k RPM</b>. Features <b>Localized State Management</b> and robust synchronization protocols to ensure <b>100% session integrity</b> across high-latency rural network nodes.', 
+                challenge: 'During a rapid national digital transition, the objective was to move <b>100,000 students</b> across rural school networks into a high-concurrency online assessment environment. The system faced a massive <b>100k RPM</b> load hurdle while operating on weak, intermittent 2G/3G signals. The primary engineering goal was to eliminate the "Persistence Gap"—ensuring <b>Low Latency</b> and <b>Data Fidelity</b> for users even when the network was entirely unstable.', 
+                solution: `Jungroo AI engineered a vertically integrated <b>Network-Agnostic Execution Engine</b> designed for high-throughput edge performance:
+                    <ul class="list-disc pl-5 mt-4 space-y-3">
+                        <li><strong>Connectivity-Agnostic Architecture:</strong> Implementation of a <b>Local-First Execution</b> model where assessment logic and session states are managed on the client device to bypass server-side round-trip latency.</li>
+                        <li><strong>100k RPM Resilient Backbone:</strong> A hardened infrastructure designed to handle massive traffic spikes with <b>Sub-second Processing</b> times across 100,000+ simultaneous nodes.</li>
+                        <li><strong>Fault-Tolerant Session Sync:</strong> Robust handlers that utilize <b>Deterministic Sync Protocols</b> to queue data packets locally, ensuring assessments resume instantly without data loss once connectivity is restored.</li>
+                        <li><strong>Low-Payload Delivery Rails:</strong> Aggressive <b>Binary Serialization</b> and progressive loading techniques to minimize data usage, enabling full functionality in extreme low-bandwidth areas.</li>
+                        <li><strong>Lean Resource Execution:</strong> Highly efficient deployment utilizing a specialized two-person engineering pod to achieve <b>Fast-TAT (Turnaround Time)</b> integration with existing mobile and web apps.</li>
+                    </ul>`, 
+                impact: `
+                    <div class="overflow-x-auto mt-6">
+                        <table class="w-full text-[11px] border-collapse">
+                            <thead class="border-b border-theme-border text-theme-muted uppercase font-bold text-left text-[10px]">
+                                <tr><th class="py-2">Metric</th><th class="py-2">Legacy Environment</th><th class="py-2">Execution Engine</th></tr>
+                            </thead>
+                            <tbody class="text-theme-text font-light divide-y divide-theme-border/50 text-[12px]">
+                                <tr><td class="py-2">Peak Concurrency</td><td class="py-2">Latency-Bound</td><td class="py-2 text-theme-accent font-bold">100,000+ Concurrent Nodes</td></tr>
+                                <tr><td class="py-2">Throughput Capacity</td><td class="py-2">Variable</td><td class="py-2 text-theme-accent font-bold">100k RPM (Validated)</td></tr>
+                                <tr><td class="py-2">Session Integrity</td><td class="py-2">High Dropout Rate</td><td class="py-2 text-theme-accent font-bold">100% Continuity</td></tr>
+                                <tr><td class="py-2">Data Usage</td><td class="py-2">Resource-Intensive</td><td class="py-2 text-theme-accent font-bold">Network-Agnostic / Low-Bandwidth</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `, 
+                tags: ['100k RPM', 'Low Latency', 'Network-Agnostic'] 
+            },
+            { 
+                id: 'cs-oms', 
+                title: 'API-First Transactional Orchestration Engine', 
+                domain: 'Enterprise Systems', 
+                layers: ['enterprise', 'application'], 
+                desc: 'Engineering a modular, cloud-native orchestration layer for the high-concurrency monetization and fulfillment of digital entitlements across B2B and B2C app clusters.', 
+                challenge: 'The organization faced the complex task of defining and distributing <b>non-physical curricula</b> across its diverse application ecosystem (Student, Doubts, and Live Class apps). The primary engineering objective was to provide a unified purchase workflow that supported standalone subscriptions, trials, and tiered pricing while managing real-time access rights. The legacy environment struggled with <b>Multi-Modal Payment Reconciliation</b> (UPI, NEFT, installments) and lacked a cohesive entitlement synchronization layer.', 
+                solution: `Jungroo AI engineered a vertically integrated <b>API-First Transactional Engine</b> designed for elastic scaling and deep institutional integration:
+                    <ul class="list-disc pl-5 mt-4 space-y-3">
+                        <li><strong>Digital Asset Bundling Logic:</strong> A dynamic collection engine where products are defined as logical asset pools (Videos, PDFs, Activities), allowing for rapid curriculum composition at the asset level.</li>
+                        <li><strong>OAuth2-Secured REST Rails:</strong> A hardened API layer that allows external apps and internal dashboards to query order metadata, package definitions, and entitlement status securely.</li>
+                        <li><strong>Automated Payment Reconciliation:</strong> A specialized logic layer that handles partial payments, coupon validation, and automated reconciliation for both online and offline payment nodes.</li>
+                        <li><strong>Event-Driven Entitlement Sync:</strong> Real-time fulfillment rails that trigger immediate user access across all platforms upon payment confirmation.</li>
+                        <li><strong>Forensic Reporting Architecture:</strong> Integrated BI dashboards providing institutional visibility into sales performance, conversion metrics, and payment integrity.</li>
+                    </ul>`, 
+                impact: `
+                    <div class="overflow-x-auto mt-6">
+                        <table class="w-full text-[11px] border-collapse">
+                            <thead class="border-b border-theme-border text-theme-muted uppercase font-bold text-left text-[10px]">
+                                <tr><th class="py-2">Metric</th><th class="py-2">Legacy Operations</th><th class="py-2">Orchestration Engine</th></tr>
+                            </thead>
+                            <tbody class="text-theme-text font-light divide-y divide-theme-border/50 text-[12px]">
+                                <tr><td class="py-2">Order Effort</td><td class="py-2">Manual / Siloed</td><td class="py-2 text-theme-accent font-bold">80% Reduction in Overhead</td></tr>
+                                <tr><td class="py-2">Fulfillment Speed</td><td class="py-2">Batch / Delayed</td><td class="py-2 text-theme-accent font-bold">Real-time / Instant Sync</td></tr>
+                                <tr><td class="py-2">Payment Integrity</td><td class="py-2">Subjective Reconciliation</td><td class="py-2 text-theme-accent font-bold">Automated / Machine-Auditable</td></tr>
+                                <tr><td class="py-2">System Interop</td><td class="py-2">Disconnected APIs</td><td class="py-2 text-theme-accent font-bold">Unified <b>OAuth2</b> Backbone</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `, 
+                tags: ['API-First', 'Digital Entitlements', 'E-commerce Backbone'] 
+            },
+            { 
+                id: 'cs-relational-discovery', 
+                title: 'Dynamic Report Builder', 
+                domain: 'Enterprise Systems', 
+                layers: ['enterprise', 'application'], 
+                desc: 'Engineering a high-performance <b>Semantic Abstraction Layer</b> for the automated extraction and synthesis of complex institutional datasets across fragmented schemas.', 
+                challenge: 'A leading SaaS platform for educational institutions in the U.S. faced an <b>Institutional Latency</b> crisis. Stakeholders required complex, cross-table insights (bridging demographics, enrollments, and strategic metrics) but were bottlenecked by the need for manual IT intervention. The technical hurdle was <b>Relational Fragmentation</b>: enabling users to define and query multi-table relationships dynamically without compromising system performance or security.', 
+                solution: `Jungroo AI engineered a vertically integrated <b>Relational Discovery Engine</b> featuring a sophisticated data abstraction layer:
+                    <ul class="list-disc pl-5 mt-4 space-y-3">
+                        <li><strong>Intelligent Relationship Inference:</strong> A logic module that automatically identifies and manages joins between disparate data sources based on predefined <b>Semantic Hierarchies</b>.</li>
+                        <li><strong>Dynamic Projection Rails:</strong> A configurable interface allowing users to define projection attributes and complex multi-column filters that are converted into <b>Optimized SQL Executables</b> in real-time.</li>
+                        <li><strong>Global Parameter Injection:</strong> A specialized architecture that incorporates external contexts (e.g., Fiscal Year) into the base query selections and joins automatically.</li>
+                        <li><strong>Configuration Persistence:</strong> A robust validation engine that persists complex query logic as <b>Reusable Report Blueprints</b>, enabling sub-second execution of recurring datasets.</li>
+                        <li><strong>Multi-Tenant Scaling:</strong> A backend optimized for high-concurrency extraction, ensuring that massive datasets involving hundreds of joins remain performant.</li>
+                    </ul>`, 
+                impact: `
+                    <div class="overflow-x-auto mt-6">
+                        <table class="w-full text-[11px] border-collapse">
+                            <thead class="border-b border-theme-border text-theme-muted uppercase font-bold text-left text-[10px]">
+                                <tr><th class="py-2">Metric</th><th class="py-2">Legacy Environment</th><th class="py-2">Report Builder</th></tr>
+                            </thead>
+                            <tbody class="text-theme-text font-light divide-y divide-theme-border/50 text-[12px]">
+                                <tr><td class="py-2">Extraction TAT</td><td class="py-2">Weeks / IT-Dependent</td><td class="py-2 text-theme-accent font-bold">Zero-Latency Autonomy</td></tr>
+                                <tr><td class="py-2">Query Complexity</td><td class="py-2">Linear / Table-Specific</td><td class="py-2 text-theme-accent font-bold">N-Dimensional table joins</td></tr>
+                                <tr><td class="py-2">Data Utilization</td><td class="py-2">Fragmented & Siloed</td><td class="py-2 text-theme-accent font-bold">Unified Institutional Memory</td></tr>
+                                <tr><td class="py-2">Operational Efficiency</td><td class="py-2">Manual SQL Crafting</td><td class="py-2 text-theme-accent font-bold">Machine-Enforced Logic</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `, 
+                tags: ['Relational Discovery', 'Data Abstraction', 'Multi-Tenant Intelligence'] 
+            },
+            { 
+                id: 'cs-admission-orchestration', 
+                title: 'Full-Funnel Admission Orchestration Engine', 
+                domain: 'CRM Systems / Lead Intelligence', 
+                layers: ['enterprise', 'application'], 
+                desc: 'Engineering a vertically integrated <b>Lead Management Backbone</b> for institutional admissions. Features <b>Bi-Directional CRM Sync</b>, <b>WhatsApp/SMS OTP Verification</b>, and an integrated <b>Readiness Assessment Engine</b> to compress the conversion lifecycle across hundreds of institutional nodes.', 
+                challenge: 'Managing a national-scale admission funnel across hundreds of partner schools created a <b>Conversion Gap</b>. Disparate tracking of student leads, manual entry latency, and inconsistent follow-up protocols led to high drop-off rates. The objective was to engineer a unified platform capable of verifying lead identities, evaluating academic readiness, and synchronizing data in real-time with enterprise CRMs while maintaining a <b>95+ PageSpeed</b> performance benchmark.', 
+                solution: `Jungroo AI engineered a vertically integrated <b>Admission Orchestration Engine</b> featuring:
+                    <ul class="list-disc pl-5 mt-4 space-y-3">
+                        <li><strong>Multi-Tier Admin Hierarchy:</strong> Isolated administrative portals for super-admins and school-specific users to manage localized funnels with centralized oversight.</li>
+                        <li><strong>Dual-Channel Identity Verification:</strong> Secure lead capture utilizing <b>WhatsApp and SMS OTP</b> rails to eliminate fraudulent entries and ensure high-intent data.</li>
+                        <li><strong>Integrated Assessment Module:</strong> A custom engine evaluating academic readiness with <b>Persistent Session Handling</b> and automated PDF report generation.</li>
+                        <li><strong>Bi-Directional CRM Fabric:</strong> Real-time synchronization with <b>HubSpot and LeadSquared</b>, ensuring full-funnel visibility from social media lead forms to enrollment.</li>
+                        <li><strong>High-Performance Landing Rails:</strong> Optimized front-end architecture achieving <b>95+ PageSpeed scores</b> on mobile and desktop to maximize top-of-funnel efficiency.</li>
+                    </ul>`, 
+                impact: `
+                    <div class="overflow-x-auto mt-6">
+                        <table class="w-full text-[11px] border-collapse">
+                            <thead class="border-b border-theme-border text-theme-muted uppercase font-bold text-left text-[10px]">
+                                <tr><th class="py-2">Metric</th><th class="py-2">Legacy Workflow</th><th class="py-2">Orchestration Engine</th></tr>
+                            </thead>
+                            <tbody class="text-theme-text font-light divide-y divide-theme-border/50 text-[12px]">
+                                <tr><td class="py-2">Response Latency</td><td class="py-2">High / Manual Follow-up</td><td class="py-2 text-theme-accent font-bold">70% Reduction in TAT</td></tr>
+                                <tr><td class="py-2">Conversion Rate</td><td class="py-2">Unoptimized Landing Pages</td><td class="py-2 text-theme-accent font-bold">40% Improvement in ROI</td></tr>
+                                <tr><td class="py-2">Data Integrity</td><td class="py-2">Fragmented / Manual Entry</td><td class="py-2 text-theme-accent font-bold">Bi-Directional CRM Sync</td></tr>
+                                <tr><td class="py-2">Verification</td><td class="py-2">Unverified / Risky Leads</td><td class="py-2 text-theme-accent font-bold">Dual-Channel OTP (Verified)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `, 
+                tags: ['CRM Sync', 'Lead Management', 'Identity Verification'] 
+            },
+            { 
+                id: 'cs-migration', 
+                title: 'High-Fidelity Legacy Modernization Rails', 
+                domain: 'Legacy Systems', 
+                layers: ['enterprise'], 
+                desc: 'Engineering a high-integrity <b>ETL Pipeline</b> for the seamless transfer of historical student records and digital assets from heterogeneous legacy binary formats.', 
+                challenge: 'Educational institutions in the U.S. faced a significant <b>Fidelity Gap</b> when transitioning from antiquated infrastructure (specifically legacy <b>DBF formats</b>) to modern data management platforms. The engineering hurdle was the secure, simultaneous migration of massive student records and high-concurrency binary files (images/assets) without data corruption or service degradation during onboarding.', 
+                solution: `Jungroo AI engineered a vertically integrated <b>Legacy Modernization Backbone</b> designed for 100% data fidelity:
+                    <ul class="list-disc pl-5 mt-4 space-y-3">
+                        <li><strong>Heterogeneous Format Parsing:</strong> A specialized engine capable of ingesting antiquated <b>DBF</b> and binary structures, performing real-time transformation into a modern, consistent schema.</li>
+                        <li><strong>Isolated Concurrency Rails:</strong> An orchestration model that ensures safe, isolated processing for multiple simultaneous institutional migrations, preventing cross-tenant conflicts.</li>
+                        <li><strong>Automated Sanitization Engine:</strong> Pre-integration validation that enforces strict business rules and error-handling protocols to identify anomalies before they reach the production database.</li>
+                        <li><strong>Secure Binary Extraction:</strong> A specialized pipeline that extracts and links digital assets from compressed archives directly to relational records, ensuring a complete 360-degree data view.</li>
+                        <li><strong>Forensic Migration Logging:</strong> Comprehensive observability Providing real-time updates and detailed logs for institutional stakeholders to monitor ingestion status and audit compliance.</li>
+                    </ul>`, 
+                impact: `
+                    <div class="overflow-x-auto mt-6">
+                        <table class="w-full text-[11px] border-collapse">
+                            <thead class="border-b border-theme-border text-theme-muted uppercase font-bold text-left text-[10px]">
+                                <tr><th class="py-2">Metric</th><th class="py-2">Legacy Transition</th><th class="py-2">Modernization Rails</th></tr>
+                            </thead>
+                            <tbody class="text-theme-text font-light divide-y divide-theme-border/50 text-[12px]">
+                                <tr><td class="py-2">Onboarding Latency</td><td class="py-2">Manual / Error-Prone</td><td class="py-2 text-theme-accent font-bold">Rapid / Automated</td></tr>
+                                <tr><td class="py-2">Data Fidelity</td><td class="py-2">Partial / Fragmented</td><td class="py-2 text-theme-accent font-bold">100% Integrity Guaranteed</td></tr>
+                                <tr><td class="py-2">Risk Posture</td><td class="py-2">High Data Loss Risk</td><td class="py-2 text-theme-accent font-bold">Forensic Error Handling</td></tr>
+                                <tr><td class="py-2">Asset Integration</td><td class="py-2">Disconnected Records</td><td class="py-2 text-theme-accent font-bold">Deep Relational Asset Linking</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `, 
+                tags: ['Legacy Modernization', 'ETL Backbone', 'Data Fidelity'] 
+            }
+        ];
+
+        const allLayers = ['application', 'enterprise', 'agentic', 'sovereign'];
+        const layerNames = {
+            'application': 'Application Interface',
+            'enterprise': 'Knowledge Fabric',
+            'agentic': 'Agentic Intelligence',
+            'sovereign': 'Sovereign AI Models'
+        };
+
+        function switchView(view) {
+            document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+            const target = document.getElementById(`view-${view}`);
+            if(target) target.classList.add('active');
+            window.scrollTo(0, 0);
+            if(view === 'case-studies') renderCaseStudies();
+            if(view === 'home') renderHome();
+        }
+
+        function navTo(sectionId) {
+            switchView('home');
+            setTimeout(() => {
+                const el = document.getElementById(sectionId);
+                if(el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        function renderHome() {
+            const feed = document.getElementById('case-studies-container-home');
+            const stackVisual = document.getElementById('stack-visual-home');
+            if (!feed || !stackVisual) return;
+            
+            stackVisual.innerHTML = generateStackHTML('home');
+            feed.innerHTML = '';
+            caseStudiesData.slice(0, 5).forEach(cs => {
+                const card = document.createElement('div');
+                card.className = 'case-card bg-theme-panel border border-theme-border p-8 mb-6 rounded-2xl shadow-sm text-left';
+                card.id = `card-home-${cs.id}`;
+                
+                let displayDesc = cs.desc;
+                if(cs.id === 'cs-voice-agent') {
+                   displayDesc = "Deployment of a vertically integrated <b>AI Agent Builder</b> for configuring end-to-end voice and text intelligence across telephony, WhatsApp, and Telegram. Utilizing private <b>STT</b>, <b>LLM</b>, and <b>TTS</b> configurations with high-fidelity knowledgebase grounding, the platform delivers low-latency, human-parity orchestration within a zero-egress environment.";
+                } else if(cs.id === 'cs-cleantech-fabric') {
+                    displayDesc = "Deployment of private analysis agents for autonomous data ingestion and cross-schema reasoning across SQL, Cypher, and JSON API streams. Grounded via domain-specific pre-training (CPT) on proprietary technical ontologies, the agents deliver high-fidelity, on-the-fly visualizations for mission-critical clean tech IP within a zero-egress environment.";
+                } else if(cs.id === 'cs-probabilistic-reasoning') {
+                    displayDesc = "Engineering adaptive learning systems utilizing Knowledge Maps and Bayesian inference to estimate latent proficiency states. Powered by Markov Decision Processes (MDP) to optimize the path to mastery, the engine performs real-time conceptual gap analysis and deterministic remediation.";
+                }
+
+                card.innerHTML = `
+                    <div class="mb-3">${cs.tags.map(t => `<span class="text-[10px] font-semibold text-theme-muted border border-theme-border px-2 py-0.5 mr-2 rounded-full bg-theme-bg">${t}</span>`).join('')}</div>
+                    <h3 class="font-bold text-xl mb-2 text-theme-text tracking-tight">${cs.title}</h3>
+                    <p class="text-[13px] text-theme-muted mb-5 leading-relaxed font-light">${displayDesc.split(/[.;]/)[0]}.</p>
+                `;
+                card.onclick = () => highlightLayers(cs.layers, 'home', `card-home-${cs.id}`);
+                feed.appendChild(card);
+            });
+        }
+
+        function renderCaseStudies() {
+            const sidebar = document.getElementById('case-studies-sidebar');
+            if (!sidebar) return;
+            const domains = {};
+            caseStudiesData.forEach(cs => { if(!domains[cs.domain]) domains[cs.domain] = []; domains[cs.domain].push(cs); });
+            sidebar.innerHTML = '';
+            Object.keys(domains).forEach(domain => {
+                const group = document.createElement('div'); group.className = 'mb-12';
+                group.innerHTML = `<h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-theme-accent mb-6 border-b border-theme-border pb-2 text-left">${domain}</h4>
+                    <div class="space-y-1 text-left">${domains[domain].map(cs => `<div class="ledger-sidebar-item text-[13px] text-theme-muted hover:text-theme-text" id="item-${cs.id}" onclick="showDossier('${cs.id}')">${cs.title}</div>`).join('')}</div>`;
+                sidebar.appendChild(group);
+            });
+            showDossier('cs-gst');
+        }
+
+        function showDossier(id) {
+            const cs = caseStudiesData.find(c => c.id === id);
+            const content = document.getElementById('case-studies-dossier-content');
+            if (!cs || !content) return;
+            document.querySelectorAll('.ledger-sidebar-item').forEach(i => i.classList.remove('active'));
+            const sidebarItem = document.getElementById(`item-${id}`);
+            if (sidebarItem) sidebarItem.classList.add('active');
+
+            content.innerHTML = `
+                <div class="animate-in fade-in slide-in-from-right-8 duration-700 text-left">
+                    <div class="flex gap-2 mb-6">${cs.tags.map(t => `<span class="bg-theme-panel border border-theme-border px-3 py-1 rounded-full text-[10px] font-bold text-theme-muted">${t}</span>`).join('')}</div>
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tighter text-theme-text mb-10">${cs.title}</h2>
+                    <div class="bg-theme-altBg border border-theme-border rounded-[32px] p-10 mb-12 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1.5 h-full bg-theme-accent"></div>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-theme-muted mb-10 text-left">Architecture Diagnostic HUD</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4" id="hud-stack">
+                            ${allLayers.slice().reverse().map((l, i) => `
+                                <div id="hud-l-${l}" class="hud-mini-blade p-6 flex flex-col justify-between h-32 text-left">
+                                    <div class="flex justify-between items-start">
+                                        <span class="text-[10px] font-black text-theme-accent">L0${i+1}</span>
+                                        <div class="led-array"><div class="led-node"></div><div class="led-node"></div><div class="led-node"></div></div>
+                                    </div>
+                                    <span class="text-[10px] font-black uppercase tracking-widest text-theme-muted">${layerNames[l]}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-16 border-t border-theme-border pt-12">
+                        <div class="space-y-12">
+                            <section><h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-theme-muted mb-6 border-l-2 border-theme-accent pl-4">The Challenge</h3><p class="text-base text-theme-text font-light leading-relaxed">${cs.challenge}</p></section>
+                            <section><h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-theme-muted mb-6 border-l-2 border-theme-accent pl-4">The Solution</h3><div class="text-base text-theme-text font-light leading-relaxed">${cs.solution}</div></section>
+                        </div>
+                        <div class="bg-theme-panel border border-theme-border rounded-3xl p-10 h-fit sticky top-32">
+                            <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-theme-muted mb-8">Systemic Impact</h3>
+                            <div class="text-2xl font-bold mb-10 leading-tight text-theme-text">${cs.impact.includes('<table') ? 'Operational Metrics' : cs.impact}</div>
+                            ${cs.impact.includes('<table') ? cs.impact : `<div class="space-y-5 pt-10 border-t border-theme-border text-[10px] font-black uppercase tracking-widest">
+                                <div class="flex justify-between"><span class="text-theme-muted">Deployment</span><span class="text-theme-accent">Institutional</span></div>
+                                <div class="flex justify-between"><span class="text-theme-muted">Auditability</span><span class="text-theme-accent">Forensic Grade</span></div>
+                            </div>`}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                const bootOrder = ['sovereign', 'agentic', 'enterprise', 'application'];
+                bootOrder.forEach((l, idx) => {
+                    if(cs.layers.includes(l)) {
+                        setTimeout(() => { 
+                            const el = document.getElementById(`hud-l-${l}`);
+                            if(el) el.classList.add('active');
+                        }, idx * 150);
+                    }
+                });
+            }, 200);
+        }
+
+        function generateStackHTML(prefix) {
+            return `
+                <div id="bracket-${prefix}" class="governance-pillar absolute left-0 top-0 bottom-0 w-10 flex items-center justify-center tracking-[0.2em] uppercase text-[10px] font-bold text-theme-muted z-20">Auditability</div>
+                <div id="blade-application-${prefix}" class="stack-layer p-5 w-[85%] mx-auto text-left">
+                    <div class="text-[10px] font-semibold uppercase tracking-wider text-theme-accent mb-1">Layer 4</div>
+                    <h3 class="font-medium text-[15px] text-theme-text">Application Interface</h3>
+                    <p class="text-[12px] text-theme-muted mt-1 leading-snug font-light">Full-stack dashboards & user products.</p>
+                </div>
+                <div id="blade-enterprise-${prefix}" class="stack-layer p-5 w-[90%] mx-auto text-left">
+                    <div class="text-[10px] font-semibold uppercase tracking-wider text-theme-accent mb-1">Layer 3</div>
+                    <h3 class="font-medium text-[15px] text-theme-text">Knowledge Fabric</h3>
+                    <p class="text-[12px] text-theme-muted mt-1 leading-snug font-light">Unified semantic layer weaving records and API streams into memory.</p>
+                </div>
+                <div id="blade-agentic-${prefix}" class="stack-layer p-5 w-[95%] mx-auto text-left">
+                    <div class="text-[10px] font-semibold uppercase tracking-wider text-theme-accent mb-1">Layer 2</div>
+                    <h3 class="font-medium text-[15px] text-theme-text">Agentic Intelligence</h3>
+                    <p class="text-[12px] text-theme-muted mt-1 leading-snug font-light">Deterministic multi-agent orchestration.</p>
+                </div>
+                <div id="blade-sovereign-${prefix}" class="stack-layer p-5 w-full mx-auto text-left">
+                    <div class="text-[10px] font-semibold uppercase tracking-wider text-theme-accent mb-1">Layer 1</div>
+                    <h3 class="font-medium text-[16px] text-theme-text">Sovereign AI Models</h3>
+                    <p class="text-[12px] text-theme-muted mt-1 leading-snug font-light">Deployment of private intelligence within your infrastructure.</p>
+                </div>
+            `;
+        }
+
+        function highlightLayers(layers, prefix, cardId) {
+            if(cardId) {
+                document.querySelectorAll('.case-card').forEach(c => c.classList.remove('active'));
+                const card = document.getElementById(cardId);
+                if (card) card.classList.add('active');
+            }
+            const bracket = document.getElementById(`bracket-${prefix}`);
+            if (bracket) bracket.classList.add('active');
+            allLayers.forEach(id => {
+                const el = document.getElementById(`blade-${id}-${prefix}`);
+                if (el) {
+                    if (layers.includes(id)) { el.classList.add('active'); el.classList.remove('inactive'); }
+                    else { el.classList.remove('active'); el.classList.add('inactive'); }
+                }
+            });
+        }
+
+        document.getElementById('theme-toggle').onclick = () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        };
+
+        if (localStorage.getItem('theme') === 'light') document.documentElement.classList.remove('dark');
+        document.addEventListener('DOMContentLoaded', renderHome);
+    </script>
+</body>
+</html>
