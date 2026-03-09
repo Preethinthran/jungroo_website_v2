@@ -172,14 +172,27 @@
                     <span class="text-lg">💡</span>
                 </button>
                 <a href="#contact" onclick="navTo('contact')" class="hidden md:inline-block bg-theme-text text-theme-bg px-5 py-2 text-[13px] font-semibold rounded-lg hover:opacity-90 transition-opacity">Brief Us</a>
+                <button id="mobile-menu-toggle" class="md:hidden w-9 h-9 flex flex-col justify-center items-center gap-1.5 focus:outline-none ml-2" onclick="toggleMobileMenu()">
+                    <span class="w-5 h-0.5 bg-theme-text transition-all duration-300"></span>
+                    <span class="w-5 h-0.5 bg-theme-text transition-all duration-300"></span>
+                </button>
             </div>
         </div>
     </nav>
 
+    <!-- MOBILE NAV OVERLAY -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-theme-bg/95 backdrop-blur-md transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 text-lg font-bold uppercase tracking-widest md:hidden">
+        <a href="#capabilities" onclick="navTo('capabilities')" class="text-theme-text">Stack</a>
+        <a href="#" onclick="switchView('case-studies')" class="text-theme-text">Case Studies</a>
+        <a href="#pillars" onclick="navTo('pillars')" class="text-theme-text">Pillars</a>
+        <a href="#media" onclick="navTo('media')" class="text-theme-text">Media</a>
+        <a href="#contact" onclick="navTo('contact')" class="text-theme-accent mt-4">Brief Us</a>
+    </div>
+
     <!-- HOME VIEW -->
     <main id="view-home" class="view-section active">
         <!-- HERO SECTION -->
-        <header class="relative pt-40 pb-32 md:pt-56 md:pb-40 px-6 max-w-7xl mx-auto flex flex-col items-center text-center z-10">
+        <header class="relative pt-32 pb-16 md:pt-56 md:pb-40 px-6 max-w-7xl mx-auto flex flex-col items-center text-center z-10">
             <div class="absolute top-0 left-0 w-full h-[600px] bg-hero-glow pointer-events-none z-[-1]"></div>
             <div class="absolute top-0 left-0 w-full h-[600px] bg-grid-pattern opacity-[0.4] dark:opacity-[0.1] pointer-events-none z-[-2]" style="background-size: 60px 60px;"></div>
             
@@ -198,12 +211,12 @@
             
             <div class="flex flex-col sm:flex-row gap-4">
                 <a href="#" onclick="switchView('case-studies')" class="bg-theme-text text-theme-bg px-10 py-4 text-center text-[15px] font-bold rounded-xl shadow-lg hover:opacity-90 transition-all">Case Studies</a>
-                <a href="#capabilities" class="bg-theme-panel border border-theme-border text-theme-text px-10 py-4 text-center text-[15px] font-bold rounded-xl hover:border-theme-accent transition-all">Explore Stack</a>
+                <a href="#capabilities" onclick="navTo('capabilities')" class="bg-theme-panel border border-theme-border text-theme-text px-10 py-4 text-center text-[15px] font-bold rounded-xl hover:border-theme-accent transition-all">Explore Stack</a>
             </div>
         </header>
 
         <!-- STACK SECTION -->
-        <section id="capabilities" class="py-32 border-t border-theme-border bg-theme-bg">
+        <section id="capabilities" class="py-16 md:py-32 border-t border-theme-border bg-theme-bg">
             <div class="max-w-7xl mx-auto px-6 relative z-10">
                 <div class="mb-16 md:flex justify-between items-end border-b border-theme-border pb-8 text-left">
                     <div class="max-w-2xl">
@@ -218,13 +231,13 @@
                             <!-- JS Injected Stack -->
                         </div>
                     </div>
-                    <div class="lg:col-span-7 h-[650px] overflow-y-auto pr-3 custom-scrollbar" id="case-studies-container-home"></div>
+                    <div class="lg:col-span-7 max-h-[60vh] md:h-[650px] overflow-y-auto pr-3 custom-scrollbar" id="case-studies-container-home"></div>
                 </div>
             </div>
         </section>
 
         <!-- PILLARS SECTION -->
-        <section id="pillars" class="py-32 border-t border-theme-border bg-theme-altBg relative overflow-hidden">
+        <section id="pillars" class="py-16 md:py-32 border-t border-theme-border bg-theme-altBg relative overflow-hidden">
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-theme-accent/10 rounded-full hidden lg:block"></div>
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-theme-accent/20 rounded-full hidden lg:block"></div>
 
@@ -285,7 +298,7 @@
         </section>
 
         <!-- MEDIA & MENTIONS -->
-        <section id="media" class="py-32 border-t border-theme-border bg-theme-bg text-left">
+        <section id="media" class="py-16 md:py-32 border-t border-theme-border bg-theme-bg text-left">
             <div class="max-w-7xl mx-auto px-6 relative z-10">
                 <div class="max-w-3xl mb-16">
                     <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-theme-text">Media & Mentions</h2>
@@ -345,7 +358,7 @@
                 </div>
             </div>
         </section>
-        <section id="awards" class="py-32 border-t border-theme-border bg-theme-altBg">
+        <section id="awards" class="py-16 md:py-32 border-t border-theme-border bg-theme-altBg">
             <div class="max-w-7xl mx-auto px-6 text-center">
                 <div class="max-w-3xl mx-auto mb-16">
                     <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-theme-text">Awards & Recognition</h2>
@@ -387,7 +400,7 @@
             </div>
         </section>
         <!-- CONTACT -->
-        <section id="contact" class="py-32 border-t border-theme-border bg-theme-bg relative overflow-hidden text-center">
+        <section id="contact" class="py-16 md:py-32 border-t border-theme-border bg-theme-bg relative overflow-hidden text-center">
             <div class="max-w-7xl mx-auto px-6 relative z-10">
                 <h2 class="text-4xl md:text-6xl font-bold mb-8 tracking-tighter text-theme-text">Deploy with Precision.</h2>
                 <p class="text-theme-muted text-xl mb-16 leading-relaxed font-light max-w-3xl mx-auto lg:text-center text-left">We partner with a limited cohort of enterprises to ensure world-class outcomes. Connect with our leadership to brief us on your roadmap.</p>
@@ -412,14 +425,14 @@
     </main>
 
     <!-- CASE STUDIES VIEW -->
-    <main id="view-case-studies" class="view-section pt-32 pb-32 min-h-screen bg-theme-bg">
+    <main id="view-case-studies" class="view-section pt-24 pb-16 md:pt-32 md:pb-32 min-h-screen bg-theme-bg">
         <div class="max-w-7xl mx-auto px-6">
             <div class="mb-12 border-b border-theme-border pb-10">
                 <h1 class="text-5xl font-bold tracking-tight mb-3 text-theme-text text-left">Case Studies</h1>
                 <p class="text-theme-muted font-bold text-[10px] uppercase tracking-[0.4em] text-left">Comprehensive Technical Archive</p>
             </div>
             <div class="grid lg:grid-cols-12 gap-16">
-                <div class="lg:col-span-4 border-r border-theme-border pr-8 max-h-[800px] overflow-y-auto custom-scrollbar" id="case-studies-sidebar"></div>
+                <div class="lg:col-span-4 border-r-0 md:border-r border-theme-border pr-0 md:pr-8 max-h-[40vh] md:max-h-[800px] overflow-y-auto custom-scrollbar" id="case-studies-sidebar"></div>
                 <div class="lg:col-span-8" id="case-studies-dossier-content">
                     <div class="flex items-center justify-center h-full text-theme-muted italic font-light tracking-wide animate-pulse">
                         Initiate diagnostic sequence by selecting a deployment...
@@ -797,7 +810,25 @@
             'sovereign': 'Sovereign AI Models'
         };
 
+        let mobileMenuOpen = false;
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const spans = document.querySelectorAll('#mobile-menu-toggle span');
+            mobileMenuOpen = !mobileMenuOpen;
+            
+            if(mobileMenuOpen) {
+                menu.classList.remove('translate-x-full');
+                spans[0].style.transform = 'translateY(4px) rotate(45deg)';
+                spans[1].style.transform = 'translateY(-4px) rotate(-45deg)';
+            } else {
+                menu.classList.add('translate-x-full');
+                spans[0].style.transform = 'none';
+                spans[1].style.transform = 'none';
+            }
+        }
+
         function switchView(view) {
+            if (mobileMenuOpen) toggleMobileMenu();
             document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
             const target = document.getElementById(`view-${view}`);
             if(target) target.classList.add('active');
