@@ -91,33 +91,189 @@
 
         .logo-adaptive { filter: var(--logo-filter); transition: filter 0.5s ease; }
 
-        .stack-layer {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: var(--layer-bg);
+        /* Clean Stack Alignment */
+        .stack-container {
+            width: 100%;
             position: relative;
         }
+
+        .stack-3d-group {
+            position: relative;
+            padding: 0 0 0 60px; /* Exact space for the governance pillar */
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .stack-layer {
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--layer-bg);
+            position: relative;
+            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.03);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform-origin: left center;
+            height: 110px; /* Force equal height for all cards */
+            justify-content: center;
+        }
+
+        .stack-layer::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+            pointer-events: none;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .dark .stack-layer::before {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            opacity: 0.3;
+        }
+
+        .stack-layer > * {
+            position: relative;
+            z-index: 1;
+        }
+
         .stack-layer.active {
-            border-color: rgba(94, 106, 210, 0.6);
+            border-color: rgba(94, 106, 210, 0.8);
             background: var(--layer-active-bg);
-            box-shadow: var(--layer-shadow);
-            transform: translateY(-2px);
+            box-shadow: 12px 12px 30px rgba(94, 106, 210, 0.15), inset 0 0 10px rgba(94, 106, 210, 0.05);
+            transform: translateX(12px) scale(1.02);
             z-index: 10;
         }
-        .stack-layer.inactive { opacity: var(--layer-inactive-opacity); transform: scale(0.98); }
+
+        .stack-layer.inactive { 
+            transform: translateX(-4px);
+            filter: grayscale(0.2);
+            background: var(--panel);
+        }
+        .stack-layer.inactive > * {
+            opacity: var(--layer-inactive-opacity);
+        }
+
+        @media (max-width: 767px) {
+            .stack-3d-group { padding-left: 44px; }
+            .governance-pillar { width: 32px; letter-spacing: 0.2em; font-size: 9px; }
+            .stack-layer { height: auto; min-height: 110px; }
+        }
+
         
         .governance-pillar {
             writing-mode: vertical-rl;
             text-orientation: mixed;
-            transform: rotate(180deg);
             transition: all 0.4s ease;
-            border-radius: 8px;
+            border-radius: 10px;
             border: 1px solid var(--border);
             background: var(--layer-bg);
             display: flex; align-items: center; justify-content: center;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 44px;
+            transform: rotate(180deg);
+            box-shadow: 4px 4px 15px rgba(0,0,0,0.03);
+            z-index: 20;
+            letter-spacing: 0.4em;
         }
-        .governance-pillar.active { border-color: rgba(94, 106, 210, 0.5); color: #5e6ad2; background: var(--layer-active-bg); }
+
+        .governance-pillar.active { 
+            border-color: rgba(94, 106, 210, 0.8); 
+            color: #5e6ad2; 
+            background: var(--layer-active-bg);
+            box-shadow: 4px 4px 20px rgba(94, 106, 210, 0.2);
+            text-shadow: 0 0 10px rgba(94, 106, 210, 0.3);
+        }
+
+        /* Data Flow Lines */
+        .data-flow-connector {
+            position: absolute;
+            right: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--border), transparent);
+            z-index: 0;
+        }
+
+        .flow-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #5e6ad2;
+            border-radius: 50%;
+            left: -3px;
+            box-shadow: 0 0 10px #5e6ad2, 0 0 20px #5e6ad2;
+            opacity: 0;
+            top: 0;
+        }
+
+        .stack-3d-group.flow-active .flow-particle {
+            animation: flowDown 3s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stack-3d-group.flow-active .flow-particle:nth-child(2) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes flowDown {
+            0% { top: 5%; opacity: 0; transform: scale(0.5); }
+            20% { opacity: 1; transform: scale(1); }
+            80% { opacity: 1; transform: scale(1); }
+            100% { top: 95%; opacity: 0; transform: scale(0.5); }
+        }
+
+        /* LEDs */
+        .status-led-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--alt-bg);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            transition: all 0.3s ease;
+        }
+
+        .active .status-led-container {
+            border-color: rgba(94, 106, 210, 0.4);
+            color: #5e6ad2;
+            background: rgba(94, 106, 210, 0.05);
+        }
+
+        .led-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--muted);
+            opacity: 0.4;
+            transition: all 0.3s ease;
+        }
+
+        .active .led-dot {
+            background: #10b981;
+            opacity: 1;
+            box-shadow: 0 0 8px #10b981;
+            animation: led-pulse-sync 2s infinite;
+        }
+
+        @keyframes led-pulse-sync {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 4px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
 
         .hud-mini-blade {
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -137,6 +293,7 @@
         .ledger-sidebar-item.active { border-left-color: #5e6ad2; background: rgba(94, 106, 210, 0.05); color: var(--text); }
 
         .case-card { transition: all 0.2s ease; cursor: pointer; border-left: 3px solid transparent !important; }
+        .case-card:hover:not(.active) { border-left-color: rgba(94, 106, 210, 0.5) !important; transform: translateX(3px); }
         .case-card.active { border-left-color: #5e6ad2 !important; background: var(--layer-active-bg); border-color: var(--border); transform: translateX(5px); }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(94, 106, 210, 0.2); border-radius: 4px; }
@@ -162,7 +319,7 @@
             
             <div class="hidden md:flex items-center space-x-10 text-[11px] font-bold text-theme-muted uppercase tracking-[0.2em]">
                 <a href="#capabilities" onclick="navTo('capabilities')" data-nav="capabilities" class="nav-item hover:text-theme-text transition-colors">Stack</a>
-                <a href="#" onclick="switchView('case-studies')" data-nav="case-studies" class="nav-item hover:text-theme-text transition-colors text-theme-text">Case Studies</a>
+                <a href="#case-studies" onclick="switchView('case-studies')" data-nav="case-studies" class="nav-item hover:text-theme-text transition-colors text-theme-text">Case Studies</a>
                 <a href="#pillars" onclick="navTo('pillars')" data-nav="pillars" class="nav-item hover:text-theme-text transition-colors">Pillars</a>
                 <a href="#media" onclick="navTo('media')" data-nav="media" class="nav-item hover:text-theme-text transition-colors">Media</a>
             </div>
@@ -225,13 +382,13 @@
                         <p class="text-theme-muted leading-relaxed font-light text-left">The foundational blueprint for localized intelligence. Select a system from the feed to visualize its lineage from core to interface.</p>
                     </div>
                 </div>
-                <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
-                    <div class="lg:col-span-5 relative">
-                        <div id="stack-visual-home" class="sticky top-32 flex flex-col gap-3 relative pl-14 w-full">
+                <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                    <div class="lg:col-span-4 relative">
+                        <div id="stack-visual-home" class="lg:sticky lg:top-32 flex flex-col relative w-full md:pl-0 lg:pl-4">
                             <!-- JS Injected Stack -->
                         </div>
                     </div>
-                    <div class="lg:col-span-7 max-h-[60vh] md:h-[650px] overflow-y-auto pr-3 custom-scrollbar" id="case-studies-container-home"></div>
+                    <div class="lg:col-span-8 max-h-[65vh] overflow-y-auto md:max-h-[60vh] md:h-[650px] md:overflow-y-auto pr-0 md:pr-3 custom-scrollbar" id="case-studies-container-home"></div>
                 </div>
             </div>
         </section>
@@ -975,26 +1132,48 @@
 
         function generateStackHTML(prefix) {
             return `
-                <div id="bracket-${prefix}" class="governance-pillar absolute left-0 top-0 bottom-0 w-10 flex items-center justify-center tracking-[0.2em] uppercase text-[10px] font-bold text-theme-muted z-20">Auditability</div>
-                <div id="blade-application-${prefix}" class="stack-layer p-5 w-[85%] mx-auto text-left">
-                    <div class="text-[10px] font-semibold uppercase tracking-wider text-theme-accent mb-1">Layer 4</div>
-                    <h3 class="font-medium text-[15px] text-theme-text">Application Interface</h3>
-                    <p class="text-[12px] text-theme-muted mt-1 leading-snug font-light">Full-stack dashboards & user products.</p>
-                </div>
-                <div id="blade-enterprise-${prefix}" class="stack-layer p-5 w-[90%] mx-auto text-left">
-                    <div class="text-[10px] font-semibold uppercase tracking-wider text-theme-accent mb-1">Layer 3</div>
-                    <h3 class="font-medium text-[15px] text-theme-text">Knowledge Fabric</h3>
-                    <p class="text-[12px] text-theme-muted mt-1 leading-snug font-light">Unified semantic layer weaving records and API streams into memory.</p>
-                </div>
-                <div id="blade-agentic-${prefix}" class="stack-layer p-5 w-[95%] mx-auto text-left">
-                    <div class="text-[10px] font-semibold uppercase tracking-wider text-theme-accent mb-1">Layer 2</div>
-                    <h3 class="font-medium text-[15px] text-theme-text">Agentic Intelligence</h3>
-                    <p class="text-[12px] text-theme-muted mt-1 leading-snug font-light">Deterministic multi-agent orchestration.</p>
-                </div>
-                <div id="blade-sovereign-${prefix}" class="stack-layer p-5 w-full mx-auto text-left">
-                    <div class="text-[10px] font-semibold uppercase tracking-wider text-theme-accent mb-1">Layer 1</div>
-                    <h3 class="font-medium text-[16px] text-theme-text">Sovereign AI Models</h3>
-                    <p class="text-[12px] text-theme-muted mt-1 leading-snug font-light">Deployment of private intelligence within your infrastructure.</p>
+                <div class="stack-container w-full pt-0 pb-8">
+                    <div id="stack-group-${prefix}" class="stack-3d-group">
+                        <div id="bracket-${prefix}" class="governance-pillar tracking-[0.2em] uppercase text-[10px] font-bold text-theme-muted z-20">Auditability</div>
+                        
+                        <div class="data-flow-connector">
+                            <div class="flow-particle"></div>
+                            <div class="flow-particle"></div>
+                        </div>
+
+                        <div id="blade-application-${prefix}" class="stack-layer p-5 w-full mx-auto text-left" style="--z-index: 60px;">
+                            <div class="flex justify-between items-start mb-2">
+                                <div class="text-[10px] font-semibold uppercase tracking-wider text-theme-accent">Layer 4</div>
+                                <div class="status-led-container"><div class="led-dot"></div><span>UI / UX</span></div>
+                            </div>
+                            <h3 class="font-medium text-[15px] text-theme-text">Application Interface</h3>
+                            <p class="text-[12px] text-theme-muted mt-1 leading-snug font-light">Full-stack dashboards & user products.</p>
+                        </div>
+                        <div id="blade-enterprise-${prefix}" class="stack-layer p-5 w-full text-left" style="--z-index: 40px;">
+                            <div class="flex justify-between items-start mb-2">
+                                <div class="text-[10px] font-semibold uppercase tracking-wider text-theme-accent">Layer 3</div>
+                                <div class="status-led-container"><div class="led-dot" style="animation-delay: 0.2s"></div><span>Fabric</span></div>
+                            </div>
+                            <h3 class="font-medium text-[15px] text-theme-text">Knowledge Fabric</h3>
+                            <p class="text-[12px] text-theme-muted mt-1 leading-snug font-light">Unified semantic layer weaving records and API streams into memory.</p>
+                        </div>
+                        <div id="blade-agentic-${prefix}" class="stack-layer p-5 w-full text-left" style="--z-index: 20px;">
+                            <div class="flex justify-between items-start mb-2">
+                                <div class="text-[10px] font-semibold uppercase tracking-wider text-theme-accent">Layer 2</div>
+                                <div class="status-led-container"><div class="led-dot" style="animation-delay: 0.4s"></div><span>Agents</span></div>
+                            </div>
+                            <h3 class="font-medium text-[15px] text-theme-text">Agentic Intelligence</h3>
+                            <p class="text-[12px] text-theme-muted mt-1 leading-snug font-light">Deterministic multi-agent orchestration.</p>
+                        </div>
+                        <div id="blade-sovereign-${prefix}" class="stack-layer p-5 w-full text-left" style="--z-index: 0px;">
+                            <div class="flex justify-between items-start mb-2">
+                                <div class="text-[10px] font-semibold uppercase tracking-wider text-theme-accent">Layer 1</div>
+                                <div class="status-led-container"><div class="led-dot" style="animation-delay: 0.6s"></div><span>Core</span></div>
+                            </div>
+                            <h3 class="font-medium text-[16px] text-theme-text">Sovereign AI Models</h3>
+                            <p class="text-[12px] text-theme-muted mt-1 leading-snug font-light">Deployment of private intelligence within your infrastructure.</p>
+                        </div>
+                    </div>
                 </div>
             `;
         }
@@ -1007,6 +1186,16 @@
             }
             const bracket = document.getElementById(`bracket-${prefix}`);
             if (bracket) bracket.classList.add('active');
+            
+            const group = document.getElementById(`stack-group-${prefix}`);
+            if (group) {
+                if(layers.length > 0) {
+                    group.classList.add('flow-active');
+                } else {
+                    group.classList.remove('flow-active');
+                }
+            }
+
             allLayers.forEach(id => {
                 const el = document.getElementById(`blade-${id}-${prefix}`);
                 if (el) {
