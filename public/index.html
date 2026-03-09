@@ -161,10 +161,10 @@
             </a>
             
             <div class="hidden md:flex items-center space-x-10 text-[11px] font-bold text-theme-muted uppercase tracking-[0.2em]">
-                <a href="#capabilities" onclick="navTo('capabilities')" class="hover:text-theme-text transition-colors">Stack</a>
-                <a href="#" onclick="switchView('case-studies')" class="hover:text-theme-text transition-colors text-theme-text">Case Studies</a>
-                <a href="#pillars" onclick="navTo('pillars')" class="hover:text-theme-text transition-colors">Pillars</a>
-                <a href="#media" onclick="navTo('media')" class="hover:text-theme-text transition-colors">Media</a>
+                <a href="#capabilities" onclick="navTo('capabilities')" data-nav="capabilities" class="nav-item hover:text-theme-text transition-colors">Stack</a>
+                <a href="#" onclick="switchView('case-studies')" data-nav="case-studies" class="nav-item hover:text-theme-text transition-colors text-theme-text">Case Studies</a>
+                <a href="#pillars" onclick="navTo('pillars')" data-nav="pillars" class="nav-item hover:text-theme-text transition-colors">Pillars</a>
+                <a href="#media" onclick="navTo('media')" data-nav="media" class="nav-item hover:text-theme-text transition-colors">Media</a>
             </div>
             
             <div class="flex items-center gap-5">
@@ -182,11 +182,11 @@
 
     <!-- MOBILE NAV OVERLAY -->
     <div id="mobile-menu" class="fixed inset-0 z-40 bg-theme-bg/95 backdrop-blur-md transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 text-lg font-bold uppercase tracking-widest md:hidden">
-        <a href="#capabilities" onclick="navTo('capabilities')" class="text-theme-text">Stack</a>
-        <a href="#" onclick="switchView('case-studies')" class="text-theme-text">Case Studies</a>
-        <a href="#pillars" onclick="navTo('pillars')" class="text-theme-text">Pillars</a>
-        <a href="#media" onclick="navTo('media')" class="text-theme-text">Media</a>
-        <a href="#contact" onclick="navTo('contact')" class="text-theme-accent mt-4">Brief Us</a>
+        <a href="#capabilities" onclick="navTo('capabilities')" data-nav="capabilities" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Stack</a>
+        <a href="#" onclick="switchView('case-studies')" data-nav="case-studies" class="mobile-nav-item text-theme-text transition-colors">Case Studies</a>
+        <a href="#pillars" onclick="navTo('pillars')" data-nav="pillars" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Pillars</a>
+        <a href="#media" onclick="navTo('media')" data-nav="media" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Media</a>
+        <a href="#contact" onclick="navTo('contact')" class="text-theme-accent mt-4 hover:opacity-80 transition-opacity">Brief Us</a>
     </div>
 
     <!-- HOME VIEW -->
@@ -827,14 +827,39 @@
             }
         }
 
+        function updateActiveNav(activeId) {
+            document.querySelectorAll('.nav-item').forEach(el => {
+                if (el.dataset.nav === activeId) {
+                    el.classList.add('text-theme-text');
+                } else {
+                    el.classList.remove('text-theme-text');
+                }
+            });
+            document.querySelectorAll('.mobile-nav-item').forEach(el => {
+                if (el.dataset.nav === activeId) {
+                    el.classList.add('text-theme-text');
+                    el.classList.remove('text-theme-muted');
+                } else {
+                    el.classList.remove('text-theme-text');
+                    el.classList.add('text-theme-muted');
+                }
+            });
+        }
+
         function switchView(view) {
             if (mobileMenuOpen) toggleMobileMenu();
             document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
             const target = document.getElementById(`view-${view}`);
             if(target) target.classList.add('active');
             window.scrollTo(0, 0);
-            if(view === 'case-studies') renderCaseStudies();
-            if(view === 'home') renderHome();
+            if(view === 'case-studies') {
+                renderCaseStudies();
+                updateActiveNav('case-studies');
+            }
+            if(view === 'home') {
+                renderHome();
+                updateActiveNav('');
+            }
         }
 
         function navTo(sectionId) {
@@ -997,7 +1022,28 @@
         };
 
         if (localStorage.getItem('theme') === 'light') document.documentElement.classList.remove('dark');
-        document.addEventListener('DOMContentLoaded', renderHome);
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHome();
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '-50% 0px -50% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && document.getElementById('view-home').classList.contains('active')) {
+                        updateActiveNav(entry.target.id);
+                    }
+                });
+            }, observerOptions);
+
+            ['capabilities', 'pillars', 'media', 'contact'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) observer.observe(el);
+            });
+        });
     </script>
 </body>
 </html>
