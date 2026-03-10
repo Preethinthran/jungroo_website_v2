@@ -301,6 +301,33 @@
         .text-gradient { background: linear-gradient(to right, var(--text), var(--muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .pillar-satellite:hover { transform: translateY(-8px); border-color: #5e6ad2; box-shadow: 0 20px 40px -15px rgba(94, 106, 210, 0.2); }
         
+        @media (max-width: 1023px) {
+            #case-studies-container-home {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: stretch !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                scroll-snap-type: x mandatory;
+                gap: 16px;
+                padding: 10px 4px 24px 4px;
+                height: auto !important;
+                max-height: none !important;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+            }
+            #case-studies-container-home .case-card {
+                flex: 0 0 85vw !important;
+                scroll-snap-align: center;
+                margin-bottom: 0 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                height: auto !important;
+                min-height: 100% !important;
+                justify-content: flex-start !important;
+            }
+        }
+        
         .view-section { display: none; }
         .view-section.active { display: block; }
     </style>
@@ -584,12 +611,30 @@
     <!-- CASE STUDIES VIEW -->
     <main id="view-case-studies" class="view-section pt-24 pb-16 md:pt-32 md:pb-32 min-h-screen bg-theme-bg">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="mb-12 border-b border-theme-border pb-10">
-                <h1 class="text-5xl font-bold tracking-tight mb-3 text-theme-text text-left">Case Studies</h1>
-                <p class="text-theme-muted font-bold text-[10px] uppercase tracking-[0.4em] text-left">Comprehensive Technical Archive</p>
+            <div class="mb-8 md:mb-12 border-b border-theme-border pb-8 md:pb-10 flex flex-row items-center justify-between">
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-2 md:mb-3 text-theme-text text-left">Case Studies</h1>
+                    <p class="text-theme-muted font-bold text-[10px] uppercase tracking-[0.4em] text-left">Comprehensive Technical Archive</p>
+                </div>
+                <button id="case-studies-menu-btn" onclick="toggleCaseStudiesMenu()" class="lg:hidden flex items-center justify-center gap-2 bg-theme-panel border border-theme-border w-10 h-10 md:w-auto md:px-4 md:py-2 rounded-lg text-theme-text text-sm font-bold shadow-sm hover:border-theme-accent transition-colors shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-5 md:w-5 relative right-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+                    <span class="hidden md:inline">Menu</span>
+                </button>
             </div>
-            <div class="grid lg:grid-cols-12 gap-16">
-                <div class="lg:col-span-4 border-r-0 md:border-r border-theme-border pr-0 md:pr-8 max-h-[40vh] md:max-h-[800px] overflow-y-auto custom-scrollbar" id="case-studies-sidebar"></div>
+            <div class="grid lg:grid-cols-12 gap-16 relative">
+                <!-- Overlay for mobile sidebar -->
+                <div id="case-studies-mobile-overlay" class="fixed inset-0 bg-theme-bg/80 backdrop-blur-sm z-40 hidden lg:hidden opacity-0 transition-opacity duration-300" onclick="toggleCaseStudiesMenu()"></div>
+                
+                <div id="case-studies-sidebar-wrapper" class="fixed inset-y-0 left-0 z-50 w-[85%] max-w-sm bg-theme-panel border-r border-theme-border shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col lg:relative lg:transform-none lg:w-auto lg:max-w-none lg:bg-transparent lg:border-r lg:shadow-none lg:col-span-4 lg:pr-8 h-full lg:h-auto lg:flex-none">
+                    <div class="flex justify-between items-center p-6 border-b border-theme-border lg:hidden shrink-0">
+                        <h2 class="text-lg font-bold text-theme-text uppercase tracking-widest">Select Case Study</h2>
+                        <button onclick="toggleCaseStudiesMenu()" class="text-theme-muted hover:text-theme-text transition-colors w-8 h-8 flex items-center justify-center border border-theme-border rounded-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                        </button>
+                    </div>
+                    <div class="flex-1 overflow-y-auto lg:overflow-visible custom-scrollbar p-6 lg:p-0" id="case-studies-sidebar"></div>
+                </div>
+                <!-- <div class="lg:col-span-4 border-r-0 md:border-r border-theme-border pr-0 md:pr-8" id="case-studies-sidebar"></div> -->
                 <div class="lg:col-span-8" id="case-studies-dossier-content">
                     <div class="flex items-center justify-center h-full text-theme-muted italic font-light tracking-wide animate-pulse">
                         Initiate diagnostic sequence by selecting a deployment...
@@ -984,6 +1029,34 @@
             }
         }
 
+        let caseStudiesMenuOpen = false;
+        function toggleCaseStudiesMenu() {
+            const wrapper = document.getElementById('case-studies-sidebar-wrapper');
+            const overlay = document.getElementById('case-studies-mobile-overlay');
+            if(!wrapper || !overlay) return;
+            
+            caseStudiesMenuOpen = !caseStudiesMenuOpen;
+            if (caseStudiesMenuOpen) {
+                // Open
+                wrapper.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                setTimeout(() => {
+                    overlay.classList.remove('opacity-0');
+                    overlay.classList.add('opacity-100');
+                }, 10);
+                document.body.style.setProperty('overflow', 'hidden', 'important');
+            } else {
+                // Close
+                wrapper.classList.add('-translate-x-full');
+                overlay.classList.remove('opacity-100');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300);
+                document.body.style.removeProperty('overflow');
+            }
+        }
+
         function updateActiveNav(activeId) {
             document.querySelectorAll('.nav-item').forEach(el => {
                 if (el.dataset.nav === activeId) {
@@ -1053,7 +1126,13 @@
                     <h3 class="font-bold text-xl mb-2 text-theme-text tracking-tight">${cs.title}</h3>
                     <p class="text-[13px] text-theme-muted mb-5 leading-relaxed font-light">${displayDesc.split(/[.;]/)[0]}.</p>
                 `;
-                card.onclick = () => highlightLayers(cs.layers, 'home', `card-home-${cs.id}`);
+                card.onclick = () => {
+                    if (card.classList.contains('active')) {
+                        highlightLayers([], 'home', null);
+                    } else {
+                        highlightLayers(cs.layers, 'home', `card-home-${cs.id}`);
+                    }
+                };
                 feed.appendChild(card);
             });
         }
@@ -1065,8 +1144,8 @@
             caseStudiesData.forEach(cs => { if(!domains[cs.domain]) domains[cs.domain] = []; domains[cs.domain].push(cs); });
             sidebar.innerHTML = '';
             Object.keys(domains).forEach(domain => {
-                const group = document.createElement('div'); group.className = 'mb-12';
-                group.innerHTML = `<h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-theme-accent mb-6 border-b border-theme-border pb-2 text-left">${domain}</h4>
+                const group = document.createElement('div'); group.className = 'mb-6';
+                group.innerHTML = `<h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-theme-accent mb-3 border-b border-theme-border pb-2 text-left">${domain}</h4>
                     <div class="space-y-1 text-left">${domains[domain].map(cs => `<div class="ledger-sidebar-item text-[13px] text-theme-muted hover:text-theme-text" id="item-${cs.id}" onclick="showDossier('${cs.id}')">${cs.title}</div>`).join('')}</div>`;
                 sidebar.appendChild(group);
             });
@@ -1074,12 +1153,17 @@
         }
 
         function showDossier(id) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             const cs = caseStudiesData.find(c => c.id === id);
             const content = document.getElementById('case-studies-dossier-content');
             if (!cs || !content) return;
             document.querySelectorAll('.ledger-sidebar-item').forEach(i => i.classList.remove('active'));
             const sidebarItem = document.getElementById(`item-${id}`);
             if (sidebarItem) sidebarItem.classList.add('active');
+
+            if (typeof caseStudiesMenuOpen !== 'undefined' && caseStudiesMenuOpen) {
+                toggleCaseStudiesMenu();
+            }
 
             content.innerHTML = `
                 <div class="animate-in fade-in slide-in-from-right-8 duration-700 text-left">
@@ -1179,13 +1263,17 @@
         }
 
         function highlightLayers(layers, prefix, cardId) {
+            document.querySelectorAll('.case-card').forEach(c => c.classList.remove('active'));
             if(cardId) {
-                document.querySelectorAll('.case-card').forEach(c => c.classList.remove('active'));
                 const card = document.getElementById(cardId);
                 if (card) card.classList.add('active');
             }
+            
             const bracket = document.getElementById(`bracket-${prefix}`);
-            if (bracket) bracket.classList.add('active');
+            if (bracket) {
+                if(layers.length > 0) bracket.classList.add('active');
+                else bracket.classList.remove('active');
+            }
             
             const group = document.getElementById(`stack-group-${prefix}`);
             if (group) {
@@ -1199,8 +1287,15 @@
             allLayers.forEach(id => {
                 const el = document.getElementById(`blade-${id}-${prefix}`);
                 if (el) {
-                    if (layers.includes(id)) { el.classList.add('active'); el.classList.remove('inactive'); }
-                    else { el.classList.remove('active'); el.classList.add('inactive'); }
+                    if (layers.length === 0) {
+                        el.classList.remove('active', 'inactive');
+                    } else if (layers.includes(id)) { 
+                        el.classList.add('active'); 
+                        el.classList.remove('inactive'); 
+                    } else { 
+                        el.classList.remove('active'); 
+                        el.classList.add('inactive'); 
+                    }
                 }
             });
         }
