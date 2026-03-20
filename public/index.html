@@ -1900,11 +1900,18 @@
         if (localStorage.getItem('theme') === 'light') document.documentElement.classList.remove('dark');
         document.addEventListener('DOMContentLoaded', () => {
             // Initial path handling
-            const path = window.location.pathname.replace('/', '');
+            let path = window.location.pathname.replace(/^\/+|\/+$/g, ''); // Trim leading and trailing slashes
+            
             if (path === 'case-studies') {
                 switchView('case-studies', false);
             } else if (path) {
-                navTo(path, false);
+                // Check if path matches an existing section ID
+                const targetEl = document.getElementById(path);
+                if (targetEl) {
+                    navTo(path, false);
+                } else {
+                    switchView('home', false);
+                }
             } else {
                 switchView('home', false);
             }
