@@ -1902,6 +1902,11 @@
             // Initial path handling
             let path = window.location.pathname.replace(/^\/+|\/+$/g, ''); // Trim leading and trailing slashes
             
+            if (!path && window.location.hash) {
+                path = window.location.hash.replace('#', '');
+                history.replaceState({ view: path === 'case-studies' ? 'case-studies' : 'home' }, '', '/' + path);
+            }
+
             if (path === 'case-studies') {
                 switchView('case-studies', false);
             } else if (path) {

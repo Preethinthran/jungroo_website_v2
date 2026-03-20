@@ -3,10 +3,6 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/stack", "destination": "/stack.html" },
-    { "source": "/case-studies", "destination": "/index.html" },
-    { "source": "/pillars", "destination": "/index.html" },
-    { "source": "/media", "destination": "/index.html" },
-    { "source": "/contact", "destination": "/index.html" },
-    { "source": "/", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
