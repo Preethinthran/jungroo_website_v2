@@ -364,23 +364,35 @@
 
         @media (max-width: 767px) {
             .schematic-layer {
-                flex-direction: column;
-                align-items: flex-start;
+                display: grid;
+                grid-template-columns: auto 1fr;
+                grid-template-areas: 
+                    "num icon"
+                    "info info";
                 gap: 1rem;
                 padding: 1.5rem;
+                align-items: center;
             }
             .schematic-num-column {
+                grid-area: num;
+                display: flex;
                 flex-direction: row;
                 min-width: auto;
-                width: 100%;
-                justify-content: space-between;
+                width: auto;
+                justify-content: flex-start;
                 align-items: center;
+            }
+            .schematic-layer-info {
+                grid-area: info;
+            }
+            .schematic-icon-box {
+                grid-area: icon;
+                justify-self: end;
+                min-width: auto;
+                height: auto;
             }
             .schematic-connector {
                 display: none;
-            }
-            .schematic-icon-box {
-                min-width: auto;
             }
         }
 
@@ -601,8 +613,9 @@
             </a>
             
             <div class="hidden md:flex items-center space-x-10 text-[11px] font-bold text-theme-muted uppercase tracking-widest">
-                <a href="/capabilities" onclick="event.preventDefault(); navTo('capabilities')" data-nav="capabilities" class="nav-item hover:text-theme-text transition-colors">Stack</a>
-                <a href="/case-studies" onclick="event.preventDefault(); switchView('case-studies')" data-nav="case-studies" class="nav-item hover:text-theme-text transition-colors text-theme-text">Case Studies</a>
+                <a href="/" onclick="event.preventDefault(); switchView('home')" data-nav="home" class="nav-item text-theme-text hover:text-theme-text transition-colors">Home</a>
+                <a href="/stack" data-nav="capabilities" class="nav-item hover:text-theme-text transition-colors">Stack</a>
+                <a href="/case-studies" onclick="event.preventDefault(); switchView('case-studies')" data-nav="case-studies" class="nav-item hover:text-theme-text transition-colors">Case Studies</a>
                 <a href="/pillars" onclick="event.preventDefault(); navTo('pillars')" data-nav="pillars" class="nav-item hover:text-theme-text transition-colors">Pillars</a>
                 <a href="/media" onclick="event.preventDefault(); navTo('media')" data-nav="media" class="nav-item hover:text-theme-text transition-colors">Media</a>
             </div>
@@ -622,8 +635,9 @@
 
     <!-- MOBILE NAV OVERLAY -->
     <div id="mobile-menu" class="fixed inset-0 z-40 bg-theme-bg/95 backdrop-blur-md transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 text-lg font-bold uppercase tracking-widest md:hidden">
-        <a href="/capabilities" onclick="event.preventDefault(); navTo('capabilities')" data-nav="capabilities" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Stack</a>
-        <a href="/case-studies" onclick="event.preventDefault(); switchView('case-studies')" data-nav="case-studies" class="mobile-nav-item text-theme-text transition-colors">Case Studies</a>
+        <a href="/" onclick="event.preventDefault(); switchView('home')" data-nav="home" class="mobile-nav-item text-theme-text transition-colors">Home</a>
+        <a href="/stack" data-nav="capabilities" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Stack</a>
+        <a href="/case-studies" onclick="event.preventDefault(); switchView('case-studies')" data-nav="case-studies" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Case Studies</a>
         <a href="/pillars" onclick="event.preventDefault(); navTo('pillars')" data-nav="pillars" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Pillars</a>
         <a href="/media" onclick="event.preventDefault(); navTo('media')" data-nav="media" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Media</a>
         <a href="/contact" onclick="event.preventDefault(); navTo('contact')" class="text-theme-accent mt-4 hover:opacity-80 transition-opacity">Brief Us</a>
@@ -651,7 +665,7 @@
             
             <div class="flex flex-col sm:flex-row gap-4">
                 <a href="/case-studies" onclick="event.preventDefault(); switchView('case-studies')" class="bg-theme-text text-theme-bg px-10 py-4 text-center text-[15px] font-bold rounded-xl shadow-lg hover:opacity-90 transition-all">Case Studies</a>
-                <a href="/capabilities" onclick="event.preventDefault(); navTo('capabilities')" class="bg-theme-panel border border-theme-border text-theme-text px-10 py-4 text-center text-[15px] font-bold rounded-xl hover:border-theme-accent transition-all">Explore Stack</a>
+                <a href="/stack" class="bg-theme-panel border border-theme-border text-theme-text px-10 py-4 text-center text-[15px] font-bold rounded-xl hover:border-theme-accent transition-all">Explore Stack</a>
             </div>
         </header>
 
@@ -659,9 +673,9 @@
         <section id="capabilities" class="py-16 md:py-32 border-t border-theme-border bg-theme-bg overflow-hidden">
             <div class="max-w-7xl mx-auto px-6 relative z-10">
                 <!-- Unified Grid Layout -->
-                <div class="grid lg:grid-cols-2 gap-16 md:gap-24 items-stretch mb-32">
+                <div class="grid lg:grid-cols-2 gap-16 md:gap-24 items-stretch mb-32 relative">
                     <!-- Left Column: Content Flow -->
-                    <div class="flex flex-col justify-between py-4">
+                    <div class="flex flex-col justify-between py-4 relative z-10">
                         <div>
                             <h2 class="text-4xl md:text-6xl font-bold tracking-tight text-theme-text mb-12 max-w-4xl">
                                 The Sovereign <br class="hidden md:block"> Intelligence Architecture
@@ -689,7 +703,7 @@
                     </div>
 
                     <!-- Right Column: Blended Image -->
-                    <div class="relative group h-full">
+                    <div class="absolute inset-0 lg:relative lg:inset-auto group h-full z-0 lg:z-10 pointer-events-none lg:pointer-events-auto opacity-30 lg:opacity-100">
                         <div class="absolute -inset-4 bg-theme-accent/5 rounded-[40px] blur-2xl group-hover:bg-theme-accent/10 transition-all"></div>
                         <div class="relative h-full min-h-[500px] rounded-3xl overflow-hidden">
                             <img src="images/DataBaseImage.png" alt="Sovereign Intelligence Architecture" class="w-full h-full object-cover">
@@ -1632,7 +1646,7 @@
             }
             if(view === 'home') {
                 renderHome();
-                updateActiveNav('');
+                updateActiveNav('home');
                 if (push) history.pushState({ view: 'home' }, '', '/');
             }
         }
@@ -1892,7 +1906,7 @@
             } else if (path) {
                 navTo(path, false);
             } else {
-                renderHome();
+                switchView('home', false);
             }
             
             const observerOptions = {

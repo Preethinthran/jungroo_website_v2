@@ -135,18 +135,33 @@
             <div class="hidden md:flex items-center space-x-10 text-[11px] font-bold text-theme-muted uppercase tracking-widest">
                 <a href="/" class="hover:text-theme-text transition-colors">Home</a>
                 <a href="/stack" class="text-theme-text transition-colors">Stack</a>
-                <a href="/#case-studies" class="hover:text-theme-text transition-colors">Case Studies</a>
-                <a href="/#pillars" class="hover:text-theme-text transition-colors">Pillars</a>
+                <a href="/case-studies" class="hover:text-theme-text transition-colors">Case Studies</a>
+                <a href="/pillars" class="hover:text-theme-text transition-colors">Pillars</a>
+                <a href="/media" class="hover:text-theme-text transition-colors">Media</a>
             </div>
             
             <div class="flex items-center gap-5">
                 <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full border border-theme-border bg-theme-panel hover:border-theme-accent hover:scale-110 active:scale-95 transition-all shadow-sm" aria-label="Toggle dark mode">
                     <span class="text-lg leading-none select-none">💡</span>
                 </button>
-                <a href="/#contact" class="bg-theme-text text-theme-bg px-5 py-2 text-[13px] font-semibold rounded-lg hover:opacity-90 transition-opacity">Brief Us</a>
+                <a href="/contact" class="hidden md:inline-block bg-theme-text text-theme-bg px-5 py-2 text-[13px] font-semibold rounded-lg hover:opacity-90 transition-opacity">Brief Us</a>
+                <button id="mobile-menu-toggle" class="md:hidden w-9 h-9 flex flex-col justify-center items-center gap-1.5 focus:outline-none ml-2" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu">
+                    <span class="w-5 h-0.5 bg-theme-text transition-all duration-300"></span>
+                    <span class="w-5 h-0.5 bg-theme-text transition-all duration-300"></span>
+                </button>
             </div>
         </div>
     </nav>
+
+    <!-- MOBILE NAV OVERLAY -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-theme-bg/95 backdrop-blur-md transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 text-lg font-bold uppercase tracking-widest md:hidden">
+        <a href="/" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Home</a>
+        <a href="/stack" class="mobile-nav-item text-theme-text transition-colors">Stack</a>
+        <a href="/case-studies" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Case Studies</a>
+        <a href="/pillars" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Pillars</a>
+        <a href="/media" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Media</a>
+        <a href="/contact" class="text-theme-accent mt-4 hover:opacity-80 transition-opacity">Brief Us</a>
+    </div>
 
     <main class="pt-16 min-h-screen">
         <!-- HERO SECTION -->
@@ -451,6 +466,23 @@
         </footer>
     </main>
     <script>
+        let mobileMenuOpen = false;
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const spans = document.querySelectorAll('#mobile-menu-toggle span');
+            mobileMenuOpen = !mobileMenuOpen;
+            
+            if(mobileMenuOpen) {
+                menu.classList.remove('translate-x-full');
+                spans[0].style.transform = 'translateY(4px) rotate(45deg)';
+                spans[1].style.transform = 'translateY(-4px) rotate(-45deg)';
+            } else {
+                menu.classList.add('translate-x-full');
+                spans[0].style.transform = 'none';
+                spans[1].style.transform = 'none';
+            }
+        }
+
         document.getElementById('theme-toggle').onclick = () => {
             document.documentElement.classList.toggle('dark');
             localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
