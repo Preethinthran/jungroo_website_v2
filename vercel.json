@@ -2,7 +2,7 @@
   "outputDirectory": "public",
   "rewrites": [
     {
-      "source": "/(?!images/).*",
+      "source": "/((?!images/).*)",
       "destination": "/index.html"
     }
   ]
