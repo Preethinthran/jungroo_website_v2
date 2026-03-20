@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Arch | Architecture Deep Dive</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        theme: {
+                            bg: 'var(--bg)',
+                            panel: 'var(--panel)',
+                            card: 'var(--card)',
+                            border: 'var(--border)',
+                            text: 'var(--text)',
+                            muted: 'var(--muted)',
+                            accent: 'var(--accent)',
+                            accentGlow: 'var(--accent-glow)',
+                            altBg: 'var(--alt-bg)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-glow': 'var(--hero-glow)',
+                        'grid-pattern': 'linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #f9fafb;
+            --panel: #ffffff;
+            --card: rgba(255, 255, 255, 0.9);
+            --border: rgba(0, 0, 0, 0.06);
+            --text: #0f172a;
+            --muted: #64748b;
+            --accent: #5e6ad2;
+            --accent-rgb: 94, 106, 210;
+            --alt-bg: #f3f4f6;
+            --grid-color: rgba(94, 106, 210, 0.05);
+            --hero-glow: radial-gradient(circle at 50% -20%, rgba(var(--accent-rgb), 0.12), transparent 80%);
+            --nav-bg: rgba(249, 250, 251, 0.85);
+            --accent-glow: rgba(var(--accent-rgb), 0.12);
+            --layer-bg: #ffffff;
+            --layer-active-bg: #ffffff;
+            --layer-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            --layer-inactive-opacity: 0.5;
+            --scroll-thumb: rgba(0,0,0,0.08);
+            --logo-filter: brightness(0);
+            --surface-container-high: #f1f5f9;
+        }
+
+        .dark {
+            --bg: #080808;
+            --panel: #111111;
+            --card: rgba(22, 22, 22, 0.6);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f4f4f5;
+            --muted: #a1a1aa;
+            --accent: #818cf8;
+            --accent-rgb: 129, 140, 248;
+            --alt-bg: #0c0c0c;
+            --grid-color: rgba(255, 255, 255, 0.03);
+            --hero-glow: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(var(--accent-rgb), 0.2), transparent);
+            --nav-bg: rgba(8, 8, 8, 0.85);
+            --accent-glow: rgba(var(--accent-rgb), 0.3);
+            --layer-bg: rgba(20, 20, 20, 0.8);
+            --layer-active-bg: rgba(25, 25, 30, 0.9);
+            --layer-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            --layer-inactive-opacity: 0.2;
+            --scroll-thumb: rgba(255,255,255,0.1);
+            --logo-filter: brightness(0) invert(1);
+            --surface-container-high: #1e1e1e;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sovereign-glow {
+            box-shadow: 0 0 32px rgba(var(--accent-rgb), 0.06);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .glass-nav { background: var(--nav-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .logo-adaptive { filter: var(--logo-filter); transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        .metric-box {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            width: 100%;
+        }
+
+        .text-gradient { background: linear-gradient(to right, var(--text), var(--muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .animate-pulse-slow { animation: pulse-slow 3s infinite ease-in-out; }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-theme-accent selection:text-white relative">
+    <!-- GLOBAL GRID PATTERN -->
+    <div class="fixed inset-0 z-[-1] bg-grid-pattern opacity-[0.15] pointer-events-none" style="background-size: 40px 40px;"></div>
+
+    <!-- GLOBAL NAV -->
+    <nav class="fixed w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="block flex items-center">
+                <img src="images/logo.webp" alt="Jungroo AI Labs" class="h-7 w-auto object-contain logo-adaptive">
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-10 text-[11px] font-bold text-theme-muted uppercase tracking-widest">
+                <a href="/" class="hover:text-theme-text transition-colors">Home</a>
+                <a href="/stack" class="text-theme-text transition-colors">Stack</a>
+                <a href="/#case-studies" class="hover:text-theme-text transition-colors">Case Studies</a>
+                <a href="/#pillars" class="hover:text-theme-text transition-colors">Pillars</a>
+            </div>
+            
+            <div class="flex items-center gap-5">
+                <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full border border-theme-border bg-theme-panel hover:border-theme-accent hover:scale-110 active:scale-95 transition-all shadow-sm" aria-label="Toggle dark mode">
+                    <span class="text-lg leading-none select-none">💡</span>
+                </button>
+                <a href="/#contact" class="bg-theme-text text-theme-bg px-5 py-2 text-[13px] font-semibold rounded-lg hover:opacity-90 transition-opacity">Brief Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-16 min-h-screen">
+        <!-- HERO SECTION -->
+        <section class="relative min-h-[80vh] flex flex-col justify-center px-6 md:px-20 py-24 overflow-hidden">
+            <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+                <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-theme-accent/10 rounded-full blur-[120px] -mr-96 -mt-96"></div>
+                <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-theme-accent/5 rounded-full blur-[100px] -ml-48 -mb-48"></div>
+            </div>
+            
+            <div class="relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-theme-panel border border-theme-border rounded-sm mb-8 shadow-[0_0_15px_rgba(var(--accent-rgb),0.1)]">
+                    <span class="w-2 h-2 rounded-full bg-theme-accent animate-pulse"></span>
+                    <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-theme-muted">Architecture Readiness Level: 09</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-theme-text leading-[0.9] tracking-tighter mb-8 max-w-4xl mx-auto">
+                    Engineered to Cross <br/><span class="text-theme-accent italic">the Valley of Death.</span>
+                </h1>
+                
+                <p class="text-lg md:text-2xl text-theme-muted font-light max-w-2xl leading-relaxed mb-12 mx-auto">
+                    Industry data reveals a <span class="font-bold">68% failure rate</span> for enterprise AI initiatives. We don't build prototypes; we architect sovereign infrastructure for permanent deployment.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <button class="bg-theme-accent text-white font-bold uppercase tracking-widest text-xs px-10 py-5 rounded-lg shadow-lg shadow-theme-accent/20 hover:scale-[1.02] transition-all flex items-center gap-3">
+                        Commission Diagnostic
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
+                    <button class="bg-theme-panel border border-theme-border text-theme-text font-bold uppercase tracking-widest text-xs px-10 py-5 rounded-lg hover:border-theme-accent transition-all">
+                        Technical Manifesto
+                    </button>
+                </div>
+            </div>
+
+            <!-- Technical Metrics Overlay
+            <div class="absolute bottom-12 right-6 md:right-20 hidden xl:grid grid-cols-2 gap-px bg-theme-border p-px">
+                <div class="metric-box">
+                    <p class="text-[10px] uppercase tracking-widest text-theme-muted mb-1">Latency Target</p>
+                    <p class="text-2xl font-bold text-theme-accent">&lt;45ms</p>
+                </div>
+                <div class="metric-box">
+                    <p class="text-[10px] uppercase tracking-widest text-theme-muted mb-1">Security Score</p>
+                    <p class="text-2xl font-bold text-green-500">AAA+</p>
+                </div>
+                <div class="metric-box">
+                    <p class="text-[10px] uppercase tracking-widest text-theme-muted mb-1">Uptime SLA</p>
+                    <p class="text-2xl font-bold text-theme-text">99.999%</p>
+                </div>
+                <div class="metric-box">
+                    <p class="text-[10px] uppercase tracking-widest text-theme-muted mb-1">Deployment</p>
+                    <p class="text-2xl font-bold text-theme-text">On-Prem</p>
+                </div>
+            </div> -->
+        </section>
+        <!-- Deep Dive Grid -->
+        <section class="max-w-7xl mx-auto px-6 py-24 border-t border-theme-border">
+            <div class="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+                <div>
+                    <h2 class="text-[10px] uppercase tracking-[0.3em] text-theme-accent font-bold mb-4">Architectural Blueprint</h2>
+                    <h3 class="text-4xl md:text-5xl font-bold text-theme-text tracking-tight">The Sovereign Stack</h3>
+                </div>
+                <p class="max-w-md text-sm text-theme-muted leading-relaxed">
+                    A four-layered defense-in-depth approach to artificial intelligence, ensuring that every byte of logic remains within your perimeter.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Layer 1: Core -->
+                <div class="group relative bg-theme-panel p-4 border border-theme-border border-l-4 border-l-theme-accent hover:border-theme-accent/40 transition-all duration-300 rounded-xl hover:translate-x-2 sovereign-glow">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="shrink-0 w-16 h-16 bg-[var(--surface-container-high)] flex items-center justify-center rounded-lg">
+                            <span class="text-theme-accent font-['Space_Grotesk'] text-2xl font-bold">01</span>
+                        </div>
+                        <div class="grow">
+                            <div class="flex items-center gap-3 mb-1">
+                                <p class="text-[10px] font-bold text-theme-accent uppercase tracking-widest">Layer 1 | CORE</p>
+                                <div class="h-px grow bg-theme-border/30"></div>
+                            </div>
+                            <h4 class="text-xl font-bold text-theme-text tracking-tight leading-tight">Sovereign AI Models</h4>
+                        </div>
+                        <span class="material-symbols-outlined text-theme-accent opacity-30 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 text-5xl">memory</span>
+                    </div>
+                    <p class="text-sm text-theme-muted leading-relaxed mb-6 font-light">
+                        Beyond generic LLMs. Our core layer utilizes **Domain Adaptive Intelligence** to fine-tune models on your proprietary datasets without leaking weight gradients to public clouds.
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 text-[11px] font-bold text-theme-muted">
+                            <span class="w-1.5 h-1.5 rounded-full bg-theme-accent"></span>
+                            PARAMETER-EFFICIENT FINE-TUNING (PEFT)
+                        </div>
+                        <div class="flex items-center gap-3 text-[11px] font-bold text-theme-muted">
+                            <span class="w-1.5 h-1.5 rounded-full bg-theme-accent"></span>
+                            QUANTIZED INFERENCE ENGINES
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer 2: Agents -->
+                <div class="group relative bg-theme-panel p-4 border border-theme-border border-l-4 border-l-theme-accent hover:border-theme-accent/40 transition-all duration-300 rounded-xl hover:translate-x-2 sovereign-glow">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="shrink-0 w-16 h-16 bg-[var(--surface-container-high)] flex items-center justify-center rounded-lg">
+                            <span class="text-theme-accent font-['Space_Grotesk'] text-2xl font-bold">02</span>
+                        </div>
+                        <div class="grow">
+                            <div class="flex items-center gap-3 mb-1">
+                                <p class="text-[10px] font-bold text-theme-accent uppercase tracking-widest">Layer 2 | AGENTS</p>
+                                <div class="h-px grow bg-theme-border/30"></div>
+                            </div>
+                            <h4 class="text-xl font-bold text-theme-text tracking-tight leading-tight">Agentic Intelligence</h4>
+                        </div>
+                        <span class="material-symbols-outlined text-theme-accent opacity-30 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 text-5xl">smart_toy</span>
+                    </div>
+                    <p class="text-sm text-theme-muted leading-relaxed mb-6 font-light">
+                        Agents that think but never stray. We implement **Hard-Coded Logic Trees** and deterministic execution paths with strict guardrails that prevent hallucination.
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 text-[11px] font-bold text-theme-muted">
+                            <span class="w-1.5 h-1.5 rounded-full bg-theme-accent"></span>
+                            EXECUTION BOUNDARY ENFORCEMENT
+                        </div>
+                        <div class="flex items-center gap-3 text-[11px] font-bold text-theme-muted">
+                            <span class="w-1.5 h-1.5 rounded-full bg-theme-accent"></span>
+                            REAL-TIME TRACEABILITY LOGS
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer 3: Fabric -->
+                <div class="group relative bg-theme-panel p-4 border border-theme-border border-l-4 border-l-theme-accent hover:border-theme-accent/40 transition-all duration-300 rounded-xl hover:translate-x-2 sovereign-glow">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="shrink-0 w-16 h-16 bg-[var(--surface-container-high)] flex items-center justify-center rounded-lg">
+                            <span class="text-theme-accent font-['Space_Grotesk'] text-2xl font-bold">03</span>
+                        </div>
+                        <div class="grow">
+                            <div class="flex items-center gap-3 mb-1">
+                                <p class="text-[10px] font-bold text-theme-accent uppercase tracking-widest">Layer 3 | FABRIC</p>
+                                <div class="h-px grow bg-theme-border/30"></div>
+                            </div>
+                            <h4 class="text-xl font-bold text-theme-text tracking-tight leading-tight">Knowledge Fabric</h4>
+                        </div>
+                        <span class="material-symbols-outlined text-theme-accent opacity-30 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 text-5xl">hub</span>
+                    </div>
+                    <p class="text-sm text-theme-muted leading-relaxed mb-8 font-light">
+                        The semantic connective tissue of your organization. Our Fabric layer creates **Unified Memory Banks** that ground AI responses in real-time enterprise data.
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 text-[11px] font-bold text-theme-muted">
+                            <span class="w-1.5 h-1.5 rounded-full bg-theme-accent"></span>
+                            VECTORIAL TRUTH-ANCHORING (RAG)
+                        </div>
+                        <div class="flex items-center gap-3 text-[11px] font-bold text-theme-muted">
+                            <span class="w-1.5 h-1.5 rounded-full bg-theme-accent"></span>
+                            MULTI-SOURCE SEMANTIC INDEXING
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer 4: UI/UX -->
+                <div class="group relative bg-theme-panel p-4 border border-theme-border border-l-4 border-l-theme-accent hover:border-theme-accent/40 transition-all duration-300 rounded-xl hover:translate-x-2 sovereign-glow">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="shrink-0 w-16 h-16 bg-[var(--surface-container-high)] flex items-center justify-center rounded-lg">
+                            <span class="text-theme-accent font-['Space_Grotesk'] text-2xl font-bold">04</span>
+                        </div>
+                        <div class="grow">
+                            <div class="flex items-center gap-3 mb-1">
+                                <p class="text-[10px] font-bold text-theme-accent uppercase tracking-widest">Layer 4 | UI / UX</p>
+                                <div class="h-px grow bg-theme-border/30"></div>
+                            </div>
+                            <h4 class="text-xl font-bold text-theme-text tracking-tight leading-tight">Application Interface</h4>
+                        </div>
+                        <span class="material-symbols-outlined text-theme-accent opacity-30 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 text-5xl">dashboard_customize</span>
+                    </div>
+                    <p class="text-sm text-theme-muted leading-relaxed mb-8 font-light">
+                        High-precision interfaces for executive decision-making. Full-stack engineering that transforms complex AI outputs into actionable dashboards.
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 text-[11px] font-bold text-theme-muted">
+                            <span class="w-1.5 h-1.5 rounded-full bg-theme-accent"></span>
+                            EXECUTIVE AUDIT DASHBOARDS
+                        </div>
+                        <div class="flex items-center gap-3 text-[11px] font-bold text-theme-muted">
+                            <span class="w-1.5 h-1.5 rounded-full bg-theme-accent"></span>
+                            ZERO-TRUST FRONTEND ARCHITECTURE
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Security Wrapper: Governance Dashboard Visual -->
+        <section class="max-w-7xl mx-auto px-6 py-24 border-t border-theme-border relative overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-5">
+                    <p class="text-[10px] font-bold text-theme-accent uppercase tracking-[0.3em] mb-4">Defense-in-Depth</p>
+                    <h3 class="text-4xl md:text-5xl font-bold text-theme-text mb-8 leading-tight">Auditability & Governance Wrapper</h3>
+                    <p class="text-theme-muted mb-10 leading-relaxed font-light">
+                        Every interaction is wrapped in a cryptographic security layer. We provide continuous compliance mapping against **NIST, HIPAA, and GDPR** frameworks, ensuring your sovereign intelligence remains legally and ethically compliant.
+                    </p>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <div class="mt-1 w-8 h-8 flex items-center justify-center bg-theme-accent/10 border border-theme-accent/20 rounded-lg text-theme-accent">
+                                <span class="material-symbols-outlined text-lg">verified_user</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-theme-text uppercase tracking-wide">Cryptographic Verification</p>
+                                <p class="text-xs text-theme-muted mt-1">End-to-end encryption for all inference pathways.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="mt-1 w-8 h-8 flex items-center justify-center bg-theme-accent/10 border border-theme-accent/20 rounded-lg text-theme-accent">
+                                <span class="material-symbols-outlined text-lg">monitoring</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-theme-text uppercase tracking-wide">Continuous Monitoring</p>
+                                <p class="text-xs text-theme-muted mt-1">Real-time threat detection and anomaly alerting.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="lg:col-span-7 bg-theme-panel/50 border border-theme-border p-4 rounded-2xl shadow-2xl">
+                    <!-- Dashboard Mockup -->
+                    <div class="bg-theme-bg border border-theme-border rounded-xl overflow-hidden shadow-inner">
+                        <div class="flex items-center justify-between px-4 py-3 border-b border-theme-border bg-theme-panel">
+                            <div class="flex items-center gap-2">
+                                <div class="flex gap-1.5">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-red-500/40"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/40"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-green-500/40"></div>
+                                </div>
+                                <span class="text-[9px] font-mono text-theme-muted ml-4 uppercase tracking-widest">governance_monitor_v2.log</span>
+                            </div>
+                            <span class="text-[9px] font-mono text-green-500 uppercase font-bold">Status: Protected</span>
+                        </div>
+                        <div class="p-8 space-y-8">
+                            <div class="grid grid-cols-3 gap-6">
+                                <div class="p-4 border border-theme-border bg-theme-panel/30 rounded-lg">
+                                    <p class="text-[8px] uppercase tracking-widest text-theme-muted mb-1">Anomalies</p>
+                                    <p class="text-xl font-bold text-theme-text leading-none">00</p>
+                                </div>
+                                <div class="p-4 border border-theme-border bg-theme-panel/30 rounded-lg">
+                                    <p class="text-[8px] uppercase tracking-widest text-theme-muted mb-1">Nodes</p>
+                                    <p class="text-xl font-bold text-green-500 leading-none">142</p>
+                                </div>
+                                <div class="p-4 border border-theme-border bg-theme-panel/30 rounded-lg">
+                                    <p class="text-[8px] uppercase tracking-widest text-theme-muted mb-1">Compliance</p>
+                                    <p class="text-xl font-bold text-theme-accent leading-none">100%</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="h-1.5 bg-theme-border rounded-full overflow-hidden">
+                                    <div class="h-full bg-theme-accent w-3/4 animate-pulse"></div>
+                                </div>
+                                <div class="flex justify-between text-[9px] font-mono text-theme-muted">
+                                    <span>SYSTEM_INTEGRITY_SCAN</span>
+                                    <span>75% COMPLETE</span>
+                                </div>
+                            </div>
+                            <div class="bg-black/20 p-5 rounded-lg border border-theme-border font-mono text-[10px] leading-relaxed text-theme-accent/80 shadow-inner">
+                                [14:22:01] SECURE_HANDSHAKE_INITIATED <br/>
+                                [14:22:01] CREDENTIAL_VERIFICATION: SUCCESS <br/>
+                                [14:22:02] KERNEL_ATTESATION: OK <br/>
+                                [14:22:03] NETWORK_ENCRYPTION: AES-256 ACTIVE <br/>
+                                [14:22:05] ACCESS_GRANTED: ADMIN_PORTAL
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="max-w-7xl mx-auto px-6 py-32 border-t border-theme-border text-center">
+            <h2 class="text-4xl md:text-6xl font-bold text-theme-text tracking-tighter mb-8 uppercase">
+                Stop experimenting. <br/>Start deploying.
+            </h2>
+            <p class="text-lg text-theme-muted mb-12 max-w-2xl mx-auto leading-relaxed font-light">
+                Don't let your proprietary intelligence become part of the <span class="font-bold italic">68%</span> that never sees production. Secure your architecture today.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <button class="bg-green-500 text-white font-bold uppercase tracking-widest text-xs px-12 py-5 rounded-lg shadow-lg shadow-green-500/20 hover:scale-[1.02] transition-all">
+                    Commission Architecture Diagnostic
+                </button>
+                <button class="bg-theme-panel border border-theme-border text-theme-text font-bold uppercase tracking-widest text-xs px-12 py-5 rounded-lg hover:border-theme-accent transition-all">
+                    Request Whitepaper
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="max-w-7xl mx-auto px-6 py-12 border-t border-theme-border">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-bold uppercase tracking-widest text-theme-muted">
+                <div class="flex flex-col items-center md:items-start gap-2">
+                    <img src="images/logo.webp" alt="Jungroo" class="h-3 opacity-40 logo-adaptive">
+                    <p>© 2024 Sovereign Infrastructure Group.</p>
+                </div>
+                <div class="flex gap-8">
+                    <a href="#" class="hover:text-theme-accent transition-colors">Privacy Protocol</a>
+                    <a href="#" class="hover:text-theme-accent transition-colors">Security Audit</a>
+                    <a href="#" class="hover:text-theme-accent transition-colors">Legal Terms</a>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <script>
+        document.getElementById('theme-toggle').onclick = () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        };
+
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>
