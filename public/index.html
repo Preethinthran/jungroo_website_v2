@@ -23,7 +23,7 @@
                             border: 'var(--border)',
                             text: 'var(--text)',
                             muted: 'var(--muted)',
-                            accent: '#5e6ad2',
+                            accent: 'var(--accent)',
                             accentGlow: 'var(--accent-glow)',
                             altBg: 'var(--alt-bg)'
                         }
@@ -47,11 +47,13 @@
             --border: rgba(0, 0, 0, 0.08);
             --text: #0f172a;
             --muted: #64748b;
+            --accent: #5e6ad2;
+            --accent-rgb: 94, 106, 210;
             --alt-bg: #f8fafc;
             --grid-color: rgba(0, 0, 0, 0.04);
-            --hero-glow: radial-gradient(circle at 50% -20%, rgba(94, 106, 210, 0.15), transparent 80%);
+            --hero-glow: radial-gradient(circle at 50% -20%, rgba(var(--accent-rgb), 0.15), transparent 80%);
             --nav-bg: #f0f2f5;
-            --accent-glow: rgba(94, 106, 210, 0.15);
+            --accent-glow: rgba(var(--accent-rgb), 0.15);
             --layer-bg: #ffffff;
             --layer-active-bg: #ffffff;
             --layer-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
@@ -67,12 +69,13 @@
             --border: rgba(255, 255, 255, 0.08);
             --text: #f4f4f5;
             --muted: #a1a1aa;
-            --accent: #5e6ad2;
+            --accent: #818cf8;
+            --accent-rgb: 129, 140, 248;
             --alt-bg: #0c0c0c;
             --grid-color: rgba(255, 255, 255, 0.03);
-            --hero-glow: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(94, 106, 210, 0.2), transparent);
+            --hero-glow: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(var(--accent-rgb), 0.2), transparent);
             --nav-bg: #080808;
-            --accent-glow: rgba(94, 106, 210, 0.3);
+            --accent-glow: rgba(var(--accent-rgb), 0.3);
             --layer-bg: rgba(20, 20, 20, 0.8);
             --layer-active-bg: rgba(25, 25, 30, 0.9);
             --layer-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
@@ -143,9 +146,9 @@
         }
 
         .stack-layer.active {
-            border-color: rgba(94, 106, 210, 0.8);
+            border-color: rgba(var(--accent-rgb), 0.8);
             background: var(--layer-active-bg);
-            box-shadow: 12px 12px 30px rgba(94, 106, 210, 0.15), inset 0 0 10px rgba(94, 106, 210, 0.05);
+            box-shadow: 12px 12px 30px rgba(var(--accent-rgb), 0.15), inset 0 0 10px rgba(var(--accent-rgb), 0.05);
             transform: translateX(12px) scale(1.02);
             z-index: 10;
         }
@@ -186,11 +189,11 @@
         }
 
         .governance-pillar.active { 
-            border-color: rgba(94, 106, 210, 0.8); 
-            color: #5e6ad2; 
+            border-color: rgba(var(--accent-rgb), 0.8); 
+            color: var(--accent); 
             background: var(--layer-active-bg);
-            box-shadow: 4px 4px 20px rgba(94, 106, 210, 0.2);
-            text-shadow: 0 0 10px rgba(94, 106, 210, 0.3);
+            box-shadow: 4px 4px 20px rgba(var(--accent-rgb), 0.2);
+            text-shadow: 0 0 10px rgba(var(--accent-rgb), 0.3);
         }
 
         /* Data Flow Lines */
@@ -208,10 +211,10 @@
             position: absolute;
             width: 8px;
             height: 8px;
-            background: #5e6ad2;
+            background: var(--accent);
             border-radius: 50%;
             left: -3px;
-            box-shadow: 0 0 10px #5e6ad2, 0 0 20px #5e6ad2;
+            box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
             opacity: 0;
             top: 0;
         }
@@ -249,9 +252,9 @@
         }
 
         .active .status-led-container {
-            border-color: rgba(94, 106, 210, 0.4);
-            color: #5e6ad2;
-            background: rgba(94, 106, 210, 0.05);
+            border-color: rgba(var(--accent-rgb), 0.4);
+            color: var(--accent);
+            background: rgba(var(--accent-rgb), 0.05);
         }
 
         .led-dot {
@@ -284,24 +287,24 @@
             opacity: 0.15;
             transform: translateY(10px);
         }
-        .hud-mini-blade.active { opacity: 1; border-color: #5e6ad2; transform: translateY(0); box-shadow: 0 0 25px rgba(94, 106, 210, 0.15); }
+        .hud-mini-blade.active { opacity: 1; border-color: var(--accent); transform: translateY(0); box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.15); }
         .led-array { display: flex; gap: 4px; }
         .led-node { width: 4px; height: 4px; border-radius: 50%; background: var(--muted); opacity: 0.3; }
-        .active .led-node { background: #5e6ad2; opacity: 1; box-shadow: 0 0 8px #5e6ad2; animation: led-blink 1.5s infinite; }
+        .active .led-node { background: var(--accent); opacity: 1; box-shadow: 0 0 8px var(--accent); animation: led-blink 1.5s infinite; }
         @keyframes led-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
         .ledger-sidebar-item { transition: all 0.2s ease; border-left: 2px solid transparent; cursor: pointer; padding: 8px 14px; border-radius: 6px; }
-        .ledger-sidebar-item:hover:not(.active) { background: rgba(94, 106, 210, 0.03); color: var(--text); border-left-color: rgba(94, 106, 210, 0.4); }
-        .ledger-sidebar-item.active { border-left-width: 4px; border-left-color: #5e6ad2; background: rgba(94, 106, 210, 0.08); color: var(--text); box-shadow: 0 4px 12px rgba(94, 106, 210, 0.05); }
+        .ledger-sidebar-item:hover:not(.active) { background: rgba(var(--accent-rgb), 0.03); color: var(--text); border-left-color: rgba(var(--accent-rgb), 0.4); }
+        .ledger-sidebar-item.active { border-left-width: 4px; border-left-color: var(--accent); background: rgba(var(--accent-rgb), 0.08); color: var(--text); box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.05); }
 
         .case-card { transition: all 0.2s ease; cursor: pointer; border-left: 3px solid transparent !important; }
-        .case-card:hover:not(.active) { border-left-color: rgba(94, 106, 210, 0.5) !important; transform: translateX(3px); }
-        .case-card.active { border-left-width: 4px; border-left-color: #5e6ad2 !important; background: var(--layer-active-bg); border-color: var(--border); transform: translateX(5px); box-shadow: 0 4px 20px rgba(94, 106, 210, 0.1); }
+        .case-card:hover:not(.active) { border-left-color: rgba(var(--accent-rgb), 0.5) !important; transform: translateX(3px); }
+        .case-card.active { border-left-width: 4px; border-left-color: var(--accent) !important; background: var(--layer-active-bg); border-color: var(--border); transform: translateX(5px); box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.1); }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(94, 106, 210, 0.2); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(var(--accent-rgb), 0.2); border-radius: 4px; }
         .glass-nav { background: var(--nav-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); transition: background-color 0.5s ease; }
         .text-gradient { background: linear-gradient(to right, var(--text), var(--muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .pillar-satellite:hover { transform: translateY(-8px); border-color: #5e6ad2; box-shadow: 0 20px 40px -15px rgba(94, 106, 210, 0.2); }
+        .pillar-satellite:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 20px 40px -15px rgba(var(--accent-rgb), 0.2); }
         
         @media (max-width: 1023px) {
             #case-studies-container-home {
@@ -455,11 +458,11 @@
             </div>
             
             <div class="flex items-center gap-5">
-                <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full border border-theme-border bg-theme-panel hover:border-theme-accent transition-all">
+                <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full border border-theme-border bg-theme-panel hover:border-theme-accent transition-all" aria-label="Toggle dark mode">
                     <span class="text-lg">💡</span>
                 </button>
                 <a href="/contact" onclick="event.preventDefault(); navTo('contact')" class="hidden md:inline-block bg-theme-text text-theme-bg px-5 py-2 text-[13px] font-semibold rounded-lg hover:opacity-90 transition-opacity">Brief Us</a>
-                <button id="mobile-menu-toggle" class="md:hidden w-9 h-9 flex flex-col justify-center items-center gap-1.5 focus:outline-none ml-2" onclick="toggleMobileMenu()">
+                <button id="mobile-menu-toggle" class="md:hidden w-9 h-9 flex flex-col justify-center items-center gap-1.5 focus:outline-none ml-2" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu">
                     <span class="w-5 h-0.5 bg-theme-text transition-all duration-300"></span>
                     <span class="w-5 h-0.5 bg-theme-text transition-all duration-300"></span>
                 </button>
@@ -484,7 +487,7 @@
             <div class="absolute top-0 left-0 w-full h-[600px] bg-grid-pattern opacity-[0.4] dark:opacity-[0.1] pointer-events-none z-[-2]" style="background-size: 60px 60px;"></div>
             
             <div class="pill-badge mb-8 inline-flex items-center gap-2 border border-theme-border rounded-full px-4 py-1.5 text-[12px] font-semibold bg-theme-panel shadow-sm">
-                <span class="w-2 h-2 rounded-full bg-theme-accent animate-pulse shadow-[0_0_8px_#5e6ad2]"></span>
+                <span class="w-2 h-2 rounded-full bg-theme-accent animate-pulse shadow-[0_0_8px_var(--accent)]"></span>
                 Sovereign Intelligence Partner
             </div>
             
@@ -505,20 +508,17 @@
         <!-- STACK SECTION -->
         <section id="capabilities" class="py-16 md:py-32 border-t border-theme-border bg-theme-bg">
             <div class="max-w-7xl mx-auto px-6 relative z-10">
-                <div class="mb-16 md:flex justify-between items-end border-b border-theme-border pb-8 text-left">
-                    <div class="max-w-2xl">
-                        <div class="text-[10px] font-bold uppercase tracking-widest text-theme-accent mb-3">Architecture Diagnostic</div>
-                        <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-theme-text mb-4">The Sovereign AI Stack</h2>
-                        <p class="text-lg md:text-xl font-light leading-relaxed text-theme-muted">The foundational blueprint for localized intelligence. Select a system from the feed to visualize its lineage from core to interface.</p>
-                    </div>
+                <div class="max-w-3xl mx-auto text-center mb-16">
+                    <div class="text-[10px] font-bold uppercase tracking-widest text-theme-accent mb-3">Architecture Diagnostic</div>
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-theme-text mb-4">The Sovereign AI Stack</h2>
+                    <p class="text-lg md:text-xl font-light leading-relaxed text-theme-muted">The foundational blueprint for localized intelligence. A sovereign ecosystem from core to interface.</p>
                 </div>
-                <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-                    <div class="lg:col-span-4 relative">
-                        <div id="stack-visual-home" class="lg:sticky lg:top-32 flex flex-col relative w-full md:pl-0 lg:pl-4">
+                <div class="flex justify-center items-center w-full">
+                    <div class="relative w-full max-w-lg">
+                        <div id="stack-visual-home" class="flex flex-col relative w-full">
                             <!-- JS Injected Stack -->
                         </div>
                     </div>
-                    <div class="lg:col-span-8 max-h-[65vh] overflow-y-auto md:max-h-[60vh] md:h-[650px] md:overflow-y-auto pr-0 md:pr-3 custom-scrollbar" id="case-studies-container-home"></div>
                 </div>
             </div>
         </section>
@@ -746,33 +746,33 @@
                             <!-- Testimonials -->
                             <div class="testimonial-card testimonial-unique text-center" style="--pulse-delay: 0s;">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"It was a pleasure working with the team - their dedication and transparency is rare."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Baz Khuti</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Baz Khuti</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Founder, Sustain 360 Inc, USA</p>
                             </div>
                             <div class="testimonial-card testimonial-unique text-center">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Jungroo built a multi-tenant system that allows us to manage content delivery across various platforms and tenants from a single system."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Siva Vaddi</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Siva Vaddi</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Vice President, Infinity Learn, India</p>
                             </div>
                             <div class="testimonial-card testimonial-unique text-center" style="--pulse-delay: 1s;">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Our main challenge was identifying students' levels without bombarding them with multiple assessments. Here Jungroo’s AI assessment helped us reduce the assessment time and the iterations."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Murali Mallikarjunan</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Murali Mallikarjunan</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Content Manager, Bhumi, India</p>
                             </div>
                             <!-- Duplicates -->
                             <div class="testimonial-card testimonial-dup text-center" style="--pulse-delay: 0s;">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"It was a pleasure working with the team - their dedication and transparency is rare."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Baz Khuti</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Baz Khuti</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Founder, Sustain 360 Inc, USA</p>
                             </div>
                             <div class="testimonial-card testimonial-dup text-center">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Jungroo built a multi-tenant system that allows us to manage content delivery across various platforms and tenants from a single system."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Siva Vaddi</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Siva Vaddi</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Vice President, Infinity Learn, India</p>
                             </div>
                             <div class="testimonial-card testimonial-dup text-center">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Our main challenge was identifying students' levels without bombarding them with multiple assessments. Here Jungroo’s AI assessment helped us reduce the assessment time and the iterations."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Murali Mallikarjunan</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Murali Mallikarjunan</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Content Manager, Bhumi, India</p>
                             </div>
                         </div>
@@ -783,33 +783,33 @@
                         <div class="animate-scroll-vertical" style="--scroll-duration: 40s;">
                             <div class="testimonial-card testimonial-unique text-center" style="--pulse-delay: 0.5s;">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Jungroo’s expertise in AI and full-stack development bridged the gap between innovation and integration for us."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Surendra Ganne</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Surendra Ganne</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Founder, Incepta.ai, UAE</p>
                             </div>
                             <div class="testimonial-card testimonial-unique text-center">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"What surprised me most wasn’t their tech skills—it was how they listened. Jungroo’s team spent considerable time to understand the actual pain points."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Rama Vaddi</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Rama Vaddi</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Vice President, SmartGig Technologies, India</p>
                             </div>
                             <div class="testimonial-card testimonial-unique text-center">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Their work gave me insights into the classroom that I wouldn't have gotten otherwise. Really innovative."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Balaji Alwar</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Balaji Alwar</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Program Manager, Central Square Foundation, India</p>
                             </div>
                             <!-- Duplicates -->
                             <div class="testimonial-card testimonial-dup text-center">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Jungroo’s expertise in AI and full-stack development bridged the gap between innovation and integration for us."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Surendra Ganne</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Surendra Ganne</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Founder, Incepta.ai, UAE</p>
                             </div>
                             <div class="testimonial-card testimonial-dup text-center">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"What surprised me most wasn’t their tech skills—it was how they listened. Jungroo’s team spent considerable time to understand the actual pain points."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Rama Vaddi</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Rama Vaddi</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Vice President, SmartGig Technologies, India</p>
                             </div>
                             <div class="testimonial-card testimonial-dup text-center">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Their work gave me insights into the classroom that I wouldn't have gotten otherwise. Really innovative."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Balaji Alwar</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Balaji Alwar</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Program Manager, Central Square Foundation, India</p>
                             </div>
                         </div>
@@ -820,33 +820,33 @@
                         <div class="animate-scroll-vertical" style="--scroll-duration: 40s;">
                             <div class="testimonial-card testimonial-unique text-center" style="--pulse-delay: 1.5s;">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"I’ve worked with ‘agile’ teams before, but Jungroo’s updates were genuinely transparent. No fluff, no blame—just honesty."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Founder</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Founder</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Mergable Technologies, UAE</p>
                             </div>
                             <div class="testimonial-card testimonial-unique text-center">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"No one could have understood us better than Jungroo. Kudos to Cibe and his team for being this quick and supportive throughout."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Manasi Kashikar</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Manasi Kashikar</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Co-founder, Mindchamp, India</p>
                             </div>
                             <div class="testimonial-card testimonial-unique text-center">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"They’re not just vendors; they’re partners who truly care about the end result."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Aravind Thangam P</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Aravind Thangam P</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">CEO, Zen Tax Clinic, India</p>
                             </div>
                             <!-- Duplicates -->
                             <div class="testimonial-card testimonial-dup text-center">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"I’ve worked with ‘agile’ teams before, but Jungroo’s updates were genuinely transparent. No fluff, no blame—just honesty."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Founder</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Founder</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Mergable Technologies, UAE</p>
                             </div>
                             <div class="testimonial-card testimonial-dup text-center">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"No one could have understood us better than Jungroo. Kudos to Cibe and his team for being this quick and supportive throughout."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Manasi Kashikar</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Manasi Kashikar</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Co-founder, Mindchamp, India</p>
                             </div>
                             <div class="testimonial-card testimonial-dup text-center">
                                 <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"They’re not just vendors; they’re partners who truly care about the end result."</p>
-                                <h4 class="text-theme-accent font-bold text-base">Aravind Thangam P</h4>
+                                <h3 class="text-theme-accent font-bold text-base">Aravind Thangam P</h3>
                                 <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">CEO, Zen Tax Clinic, India</p>
                             </div>
                         </div>
@@ -964,7 +964,7 @@
                     <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-theme-text mb-2 md:mb-3 text-left">Case Studies</h1>
                     <p class="text-[10px] font-bold uppercase tracking-widest text-theme-muted text-left">Comprehensive Technical Archive</p>
                 </div>
-                <button id="case-studies-menu-btn" onclick="toggleCaseStudiesMenu()" class="lg:hidden flex items-center justify-center gap-2 bg-theme-panel border border-theme-border w-10 h-10 md:w-auto md:px-4 md:py-2 rounded-lg text-theme-text text-sm font-bold shadow-sm hover:border-theme-accent transition-colors shrink-0">
+                <button id="case-studies-menu-btn" onclick="toggleCaseStudiesMenu()" class="lg:hidden flex items-center justify-center gap-2 bg-theme-panel border border-theme-border w-10 h-10 md:w-auto md:px-4 md:py-2 rounded-lg text-theme-text text-sm font-bold shadow-sm hover:border-theme-accent transition-colors shrink-0" aria-label="Open case studies menu">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-5 md:w-5 relative right-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
                     <span class="hidden md:inline">Menu</span>
                 </button>
@@ -977,7 +977,7 @@
                     
                     <div class="sticky top-0 z-10 flex justify-between items-center p-6 border-b border-theme-border lg:hidden bg-theme-panel backdrop-blur-md shrink-0">
                         <h2 class="text-base font-bold text-theme-text uppercase tracking-widest">Select Case Study</h2>
-                        <button onclick="toggleCaseStudiesMenu()" class="text-theme-muted hover:text-theme-text transition-colors w-8 h-8 flex items-center justify-center border border-theme-border rounded-md">
+                        <button onclick="toggleCaseStudiesMenu()" class="text-theme-muted hover:text-theme-text transition-colors w-8 h-8 flex items-center justify-center border border-theme-border rounded-md" aria-label="Close menu">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                         </button>
                     </div>
@@ -1477,40 +1477,10 @@
         };
 
         function renderHome() {
-            const feed = document.getElementById('case-studies-container-home');
             const stackVisual = document.getElementById('stack-visual-home');
-            if (!feed || !stackVisual) return;
+            if (!stackVisual) return;
             
             stackVisual.innerHTML = generateStackHTML('home');
-            feed.innerHTML = '';
-            caseStudiesData.slice(0, 5).forEach(cs => {
-                const card = document.createElement('div');
-                card.className = 'case-card bg-theme-panel border border-theme-border p-8 mb-6 rounded-2xl shadow-sm text-left';
-                card.id = `card-home-${cs.id}`;
-                
-                let displayDesc = cs.desc;
-                if(cs.id === 'cs-voice-agent') {
-                   displayDesc = "Deployment of a vertically integrated <b>AI Agent Builder</b> for configuring end-to-end voice and text intelligence across telephony, WhatsApp, and Telegram. Utilizing private <b>STT</b>, <b>LLM</b>, and <b>TTS</b> configurations with high-fidelity knowledgebase grounding, the platform delivers low-latency, human-parity orchestration within a zero-egress environment.";
-                } else if(cs.id === 'cs-cleantech-fabric') {
-                    displayDesc = "Deployment of private analysis agents for autonomous data ingestion and cross-schema reasoning across SQL, Cypher, and JSON API streams. Grounded via domain-specific pre-training (CPT) on proprietary technical ontologies, the agents deliver high-fidelity, on-the-fly visualizations for mission-critical clean tech IP within a zero-egress environment.";
-                } else if(cs.id === 'cs-probabilistic-reasoning') {
-                    displayDesc = "Engineering adaptive learning systems utilizing Knowledge Maps and Bayesian inference to estimate latent proficiency states. Powered by Markov Decision Processes (MDP) to optimize the path to mastery, the engine performs real-time conceptual gap analysis and deterministic remediation.";
-                }
-
-                card.innerHTML = `
-                    <div class="mb-3">${cs.tags.map(t => `<span class="text-[10px] font-semibold text-theme-muted border border-theme-border px-2 py-0.5 mr-2 rounded-full bg-theme-bg">${t}</span>`).join('')}</div>
-                    <h3 class="font-bold text-xl mb-2 text-theme-text tracking-tight">${cs.title}</h3>
-                    <p class="text-[13px] text-theme-muted mb-5 leading-relaxed font-light">${displayDesc.split(/[.;]/)[0]}.</p>
-                `;
-                card.onclick = () => {
-                    if (card.classList.contains('active')) {
-                        highlightLayers([], 'home', null);
-                    } else {
-                        highlightLayers(cs.layers, 'home', `card-home-${cs.id}`);
-                    }
-                };
-                feed.appendChild(card);
-            });
         }
 
         function renderCaseStudies() {
@@ -1521,7 +1491,7 @@
             sidebar.innerHTML = '';
             Object.keys(domains).forEach(domain => {
                 const group = document.createElement('div'); group.className = 'mb-4';
-                group.innerHTML = `<h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-theme-accent mb-2 border-b border-theme-border pb-2 text-left">${domain}</h4>
+                group.innerHTML = `<h3 class="text-[10px] font-black uppercase tracking-[0.3em] text-theme-accent mb-2 border-b border-theme-border pb-2 text-left">${domain}</h3>
                     <div class="flex flex-col gap-1.5 text-left">${domains[domain].map(cs => `<div class="ledger-sidebar-item text-[13px] text-theme-muted hover:text-theme-text" id="item-${cs.id}" onclick="showDossier('${cs.id}')">${cs.title}</div>`).join('')}</div>`;
                 sidebar.appendChild(group);
             });
@@ -1547,7 +1517,7 @@
                     <h2 class="text-2xl md:text-4xl font-bold tracking-tighter text-theme-text mb-10">${cs.title}</h2>
                     <div class="bg-theme-altBg border border-theme-border rounded-[32px] p-10 mb-12 relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-1.5 h-full bg-theme-accent"></div>
-                        <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-theme-muted mb-10 text-left">Architecture Diagnostic HUD</h4>
+                        <h3 class="text-[10px] font-black uppercase tracking-[0.4em] text-theme-muted mb-10 text-left">Architecture Diagnostic HUD</h3>
                         <div class="grid grid-cols-1 sm:grid-cols-4 gap-4" id="hud-stack">
                             ${allLayers.slice().reverse().map((l, i) => `
                                 <div id="hud-l-${l}" class="hud-mini-blade p-6 flex flex-col justify-between h-32 text-left">
