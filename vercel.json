@@ -2,6 +2,7 @@
   "outputDirectory": "public",
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/((?!stack$).*)", "destination": "/index.html" }
+    { "source": "/stack", "destination": "/stack.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
