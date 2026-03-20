@@ -443,22 +443,22 @@
     <!-- GLOBAL NAV -->
     <nav class="fixed w-full z-50 glass-nav">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" onclick="switchView('home')" class="block flex items-center">
+            <a href="/" onclick="event.preventDefault(); switchView('home')" class="block flex items-center">
                 <img src="images/logo.webp" alt="Jungroo AI Labs" class="h-7 w-auto object-contain logo-adaptive">
             </a>
             
             <div class="hidden md:flex items-center space-x-10 text-[11px] font-bold text-theme-muted uppercase tracking-widest">
-                <a href="#capabilities" onclick="navTo('capabilities')" data-nav="capabilities" class="nav-item hover:text-theme-text transition-colors">Stack</a>
-                <a href="#case-studies" onclick="switchView('case-studies')" data-nav="case-studies" class="nav-item hover:text-theme-text transition-colors text-theme-text">Case Studies</a>
-                <a href="#pillars" onclick="navTo('pillars')" data-nav="pillars" class="nav-item hover:text-theme-text transition-colors">Pillars</a>
-                <a href="#media" onclick="navTo('media')" data-nav="media" class="nav-item hover:text-theme-text transition-colors">Media</a>
+                <a href="/capabilities" onclick="event.preventDefault(); navTo('capabilities')" data-nav="capabilities" class="nav-item hover:text-theme-text transition-colors">Stack</a>
+                <a href="/case-studies" onclick="event.preventDefault(); switchView('case-studies')" data-nav="case-studies" class="nav-item hover:text-theme-text transition-colors text-theme-text">Case Studies</a>
+                <a href="/pillars" onclick="event.preventDefault(); navTo('pillars')" data-nav="pillars" class="nav-item hover:text-theme-text transition-colors">Pillars</a>
+                <a href="/media" onclick="event.preventDefault(); navTo('media')" data-nav="media" class="nav-item hover:text-theme-text transition-colors">Media</a>
             </div>
             
             <div class="flex items-center gap-5">
                 <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full border border-theme-border bg-theme-panel hover:border-theme-accent transition-all">
                     <span class="text-lg">💡</span>
                 </button>
-                <a href="#contact" onclick="navTo('contact')" class="hidden md:inline-block bg-theme-text text-theme-bg px-5 py-2 text-[13px] font-semibold rounded-lg hover:opacity-90 transition-opacity">Brief Us</a>
+                <a href="/contact" onclick="event.preventDefault(); navTo('contact')" class="hidden md:inline-block bg-theme-text text-theme-bg px-5 py-2 text-[13px] font-semibold rounded-lg hover:opacity-90 transition-opacity">Brief Us</a>
                 <button id="mobile-menu-toggle" class="md:hidden w-9 h-9 flex flex-col justify-center items-center gap-1.5 focus:outline-none ml-2" onclick="toggleMobileMenu()">
                     <span class="w-5 h-0.5 bg-theme-text transition-all duration-300"></span>
                     <span class="w-5 h-0.5 bg-theme-text transition-all duration-300"></span>
@@ -469,11 +469,11 @@
 
     <!-- MOBILE NAV OVERLAY -->
     <div id="mobile-menu" class="fixed inset-0 z-40 bg-theme-bg/95 backdrop-blur-md transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 text-lg font-bold uppercase tracking-widest md:hidden">
-        <a href="#capabilities" onclick="navTo('capabilities')" data-nav="capabilities" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Stack</a>
-        <a href="#" onclick="switchView('case-studies')" data-nav="case-studies" class="mobile-nav-item text-theme-text transition-colors">Case Studies</a>
-        <a href="#pillars" onclick="navTo('pillars')" data-nav="pillars" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Pillars</a>
-        <a href="#media" onclick="navTo('media')" data-nav="media" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Media</a>
-        <a href="#contact" onclick="navTo('contact')" class="text-theme-accent mt-4 hover:opacity-80 transition-opacity">Brief Us</a>
+        <a href="/capabilities" onclick="event.preventDefault(); navTo('capabilities')" data-nav="capabilities" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Stack</a>
+        <a href="/case-studies" onclick="event.preventDefault(); switchView('case-studies')" data-nav="case-studies" class="mobile-nav-item text-theme-text transition-colors">Case Studies</a>
+        <a href="/pillars" onclick="event.preventDefault(); navTo('pillars')" data-nav="pillars" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Pillars</a>
+        <a href="/media" onclick="event.preventDefault(); navTo('media')" data-nav="media" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Media</a>
+        <a href="/contact" onclick="event.preventDefault(); navTo('contact')" class="text-theme-accent mt-4 hover:opacity-80 transition-opacity">Brief Us</a>
     </div>
 
     <!-- HOME VIEW -->
@@ -497,8 +497,8 @@
             </p>
             
             <div class="flex flex-col sm:flex-row gap-4">
-                <a href="#" onclick="switchView('case-studies')" class="bg-theme-text text-theme-bg px-10 py-4 text-center text-[15px] font-bold rounded-xl shadow-lg hover:opacity-90 transition-all">Case Studies</a>
-                <a href="#capabilities" onclick="navTo('capabilities')" class="bg-theme-panel border border-theme-border text-theme-text px-10 py-4 text-center text-[15px] font-bold rounded-xl hover:border-theme-accent transition-all">Explore Stack</a>
+                <a href="/case-studies" onclick="event.preventDefault(); switchView('case-studies')" class="bg-theme-text text-theme-bg px-10 py-4 text-center text-[15px] font-bold rounded-xl shadow-lg hover:opacity-90 transition-all">Case Studies</a>
+                <a href="/capabilities" onclick="event.preventDefault(); navTo('capabilities')" class="bg-theme-panel border border-theme-border text-theme-text px-10 py-4 text-center text-[15px] font-bold rounded-xl hover:border-theme-accent transition-all">Explore Stack</a>
             </div>
         </header>
 
@@ -1425,7 +1425,7 @@
             });
         }
 
-        function switchView(view) {
+        function switchView(view, push = true) {
             if (mobileMenuOpen) toggleMobileMenu();
             document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
             const target = document.getElementById(`view-${view}`);
@@ -1434,20 +1434,47 @@
             if(view === 'case-studies') {
                 renderCaseStudies();
                 updateActiveNav('case-studies');
+                if (push) history.pushState({ view: 'case-studies' }, '', '/case-studies');
             }
             if(view === 'home') {
                 renderHome();
                 updateActiveNav('');
+                if (push) history.pushState({ view: 'home' }, '', '/');
             }
         }
 
-        function navTo(sectionId) {
-            switchView('home');
+        function navTo(sectionId, push = true) {
+            switchView('home', false);
+            if (push) history.pushState({ view: 'home', section: sectionId }, '', `/${sectionId}`);
             setTimeout(() => {
                 const el = document.getElementById(sectionId);
                 if(el) el.scrollIntoView({ behavior: 'smooth' });
             }, 100);
         }
+
+        window.onpopstate = (event) => {
+            const state = event.state;
+            if (state) {
+                if (state.view === 'case-studies') {
+                    switchView('case-studies', false);
+                } else if (state.view === 'home') {
+                    if (state.section) {
+                        navTo(state.section, false);
+                    } else {
+                        switchView('home', false);
+                    }
+                }
+            } else {
+                const path = window.location.pathname.replace('/', '');
+                if (path === 'case-studies') {
+                    switchView('case-studies', false);
+                } else if (path) {
+                    navTo(path, false);
+                } else {
+                    switchView('home', false);
+                }
+            }
+        };
 
         function renderHome() {
             const feed = document.getElementById('case-studies-container-home');
@@ -1656,7 +1683,15 @@
 
         if (localStorage.getItem('theme') === 'light') document.documentElement.classList.remove('dark');
         document.addEventListener('DOMContentLoaded', () => {
-            renderHome();
+            // Initial path handling
+            const path = window.location.pathname.replace('/', '');
+            if (path === 'case-studies') {
+                switchView('case-studies', false);
+            } else if (path) {
+                navTo(path, false);
+            } else {
+                renderHome();
+            }
             
             const observerOptions = {
                 root: null,
