@@ -250,13 +250,12 @@
             align-items: center;
             justify-content: center;
             color: var(--accent);
-            opacity: 0.3;
+            opacity: 1;
             transition: all 0.3s ease;
         }
 
         .schematic-layer:hover .schematic-icon-box,
         .active .schematic-icon-box {
-            opacity: 1;
             transform: scale(1.1);
         }
 
@@ -298,11 +297,11 @@
         }
 
         .cta-schematic-footer {
-            margin-top: 80px;
+            margin-top: 40px;
             background: var(--panel);
             border: 1px solid var(--border);
             border-radius: 24px;
-            padding: 2.5rem 2rem;
+            padding: 0.75rem 1.5rem;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -320,15 +319,16 @@
             0%, 100% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.1); opacity: 0.8; }
         }
-        .active .schematic-icon-box svg {
+        /* Animation removed to fulfill user request to remove pulse */
+        /*.active .schematic-icon-box svg {
             animation: schematic-pulse 2s infinite ease-in-out;
-        }
+        }*/
 
         .cta-schematic-title {
             font-size: 2.25rem;
             font-weight: 800;
             color: var(--text);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             letter-spacing: -0.02em;
         }
 
@@ -343,13 +343,11 @@
             align-items: center;
             gap: 12px;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 10px 20px -5px rgba(var(--accent-rgb), 0.4);
         }
 
         .cta-schematic-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 30px -5px rgba(var(--accent-rgb), 0.5);
-            filter: brightness(1.1);
+            transform: translateY(-2px);
+            opacity: 0.9;
         }
 
         .cta-schematic-meta {
@@ -646,7 +644,7 @@
     <!-- HOME VIEW -->
     <main id="view-home" class="view-section active">
         <!-- HERO SECTION -->
-        <header class="relative pt-32 pb-16 md:pt-56 md:pb-40 px-6 max-w-7xl mx-auto flex flex-col items-center text-center z-10">
+        <header class="relative pt-32 pb-12 md:pt-56 md:pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center text-center z-10">
             <div class="absolute top-0 left-0 w-full h-[600px] bg-hero-glow pointer-events-none z-[-1]"></div>
             <div class="absolute top-0 left-0 w-full h-[600px] bg-grid-pattern opacity-[0.4] dark:opacity-[0.1] pointer-events-none z-[-2]" style="background-size: 60px 60px;"></div>
             
@@ -658,73 +656,108 @@
             <h1 class="text-4xl md:text-6xl lg:text-[64px] font-bold tracking-tight leading-[1.1] mb-8 max-w-5xl text-gradient">
                 Full-Stack Sovereign AI Systems for Enterprises.
             </h1>
-            
             <p class="text-lg md:text-xl text-theme-muted font-normal max-w-4xl leading-relaxed mb-12">
                 We bring private intelligence systems to your infrastructure. Sovereign models, robust agentic workflows, and full-stack applications—built, deployed, and governed entirely within your boundaries to meet the rigorous standards of the <span class="text-theme-accent font-semibold">most regulated domains</span>.
             </p>
-            
-            <div class="flex flex-col sm:flex-row gap-4">
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-12">
                 <a href="/case-studies" onclick="event.preventDefault(); switchView('case-studies')" class="bg-theme-text text-theme-bg px-10 py-4 text-center text-[15px] font-bold rounded-xl shadow-lg hover:opacity-90 transition-all">Case Studies</a>
                 <a href="/stack" class="bg-theme-panel border border-theme-border text-theme-text px-10 py-4 text-center text-[15px] font-bold rounded-xl hover:border-theme-accent transition-all">Explore Stack</a>
             </div>
         </header>
 
         <!-- STACK SECTION (Sovereign Intelligence Architecture) -->
-        <section id="capabilities" class="py-16 md:py-32 border-t border-theme-border bg-theme-bg overflow-hidden">
+        <section id="capabilities" class="pt-8 pb-12 md:pt-12 md:pb-16 border-t border-theme-border bg-theme-bg overflow-hidden">
             <div class="max-w-7xl mx-auto px-6 relative z-10">
-                <!-- Unified Grid Layout -->
-                <div class="grid lg:grid-cols-2 gap-16 md:gap-24 items-stretch mb-32 relative">
-                    <!-- Left Column: Content Flow -->
-                    <div class="flex flex-col justify-between py-4 relative z-10">
-                        <div>
-                            <h2 class="text-4xl md:text-6xl font-bold tracking-tight text-theme-text mb-12 max-w-4xl">
-                                The Sovereign <br class="hidden md:block"> Intelligence Architecture
-                            </h2>
+                <!-- Section Intro: Research Quote -->
+                <div class="max-w-4xl mx-auto mb-16 pt-0 text-center">
+                    <p class="text-lg md:text-2xl text-theme-text font-light leading-relaxed italic">
+                        "Research indicates that an overwhelming <span class="text-theme-accent font-semibold">68% of organizations</span> struggle to move their AI projects beyond the pilot stage. Why? Because isolated algorithms cannot survive in complex, highly regulated enterprise environments without secure, full-stack integration."
+                    </p>
+                </div>
 
-                            <!-- Styled Callout Box -->
-                            <div class="max-w-2xl bg-theme-panel/40 border-l-2 border-theme-accent p-8 md:p-10 backdrop-blur-sm shadow-xl rounded-r-2xl mb-16">
-                                <p class="text-lg md:text-xl text-theme-text font-light leading-relaxed italic">
-                                    "Research indicates that an overwhelming <span class="text-theme-accent font-semibold">68% of organizations</span> struggle to move their AI projects beyond the pilot stage. Why? Because isolated algorithms cannot survive in complex, highly regulated enterprise environments without secure, full-stack integration."
-                                </p>
+                <!-- Strategic Summary: Sovereign AI Leadership -->
+                <div class="mb-16 text-center flex flex-col items-center">
+                    <div class="max-w-3xl mb-16 mx-auto text-center">
+                        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-theme-text mb-6">
+                            Your Path to <span class="text-theme-accent">Sovereign AI Leadership</span>
+                        </h2>
+                        <p class="text-lg text-theme-muted font-light leading-relaxed max-w-2xl mx-auto">
+                            Jungroo's 5-layer AI stack is more than technical infrastructure. We do not build fragile AI wrappers.We engineer an end-to-end, zero-trust architecture designed to turn fragmented data into a defensible operational asset. It's a strategic foundation for organizations that refuse to compromise on security and performance.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 w-full">
+                        <!-- Card 1: Complete Control -->
+                        <div class="group p-8 bg-theme-panel/40 border border-theme-border rounded-2xl hover:border-theme-accent/50 transition-all duration-300 flex flex-col items-center text-center">
+                            <div class="w-12 h-12 bg-theme-accent/10 border border-theme-accent/20 rounded-xl flex items-center justify-center text-theme-accent mb-6 group-hover:scale-110 transition-transform mx-auto">
+                                <span class="material-symbols-outlined">security</span>
                             </div>
+                            <h3 class="text-xl font-bold text-theme-text mb-3">Complete Control</h3>
+                            <p class="text-sm text-theme-muted font-light leading-relaxed">
+                                On-premise or VPC deployment ensures your data never leaves your environment, providing total sovereignty over your intelligence assets.
+                            </p>
                         </div>
 
-                        <div class="space-y-8">
-                            <!-- Solution Card -->
-                            <div class="max-w-2xl bg-theme-panel/40 border-l-2 border-theme-accent p-8 md:p-10 backdrop-blur-sm shadow-xl rounded-r-2xl">
-                                <h3 class="text-3xl md:text-4xl font-bold tracking-tight text-theme-text leading-tight mb-6">
-                                    Our Solution: We do not build <br class="hidden md:block"> fragile AI wrappers.
-                                </h3>
-                                <p class="text-lg text-theme-muted font-light leading-relaxed max-w-xl">
-                                    We engineer an end-to-end, zero-trust architecture designed to turn fragmented data into a defensible operational asset.
-                                </p>
+                        <!-- Card 2: Domain Expertise -->
+                        <div class="group p-8 bg-theme-panel/40 border border-theme-border rounded-2xl hover:border-theme-accent/50 transition-all duration-300 flex flex-col items-center text-center">
+                            <div class="w-12 h-12 bg-theme-accent/10 border border-theme-accent/20 rounded-xl flex items-center justify-center text-theme-accent mb-6 group-hover:scale-110 transition-transform mx-auto">
+                                <span class="material-symbols-outlined">psychology</span>
                             </div>
+                            <h3 class="text-xl font-bold text-theme-text mb-3">Domain Expertise</h3>
+                            <p class="text-sm text-theme-muted font-light leading-relaxed">
+                                Models trained specifically on your industry data for unmatched accuracy, moving beyond generic outputs to specialized enterprise value.
+                            </p>
+                        </div>
+
+                        <!-- Card 3: Strategic Value -->
+                        <div class="group p-8 bg-theme-panel/40 border border-theme-border rounded-2xl hover:border-theme-accent/50 transition-all duration-300 flex flex-col items-center text-center">
+                            <div class="w-12 h-12 bg-theme-accent/10 border border-theme-accent/20 rounded-xl flex items-center justify-center text-theme-accent mb-6 group-hover:scale-110 transition-transform mx-auto">
+                                <span class="material-symbols-outlined">trending_up</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-theme-text mb-3">Strategic Value</h3>
+                            <p class="text-sm text-theme-muted font-light leading-relaxed">
+                                Move beyond pilots to a production-ready intelligence engine that scales with your business objectives and regulatory requirements.
+                            </p>
                         </div>
                     </div>
 
-                    <!-- Right Column: Blended Image -->
-                    <div class="absolute inset-0 lg:relative lg:inset-auto group h-full z-0 lg:z-10 pointer-events-none lg:pointer-events-auto opacity-30 lg:opacity-100">
-                        <div class="absolute -inset-4 bg-theme-accent/5 rounded-[40px] blur-2xl group-hover:bg-theme-accent/10 transition-all"></div>
-                        <div class="relative h-full min-h-[500px] rounded-3xl overflow-hidden">
-                            <img src="images/DataBaseImage.png" alt="Sovereign Intelligence Architecture" class="w-full h-full object-cover">
-                            <!-- Blending Overlays -->
-                            <div class="absolute inset-0 bg-gradient-to-r from-theme-bg via-theme-bg/40 via-theme-bg/10 to-transparent"></div>
-                            <div class="absolute inset-0 bg-gradient-to-t from-theme-bg via-theme-bg/20 to-transparent"></div>
-                            <div class="absolute inset-0 bg-gradient-to-b from-theme-bg/50 via-transparent to-transparent"></div>
-                        </div>
+                    <!-- Strategic Quote -->
+                    <div class="max-w-4xl mx-auto text-center border-t border-b border-theme-border/30 py-12 px-6">
+                        <p class="text-xl md:text-3xl text-theme-text font-light italic leading-relaxed">
+                            "Domain-Specific Language Models are rapidly becoming the gold standard for enterprise intelligence as we move through 2026, making early adoption a strategic imperative."
+                        </p>
                     </div>
                 </div>
 
+
+
                 <!-- Architecture Schematic View -->
-                <div class="pt-16 border-t border-theme-border/50">
-                    <div class="max-w-3xl mx-auto text-center mb-20">
-                        <div class="text-[10px] font-black uppercase tracking-[0.4em] text-theme-muted mb-4 opacity-70">Architecture Diagnostic</div>
+                <div class="pt-8">
+                    <div class="max-w-3xl mx-auto text-center mb-12">
+                        <div class="inline-flex items-center gap-2 border border-theme-border rounded-full px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] bg-theme-panel shadow-sm mb-4">
+                            <span class="w-2 h-2 rounded-full bg-theme-accent animate-pulse shadow-[0_0_8px_var(--accent)]"></span>
+                            The Sovereign Intelligence Architecture
+                        </div>
                         <h2 class="text-3xl md:text-5xl font-black tracking-tight text-theme-text mb-2 uppercase">The 4-Layer Stack</h2>
                     </div>
                     
-                    <div class="flex justify-center items-center w-full">
-                        <div id="stack-visual-home" class="w-full">
+                    <div class="grid lg:grid-cols-2 gap-12 md:gap-20 items-center w-full">
+                        <div id="stack-visual-home" class="w-full lg:order-1">
                             <!-- JS Injected Schematic -->
+                        </div>
+
+                        <!-- Right Column: Blended Image -->
+                        <div class="relative group h-full max-w-2xl mx-auto lg:mx-0 lg:order-2">
+                            <div class="absolute -inset-4 bg-theme-accent/5 blur-3xl group-hover:bg-theme-accent/10 transition-all"></div>
+                            <div class="relative h-full min-h-[400px] md:min-h-[500px] overflow-hidden">
+                                <img src="images/DataBaseImage.png" alt="Sovereign Intelligence Architecture" class="w-full h-full object-cover opacity-80" style="filter: brightness(1) contrast(1.5);">
+                                <!-- Blending Overlays -->
+                                <div class="absolute inset-0 bg-gradient-to-r from-theme-bg via-theme-bg/30 via-theme-bg/5 to-transparent"></div>
+                                <div class="absolute inset-0 bg-gradient-to-l from-theme-bg via-theme-bg/30 via-theme-bg/5 to-transparent"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-theme-bg via-theme-bg/10 to-transparent"></div>
+                                <div class="absolute inset-0 bg-gradient-to-b from-theme-bg/40 via-transparent to-transparent"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -732,12 +765,12 @@
         </section>
 
         <!-- PILLARS SECTION -->
-        <section id="pillars" class="py-16 md:py-32 border-t border-theme-border bg-theme-altBg relative overflow-hidden">
-            <div class="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-zinc-500/10 rounded-full hidden lg:block"></div>
-            <div class="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-zinc-500/15 rounded-full hidden lg:block"></div>
+        <section id="pillars" class="pt-12 md:pt-16 pb-24 md:pb-32 border-t border-theme-border bg-theme-altBg relative overflow-hidden">
+            <div class="absolute top-[61%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-zinc-500/10 rounded-full hidden lg:block"></div>
+            <div class="absolute top-[61%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-zinc-500/15 rounded-full hidden lg:block"></div>
 
             <div class="max-w-7xl mx-auto px-6 relative z-10 text-left lg:text-center">
-                <div class="text-center mb-24 max-w-4xl mx-auto">
+                <div class="text-center mb-16 max-w-4xl mx-auto">
                     <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-theme-text mb-6">The 5 Pillars of Excellence</h2>
                     <p class="text-lg md:text-xl font-light leading-relaxed text-theme-muted max-w-2xl mx-auto">
                         High-stakes delivery for security-first organizations. Our architecture funnels complexity into measurable business value for regulated domains.
@@ -1786,7 +1819,7 @@
                             <p class="schematic-layer-desc">Full-stack dashboards and custom application interfaces for secure human-in-the-loop oversight.</p>
                         </div>
                         <div class="schematic-icon-box">
-                            <span class="material-symbols-outlined text-5xl opacity-30 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">dashboard_customize</span>
+                            <span class="material-symbols-outlined text-5xl group-hover:scale-110 transition-all duration-300">dashboard_customize</span>
                         </div>
                     </div>
 
@@ -1805,7 +1838,7 @@
                             <p class="schematic-layer-desc">A unified Knowledge Fabric weaving siloed enterprise records and live API streams into active memory.</p>
                         </div>
                         <div class="schematic-icon-box">
-                            <span class="material-symbols-outlined text-5xl opacity-30 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">hub</span>
+                            <span class="material-symbols-outlined text-5xl group-hover:scale-110 transition-all duration-300">hub</span>
                         </div>
                     </div>
 
@@ -1824,7 +1857,7 @@
                             <p class="schematic-layer-desc">Deterministic Agentic Intelligence orchestrating complex, multi-step workflows.</p>
                         </div>
                         <div class="schematic-icon-box">
-                            <span class="material-symbols-outlined text-5xl opacity-30 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">smart_toy</span>
+                            <span class="material-symbols-outlined text-5xl group-hover:scale-110 transition-all duration-300">smart_toy</span>
                         </div>
                     </div>
 
@@ -1842,7 +1875,7 @@
                             <p class="schematic-layer-desc">Sovereign AI Models featuring Domain Adaptive Intelligence, deployed strictly within your infrastructure.</p>
                         </div>
                         <div class="schematic-icon-box">
-                            <span class="material-symbols-outlined text-5xl opacity-30 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">memory</span>
+                            <span class="material-symbols-outlined text-5xl group-hover:scale-110 transition-all duration-300">memory</span>
                         </div>
                     </div>
 
@@ -1859,7 +1892,7 @@
 
                     <!-- CTA Section -->
                     <div class="cta-schematic-footer">
-                        <h3 class="cta-schematic-title">Ready to Secure Your Intelligence?</h3>
+                        <h1 class="cta-schematic-title">Ready to Secure Your Intelligence?</h1>
                         <a href="/stack" class="cta-schematic-button">
                             <span>Explore the Full Architecture Stack</span>
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
