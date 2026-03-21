@@ -48,8 +48,8 @@
             --border: rgba(0, 0, 0, 0.06);
             --text: #0f172a;
             --muted: #64748b;
-            --accent: #5e6ad2;
-            --accent-rgb: 94, 106, 210;
+            --accent: #364af6d7;
+            --accent-rgb: 10, 33, 243;
             --alt-bg: #f3f4f6;
             --grid-color: rgba(94, 106, 210, 0.05);
             --hero-glow: radial-gradient(circle at 50% -20%, rgba(var(--accent-rgb), 0.12), transparent 80%);
@@ -64,6 +64,12 @@
             --surface-container-high: #f1f5f9;
         }
 
+        html {
+            font-size: 14px;
+        }
+
+
+
         .dark {
             --bg: #080808;
             --panel: #111111;
@@ -71,8 +77,8 @@
             --border: rgba(255, 255, 255, 0.08);
             --text: #f4f4f5;
             --muted: #a1a1aa;
-            --accent: #818cf8;
-            --accent-rgb: 129, 140, 248;
+            --accent: #3b82f6;
+            --accent-rgb: 59, 130, 246;
             --alt-bg: #0c0c0c;
             --grid-color: rgba(255, 255, 255, 0.03);
             --hero-glow: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(var(--accent-rgb), 0.2), transparent);
@@ -83,7 +89,7 @@
             --layer-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             --layer-inactive-opacity: 0.2;
             --scroll-thumb: rgba(255,255,255,0.1);
-            --logo-filter: brightness(0) invert(1);
+            --logo-filter: none;
             --surface-container-high: #1e1e1e;
         }
 
@@ -166,11 +172,11 @@
         
         .schematic-number {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--accent);
-            width: 64px;
-            height: 64px;
+            width: 72px;
+            height: 72px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -207,11 +213,9 @@
             transition: all 0.3s ease;
         }
 
-        .schematic-layer:hover::before,
         .schematic-layer.active::before {
             opacity: 1;
         }
-
         .schematic-layer-info {
             flex: 1;
             text-align: left;
@@ -228,7 +232,7 @@
         }
 
         .schematic-layer-name {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--text);
             margin-bottom: 4px;
@@ -236,7 +240,7 @@
         }
 
         .schematic-layer-desc {
-            font-size: 0.875rem;
+            font-size: 1rem;
             color: var(--muted);
             font-weight: 300;
             line-height: 1.4;
@@ -254,8 +258,8 @@
             transition: all 0.3s ease;
         }
 
-        .schematic-layer:hover .schematic-icon-box,
-        .active .schematic-icon-box {
+        .schematic-layer:hover .schematic-icon-box .material-symbols-outlined,
+        .active .schematic-icon-box .material-symbols-outlined {
             transform: scale(1.1);
         }
 
@@ -360,19 +364,32 @@
             opacity: 0.5;
         }
 
-        @media (max-width: 767px) {
+        @media (max-width: 1023px) {
+            .architecture-grid-wrapper {
+                position: relative;
+                padding: 1rem 0;
+                margin-top: 2rem;
+            }
             .schematic-layer {
                 display: grid;
-                grid-template-columns: auto 1fr;
-                grid-template-areas: 
-                    "num icon"
-                    "info info";
-                gap: 1rem;
+                grid-template-columns: auto 1fr auto;
+                gap: 0.5rem 1rem;
                 padding: 1.5rem;
                 align-items: center;
+                background: #0f1115;
+                border-color: rgba(255, 255, 255, 0.1);
+                border-left-color: var(--accent);
+            }
+            .schematic-layer:hover {
+                border-color: rgba(var(--accent-rgb), 0.5);
+                border-left-color: var(--accent);
+                transform: translateX(8px);
+                background: var(--layer-active-bg);
+                box-shadow: 0 0 32px rgba(var(--accent-rgb), 0.06);
             }
             .schematic-num-column {
-                grid-area: num;
+                grid-row: 1;
+                grid-column: 1;
                 display: flex;
                 flex-direction: row;
                 min-width: auto;
@@ -380,19 +397,52 @@
                 justify-content: flex-start;
                 align-items: center;
             }
-            .schematic-layer-info {
-                grid-area: info;
-            }
             .schematic-icon-box {
-                grid-area: icon;
+                grid-row: 1;
+                grid-column: 3;
                 justify-self: end;
                 min-width: auto;
                 height: auto;
             }
+            .schematic-layer-info {
+                display: contents;
+            }
+            .schematic-layer-name {
+                grid-row: 1;
+                grid-column: 2;
+                text-align: center;
+                margin-top: 0;
+                margin-bottom: 0;
+                font-size: 1.25rem;
+            }
             .schematic-connector {
-                display: none;
+                display: none !important;
+            }
+            .schematic-layer-tag-row, .schematic-layer-tag {
+                display: none !important;
+            }
+            .schematic-layer-info > div:first-child {
+                display: none !important;
+            }
+            .schematic-layer-desc {
+                grid-row: 2;
+                grid-column: 1 / span 3;
+                text-align: justify;
+                text-align-last: center;
+                text-justify: inter-word;
+                margin: 0 auto;
+            }
+            .cta-schematic-title {
+                font-size: 1.5rem;
+                margin-bottom: 1.25rem;
+            }
+            .cta-schematic-button {
+                padding: 0.75rem 1.25rem;
+                font-size: 12px;
+                width: fit-content;
             }
         }
+
 
         /* LEDs */
         .status-led-container {
@@ -596,6 +646,20 @@
                 background: linear-gradient(to left, var(--bg), transparent);
             }
         }
+
+        /* Accent Gradient Overrides */
+        .text-theme-accent, .schematic-number, .schematic-icon-box .material-symbols-outlined {
+            background: linear-gradient(135deg, #2563eb, #38bdf8) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+        }
+        .bg-theme-accent, .cta-schematic-button {
+            background: linear-gradient(135deg, #2563eb, #38bdf8) !important;
+            color: #ffffff !important;
+            border: none;
+        }
     </style>
 </head>
 <body class="font-sans antialiased selection:bg-theme-accent selection:text-white relative">
@@ -619,7 +683,7 @@
             </div>
             
             <div class="flex items-center gap-5">
-                <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full border border-theme-border bg-theme-panel hover:border-theme-accent hover:scale-110 active:scale-95 transition-all shadow-sm" aria-label="Toggle dark mode">
+                <button id="theme-toggle" class="hidden w-9 h-9 flex items-center justify-center rounded-full border border-theme-border bg-theme-panel hover:border-theme-accent hover:scale-110 active:scale-95 transition-all shadow-sm" aria-label="Toggle dark mode">
                     <span class="text-lg leading-none select-none">💡</span>
                 </button>
                 <a href="/contact" onclick="event.preventDefault(); navTo('contact')" class="hidden md:inline-block bg-theme-text text-theme-bg px-5 py-2 text-[13px] font-semibold rounded-lg hover:opacity-90 transition-opacity">Brief Us</a>
@@ -683,7 +747,7 @@
                             Your Path to <span class="text-theme-accent">Sovereign AI Leadership</span>
                         </h2>
                         <p class="text-lg text-theme-muted font-light leading-relaxed max-w-2xl mx-auto">
-                            Jungroo's 5-layer AI stack is more than technical infrastructure. We do not build fragile AI wrappers.We engineer an end-to-end, zero-trust architecture designed to turn fragmented data into a defensible operational asset. It's a strategic foundation for organizations that refuse to compromise on security and performance.
+                            Jungroo's 4-layer AI stack is more than technical infrastructure. We do not build fragile AI wrappers.We engineer an end-to-end, zero-trust architecture designed to turn fragmented data into a defensible operational asset. It's a strategic foundation for organizations that refuse to compromise on security and performance.
                         </p>
                     </div>
 
@@ -694,7 +758,7 @@
                                 <span class="material-symbols-outlined">security</span>
                             </div>
                             <h3 class="text-xl font-bold text-theme-text mb-3">Complete Control</h3>
-                            <p class="text-sm text-theme-muted font-light leading-relaxed">
+                            <p class="text-sm text-theme-muted font-light leading-relaxed text-justify">
                                 On-premise or VPC deployment ensures your data never leaves your environment, providing total sovereignty over your intelligence assets.
                             </p>
                         </div>
@@ -705,7 +769,7 @@
                                 <span class="material-symbols-outlined">psychology</span>
                             </div>
                             <h3 class="text-xl font-bold text-theme-text mb-3">Domain Expertise</h3>
-                            <p class="text-sm text-theme-muted font-light leading-relaxed">
+                            <p class="text-sm text-theme-muted font-light leading-relaxed text-justify">
                                 Models trained specifically on your industry data for unmatched accuracy, moving beyond generic outputs to specialized enterprise value.
                             </p>
                         </div>
@@ -716,7 +780,7 @@
                                 <span class="material-symbols-outlined">trending_up</span>
                             </div>
                             <h3 class="text-xl font-bold text-theme-text mb-3">Strategic Value</h3>
-                            <p class="text-sm text-theme-muted font-light leading-relaxed">
+                            <p class="text-sm text-theme-muted font-light leading-relaxed text-justify">
                                 Move beyond pilots to a production-ready intelligence engine that scales with your business objectives and regulatory requirements.
                             </p>
                         </div>
@@ -742,22 +806,9 @@
                         <h2 class="text-3xl md:text-5xl font-black tracking-tight text-theme-text mb-2 uppercase">The 4-Layer Stack</h2>
                     </div>
                     
-                    <div class="grid lg:grid-cols-2 gap-12 md:gap-20 items-center w-full">
-                        <div id="stack-visual-home" class="w-full lg:order-1">
+                    <div class="architecture-grid-wrapper max-w-4xl mx-auto w-full">
+                        <div id="stack-visual-home" class="w-full relative z-10">
                             <!-- JS Injected Schematic -->
-                        </div>
-
-                        <!-- Right Column: Blended Image -->
-                        <div class="relative group h-full max-w-2xl mx-auto lg:mx-0 lg:order-2">
-                            <div class="absolute -inset-4 bg-theme-accent/5 blur-3xl group-hover:bg-theme-accent/10 transition-all"></div>
-                            <div class="relative h-full min-h-[400px] md:min-h-[500px] overflow-hidden">
-                                <img src="images/DataBaseImage.png" alt="Sovereign Intelligence Architecture" class="w-full h-full object-cover opacity-80" style="filter: brightness(1) contrast(1.5);">
-                                <!-- Blending Overlays -->
-                                <div class="absolute inset-0 bg-gradient-to-r from-theme-bg via-theme-bg/30 via-theme-bg/5 to-transparent"></div>
-                                <div class="absolute inset-0 bg-gradient-to-l from-theme-bg via-theme-bg/30 via-theme-bg/5 to-transparent"></div>
-                                <div class="absolute inset-0 bg-gradient-to-t from-theme-bg via-theme-bg/10 to-transparent"></div>
-                                <div class="absolute inset-0 bg-gradient-to-b from-theme-bg/40 via-transparent to-transparent"></div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -769,26 +820,26 @@
             <div class="absolute top-[61%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-zinc-500/10 rounded-full hidden lg:block"></div>
             <div class="absolute top-[61%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-zinc-500/15 rounded-full hidden lg:block"></div>
 
-            <div class="max-w-7xl mx-auto px-6 relative z-10 text-left lg:text-center">
+            <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
                 <div class="text-center mb-16 max-w-4xl mx-auto">
                     <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-theme-text mb-6">The 5 Pillars of Excellence</h2>
-                    <p class="text-lg md:text-xl font-light leading-relaxed text-theme-muted max-w-2xl mx-auto">
+                    <p class="text-lg md:text-xl font-light leading-relaxed text-theme-muted max-w-2xl mx-auto text-center text-justify md:text-center">
                         High-stakes delivery for security-first organizations. Our architecture funnels complexity into measurable business value for regulated domains.
                     </p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center relative text-left">
                     <div class="flex flex-col gap-8 order-2 lg:order-1">
-                        <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden">
-                            <div class="text-3xl mb-4">🏛️</div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-2">Sovereign AI</h3>
-                            <p class="text-sm font-light leading-relaxed text-theme-muted mb-4">Operate private intelligence within a Zero-Trust architecture. We guarantee strict data residency compliance, ensuring your most sensitive PII and financial datasets never cross an external perimeter.</p>
+                        <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden text-left">
+                            <div class="text-3xl mb-4 text-left">🏛️</div>
+                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-2 text-center md:text-left">Sovereign AI</h3>
+                            <p class="text-sm font-light leading-relaxed text-theme-muted mb-4 text-justify">Operate private intelligence within a Zero-Trust architecture. We guarantee strict data residency compliance, ensuring your most sensitive PII and financial datasets never cross an external perimeter.</p>
                             <div class="text-[10px] font-bold uppercase tracking-widest text-theme-accent border-t border-theme-border pt-3">Air-Gapped Reasoning</div>
                         </div>
-                        <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden">
-                            <div class="text-3xl mb-4">💠</div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-2">Full-Stack Engineering</h3>
-                            <p class="text-sm font-light leading-relaxed text-theme-muted mb-4">Robust backend architectures, complex data pipelines, and highly secure web and native mobile front-ends. Engage us for end-to-end deployment or to build the bulletproof application layer for your existing models.</p>
+                        <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden text-left">
+                            <div class="text-3xl mb-4 text-left">💠</div>
+                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-2 text-center md:text-left">Full-Stack Engineering</h3>
+                            <p class="text-sm font-light leading-relaxed text-theme-muted mb-4 text-justify">Robust backend architectures, complex data pipelines, and highly secure web and native mobile front-ends. Engage us for end-to-end deployment or to build the bulletproof application layer for your existing models.</p>
                             <div class="text-[10px] font-bold uppercase tracking-widest text-theme-accent border-t border-theme-border pt-3">End-to-End Secure Applications</div>
                         </div>
                     </div>
@@ -800,7 +851,7 @@
                                 <div class="inline-block bg-theme-accent dark:bg-indigo-600 text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">The Velocity Engine</div>
                                 <div class="text-5xl mb-6">🚀</div>
                                 <h3 class="text-2xl font-bold tracking-tight text-theme-text mb-4 uppercase">AI Transformation</h3>
-                                <p class="text-sm font-light leading-relaxed text-theme-muted mb-8">
+                                <p class="text-sm font-light leading-relaxed text-theme-muted mb-8 text-justify">
                                     We bridge the gap between boardroom strategy and production execution—shipping high-velocity, defensible moats that are pre-aligned with NIST, HIPAA, and emerging AI risk frameworks.
                                 </p>
                             </div>
@@ -808,16 +859,16 @@
                     </div>
 
                     <div class="flex flex-col gap-8 order-3">
-                        <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden">
-                            <div class="text-3xl mb-4">🤖</div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-2">Voice-Native & Agentic Workflows</h3>
-                            <p class="text-sm font-light leading-relaxed text-theme-muted mb-4">Human-parity voice and reasoning agents bound by strict, deterministic guardrails. We automate complex telephony and digital workflows with high-fidelity reasoning—every action is capped, logged, and instantly auditable.</p>
+                        <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden text-left">
+                            <div class="text-3xl mb-4 text-left">🤖</div>
+                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-2 text-center md:text-left">Voice-Native & Agentic Workflows</h3>
+                            <p class="text-sm font-light leading-relaxed text-theme-muted mb-4 text-justify">Human-parity voice and reasoning agents bound by strict, deterministic guardrails. We automate complex telephony and digital workflows with high-fidelity reasoning—every action is capped, logged, and instantly auditable.</p>
                             <div class="text-[10px] font-bold uppercase tracking-widest text-theme-accent border-t border-theme-border pt-3">The Autonomous Workforce</div>
                         </div>
-                        <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden">
-                            <div class="text-3xl mb-4">🧬</div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-2">Proprietary Assets</h3>
-                            <p class="text-sm font-light leading-relaxed text-theme-muted mb-4">Transform your siloed data into a mathematical moat. From predictive analytics and adaptive learning to automated legal reasoning, we build the proprietary IP your competitors cannot buy off a shelf.</p>
+                        <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden text-left">
+                            <div class="text-3xl mb-4 text-left">🧬</div>
+                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-2 text-center md:text-left">Proprietary Assets</h3>
+                            <p class="text-sm font-light leading-relaxed text-theme-muted mb-4 text-justify">Transform your siloed data into a mathematical moat. From predictive analytics and adaptive learning to automated legal reasoning, we build the proprietary IP your competitors cannot buy off a shelf.</p>
                             <div class="text-[10px] font-bold uppercase tracking-widest text-theme-accent border-t border-theme-border pt-3">Defensible IP Design</div>
                         </div>
                     </div>
@@ -845,8 +896,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors">Jungroo Learning's feature in CNBC Young Turks Show</h3>
-                            <p class="text-sm font-light leading-relaxed text-theme-muted">Jungroo was recognized on CNBC’s Young Turks as one of India’s most promising edtech startups, showcasing how we're using AI to personalize learning experiences for every student.</p>
+                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Jungroo Learning's feature in CNBC Young Turks Show</h3>
+                            <p class="text-sm font-light leading-relaxed text-theme-muted text-center text-justify md:text-left">Jungroo was recognized on CNBC’s Young Turks as one of India’s most promising edtech startups, showcasing how we're using AI to personalize learning experiences for every student.</p>
                         </a>
                     </div>
 
@@ -861,8 +912,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors">Our Co-founder on the sidelines of "AI for Good" award</h3>
-                            <p class="text-sm font-light leading-relaxed text-theme-muted">At the prestigious “AI for Good” summit, our co-founder shared insights into how Jungroo is leveraging AI to bridge educational gaps and deliver scalable, equitable learning solutions.</p>
+                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Our Co-founder on the sidelines of "AI for Good" award</h3>
+                            <p class="text-sm font-light leading-relaxed text-theme-muted text-center text-justify md:text-left">At the prestigious “AI for Good” summit, our co-founder shared insights into how Jungroo is leveraging AI to bridge educational gaps and deliver scalable, equitable learning solutions.</p>
                         </a>
                     </div>
 
@@ -877,8 +928,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors">Jungroo Learning's partnership with NGO Bhumi</h3>
-                            <p class="text-sm font-light leading-relaxed text-theme-muted">In collaboration with Bhumi, Jungroo helped assess thousands of children to better understand their learning levels--bringing data-driven education to grassroots initiatives.</p>
+                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Jungroo Learning's partnership with NGO Bhumi</h3>
+                            <p class="text-sm font-light leading-relaxed text-theme-muted text-center text-justify md:text-left">In collaboration with Bhumi, Jungroo helped assess thousands of children to better understand their learning levels--bringing data-driven education to grassroots initiatives.</p>
                         </a>
                     </div>
 
@@ -888,8 +939,8 @@
                             <div class="aspect-video w-full bg-theme-altBg rounded-3xl mb-8 flex items-center justify-center overflow-hidden">
                                 <img src="images/government.webp" alt="India AI" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
                             </div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors">Featured on the cover story in India AI website by the government</h3>
-                            <p class="text-sm font-light leading-relaxed text-theme-muted">Jungroo was spotlighted by the Government of India on the India AI portal for its innovative use of artificial intelligence in transforming the educational landscape.</p>
+                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Featured on the cover story in India AI website by the government</h3>
+                            <p class="text-sm font-light leading-relaxed text-theme-muted text-center text-justify md:text-left">Jungroo was spotlighted by the Government of India on the India AI portal for its innovative use of artificial intelligence in transforming the educational landscape.</p>
                         </a>
                     </div>
 
@@ -899,8 +950,8 @@
                             <div class="aspect-video w-full bg-theme-altBg rounded-3xl mb-8 flex items-center justify-center overflow-hidden">
                                 <img src="images/nasscom.webp" alt="Nasscom Article" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
                             </div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors">Article in NASSCOM's blog about Jungroo Learning's work</h3>
-                            <p class="text-sm font-light leading-relaxed text-theme-muted">NASSCOM featured Jungroo’s journey as a case study in how deep tech and purposeful design can reshape foundational learning in schools across the country.</p>
+                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Article in NASSCOM's blog about Jungroo Learning's work</h3>
+                            <p class="text-sm font-light leading-relaxed text-theme-muted text-center text-justify md:text-left">NASSCOM featured Jungroo’s journey as a case study in how deep tech and purposeful design can reshape foundational learning in schools across the country.</p>
                         </a>
                     </div>
 
@@ -1168,7 +1219,7 @@
                 <p class="text-lg md:text-xl font-light leading-relaxed text-theme-muted lg:text-center text-left max-w-3xl mx-auto mb-16">We partner with a limited cohort of enterprises to ensure world-class outcomes. Connect with our leadership to brief us on your roadmap.</p>
                 <div class="w-full grid md:grid-cols-3 gap-12 border-t border-theme-border pt-12">
                     <div class="flex flex-col items-center">
-                        <h3 class="text-[10px] font-bold uppercase tracking-widest text-theme-muted mb-4">Office</h3>
+                        <h3 class="text-[10px] font-bold uppercase tracking-widest text-theme-muted mb-4">CONTACT</h3>
                         <a href="mailto:hello@jungroo.com" class="flex items-center justify-center gap-3 text-2xl font-bold hover:text-theme-accent transition-colors group">
                             <img src="images/outlook.svg" alt="Mail" class="w-6 h-6 opacity-80 group-hover:opacity-100 transition-opacity">
                             <span>hello@jungroo.com</span>
@@ -1811,7 +1862,7 @@
                             <div class="schematic-connector"></div>
                         </div>
                         <div class="schematic-layer-info">
-                            <div class="flex items-center gap-3 mb-2">
+                            <div class="schematic-layer-tag-row flex items-center gap-3 mb-2">
                                 <span class="schematic-layer-tag">Layer 4</span>
                                 <div class="h-px grow bg-theme-border/30"></div>
                             </div>
@@ -1819,7 +1870,7 @@
                             <p class="schematic-layer-desc">Full-stack dashboards and custom application interfaces for secure human-in-the-loop oversight.</p>
                         </div>
                         <div class="schematic-icon-box">
-                            <span class="material-symbols-outlined text-5xl group-hover:scale-110 transition-all duration-300">dashboard_customize</span>
+                            <span class="material-symbols-outlined text-6xl group-hover:scale-110 transition-all duration-300">dashboard_customize</span>
                         </div>
                     </div>
 
@@ -1830,7 +1881,7 @@
                             <div class="schematic-connector"></div>
                         </div>
                         <div class="schematic-layer-info">
-                            <div class="flex items-center gap-3 mb-2">
+                            <div class="schematic-layer-tag-row flex items-center gap-3 mb-2">
                                 <span class="schematic-layer-tag">Layer 3</span>
                                 <div class="h-px grow bg-theme-border/30"></div>
                             </div>
@@ -1838,7 +1889,7 @@
                             <p class="schematic-layer-desc">A unified Knowledge Fabric weaving siloed enterprise records and live API streams into active memory.</p>
                         </div>
                         <div class="schematic-icon-box">
-                            <span class="material-symbols-outlined text-5xl group-hover:scale-110 transition-all duration-300">hub</span>
+                            <span class="material-symbols-outlined text-6xl group-hover:scale-110 transition-all duration-300">hub</span>
                         </div>
                     </div>
 
@@ -1849,7 +1900,7 @@
                             <div class="schematic-connector"></div>
                         </div>
                         <div class="schematic-layer-info">
-                            <div class="flex items-center gap-3 mb-2">
+                            <div class="schematic-layer-tag-row flex items-center gap-3 mb-2">
                                 <span class="schematic-layer-tag">Layer 2</span>
                                 <div class="h-px grow bg-theme-border/30"></div>
                             </div>
@@ -1857,7 +1908,7 @@
                             <p class="schematic-layer-desc">Deterministic Agentic Intelligence orchestrating complex, multi-step workflows.</p>
                         </div>
                         <div class="schematic-icon-box">
-                            <span class="material-symbols-outlined text-5xl group-hover:scale-110 transition-all duration-300">smart_toy</span>
+                            <span class="material-symbols-outlined text-6xl group-hover:scale-110 transition-all duration-300">smart_toy</span>
                         </div>
                     </div>
 
@@ -1867,7 +1918,7 @@
                             <div class="schematic-number">01</div>
                         </div>
                         <div class="schematic-layer-info">
-                            <div class="flex items-center gap-3 mb-2">
+                            <div class="schematic-layer-tag-row flex items-center gap-3 mb-2">
                                 <span class="schematic-layer-tag">Layer 1</span>
                                 <div class="h-px grow bg-theme-border/30"></div>
                             </div>
@@ -1875,7 +1926,7 @@
                             <p class="schematic-layer-desc">Sovereign AI Models featuring Domain Adaptive Intelligence, deployed strictly within your infrastructure.</p>
                         </div>
                         <div class="schematic-icon-box">
-                            <span class="material-symbols-outlined text-5xl group-hover:scale-110 transition-all duration-300">memory</span>
+                            <span class="material-symbols-outlined text-6xl group-hover:scale-110 transition-all duration-300">memory</span>
                         </div>
                     </div>
 
@@ -1925,12 +1976,15 @@
             });
         }
 
-        document.getElementById('theme-toggle').onclick = () => {
-            document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-        };
+        // document.getElementById('theme-toggle').onclick = () => {
+        //     document.documentElement.classList.toggle('dark');
+        //     localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        // };
 
-        if (localStorage.getItem('theme') === 'light') document.documentElement.classList.remove('dark');
+        // if (localStorage.getItem('theme') === 'light') document.documentElement.classList.remove('dark');
+        
+        // Force dark theme as default per requirement
+        document.documentElement.classList.add('dark');
         document.addEventListener('DOMContentLoaded', () => {
             // Initial path handling
             let path = window.location.pathname.replace(/^\/+|\/+$/g, ''); // Trim leading and trailing slashes
