@@ -127,7 +127,7 @@
                         ${cs.title}
                     </h3>
                     
-                    <p class="text-caption text-theme-muted mb-8 line-clamp-3 text-justify">
+                    <p class="text-caption text-theme-muted mb-8 line-clamp-3 text-left">
                         ${cs.overview}
                     </p>
                     
@@ -215,9 +215,9 @@
             const isClimateData = cs.slug === "climate-tech-data-ingestion";
             
             let challengeHtml = `
-                <div class="py-10 md:py-14">
-                    <div class="mb-16">
-                        <h2 class="text-h2 font-bold text-white mb-6 text-center">The Challenge</h2>
+                <div class="py-8">
+                    <div class="mb-8">
+                        <h2 class="text-h2 font-bold text-white mb-4 text-center">The Challenge</h2>
                         <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.challenge.intro || '')}</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -248,16 +248,16 @@
                             `;
                         }).join('')}
                     </div>
-                    ${cs.challenge.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.challenge.conclusion)}</p>` : ''}
+                    ${cs.challenge.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl section-conclusion-text text-left">${renderBoldText(cs.challenge.conclusion)}</p>` : ''}
                 </div>
             `;
 
             let solutionHtml = "";
             if (isClimateData) {
                 solutionHtml = `
-                <div class="py-5 md:py-10">
-                    <div class="mb-16">
-                        <h2 class="text-h2 font-bold text-white mb-6 text-center">The Solution</h2>
+                <div class="py-8">
+                    <div class="mb-8">
+                        <h2 class="text-h2 font-bold text-white mb-4 text-center">The Solution</h2>
                         <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.solution.intro || '')}</p>
                     </div>
                     
@@ -361,14 +361,14 @@
                             <strong class="text-white">IAM roles and tenant-specific access policies</strong> enforce strict data isolation, ensuring each tenant only accesses their own data.
                         </p>
                     </div>
-                    ${cs.solution.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
+                    ${cs.solution.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl section-conclusion-text text-left">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
                 </div>
                 `;
             } else {
                 solutionHtml = `
-                    <div class="py-16 md:py-32">
-                        <div class="mb-16">
-                            <h2 class="text-h2 font-bold text-white mb-6 text-center">The Solution</h2>
+                    <div class="py-8">
+                        <div class="mb-8">
+                            <h2 class="text-h2 font-bold text-white mb-4 text-center">The Solution</h2>
                             <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.solution.intro || '')}</p>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -399,7 +399,7 @@
                                 `;
                             }).join('')}
                         </div>
-                        ${cs.solution.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
+                        ${cs.solution.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl section-conclusion-text text-left">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
                     </div>
                 `;
             }
@@ -476,23 +476,23 @@
             }
 
             let impactHtml = `
-                <div class="py-10 md:py-14">
-                    <div class="mb-16">
-                        <h2 class="text-h2 font-bold text-white mb-6 text-center">The Impact</h2>
+                <div class="py-8">
+                    <div class="mb-8">
+                        <h2 class="text-h2 font-bold text-white mb-4 text-center">The Impact</h2>
                         <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.impact.intro || '')}</p>
                     </div>
                     ${metricsHtml}
                     ${otherImpactHtml}
-                    ${cs.impact.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.impact.conclusion)}</p>` : ''}
+                    ${cs.impact.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl section-conclusion-text text-left">${renderBoldText(cs.impact.conclusion)}</p>` : ''}
                 </div>
             `;
 
             let techHtml = "";
             if (cs.technicalDifferentiation) {
                 techHtml = `
-                    <div class="py-10 md:py-14 border-t border-theme-border">
-                        <div class="mb-12">
-                            <h2 class="text-h2 font-bold text-white mb-6 text-center">Technical Differentiation</h2>
+                    <div class="py-8 border-t border-theme-border">
+                        <div class="mb-8">
+                            <h2 class="text-h2 font-bold text-white mb-4 text-center">Technical Differentiation</h2>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                             ${cs.technicalDifferentiation.bulletPoints.map((point, idx) => {
@@ -524,16 +524,16 @@
                         </button>
                     </div>
 
-                    <!-- Header Design (Centered) -->
+                    <!-- Header Design -->
                     <div class="flex flex-col items-center mb-8">
-                        <div class="flex flex-wrap justify-center gap-3 mb-8">
+                        <div class="flex flex-wrap justify-center gap-3 mb-6">
                             ${cs.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}
                         </div>
                         <h2 class="text-h2 font-sans font-bold mb-6 text-center">
                             ${cs.title}
                         </h2>
                         <div class="max-w-4xl">
-                            <p class="text-body-lg text-theme-muted font-light case-overview-text text-justify">
+                            <p class="text-body-lg text-theme-muted font-light case-overview-text text-center">
                                 ${cs.overview}
                             </p>
                         </div>
@@ -544,7 +544,7 @@
                         ${solutionHtml}
                         ${impactHtml}
                         ${techHtml}
-                        ${cs.conclusion ? `<div class="py-12 md:py-20 border-t border-theme-border px-6"><p class="text-body text-theme-muted max-w-4xl mx-auto italic section-conclusion-text text-center">${renderBoldText(cs.conclusion)}</p></div>` : ''}
+                        ${cs.conclusion ? `<div class="py-12 border-t border-theme-border"><p class="text-body text-theme-muted max-w-4xl italic section-conclusion-text text-left">${renderBoldText(cs.conclusion)}</p></div>` : ''}
                     </div>
 
                 </div>
