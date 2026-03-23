@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Studies | Jungroo AI Labs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script src="js/components-loader.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        theme: {
+                            bg: 'var(--bg)',
+                            panel: 'var(--panel)',
+                            card: 'var(--card)',
+                            text: 'var(--text)',
+                            muted: 'var(--muted)',
+                            accent: 'var(--accent)',
+                            border: 'var(--theme-border)',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="js/heroicons-data.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/case-studies.css">
+</head>
+<body class="font-sans antialiased dark case-studies-page">
+    
+    <header id="header-root"></header>
+
+    <main class="pt-32 pb-12 max-w-7xl mx-auto px-6">
+        <!-- LIST VIEW -->
+        <div id="list-view" class="view-transition">
+            <div class="max-w-3xl mb-16">
+                <h1 class="text-4xl md:text-6xl font-display font-bold accent-gradient-text mb-6">Case Studies</h1>
+                <p class="text-lg text-theme-muted leading-relaxed">
+                    Explore our real-world examples of complex challenges solved with care, creativity, and code. From AI solutions to digital transformations, we engineer outcomes that turn vision into value.
+                </p>
+                <div class="h-1 w-20 bg-theme-accent mt-8"></div>
+            </div>
+
+            <div id="case-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Case study cards injected here -->
+            </div>
+        </div>
+
+        <!-- DETAIL VIEW (Initially Hidden) -->
+        <div id="detail-view" class="hidden view-transition">
+            <button onclick="showList()" class="btn-back mb-12">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                Back to Results
+            </button>
+            
+            <div id="case-detail-content">
+                <!-- Detail content injected here -->
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-root"></div>
+
+    <script src="js/case-studies-data.js"></script>
+    <script>
+        // Pagination state
+        const itemsPerPage = 6;
+        let currentPage = 1;
+
+        function getCaseIcon(slug) {
+            const icons = {
+                'climate-tech-data-ingestion': 'ServerStackIcon',
+                'educational-diagnostics-ai': 'AcademicCapIcon',
+                'cms-infinity-learn': 'CubeIcon',
+                'subjective-evaluation-tool': 'PencilSquareIcon',
+                'gst-adjudication-ai': 'ScaleIcon',
+                'math-practice-buddy': 'AcademicCapIcon',
+                'nrlm-digitization': 'BuildingLibraryIcon',
+                'report-designer': 'ChartBarIcon',
+                'data-migration-tool': 'ArrowDownTrayIcon',
+                'order-management-infinity': 'CreditCardIcon',
+                'omnichannel-chatbot': 'ChatBubbleLeftRightIcon',
+                'assessment-system-lead': 'DocumentMagnifyingGlassIcon',
+                'admission-system-lead': 'UserPlusIcon'
+            };
+            return icons[slug] || 'DocumentTextIcon';
+        }
+
+        function renderCaseGrid() {
+            const grid = document.getElementById('case-grid');
+            const totalPages = Math.ceil(caseStudies.length / itemsPerPage);
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const currentCases = caseStudies.slice(start, end);
+
+            grid.innerHTML = currentCases.map(cs => `
+                <div class="case-card p-10 rounded-[32px] flex flex-col h-full cursor-pointer group" onclick="selectCase('${cs.slug}')">
+                    <div class="mb-8 flex justify-between items-center">
+                        <div class="case-card-icon-container">
+                            ${getIconHtml(getCaseIcon(cs.slug))}
+                        </div>
+                        <span class="material-symbols-outlined text-theme-muted group-hover:text-theme-accent transition-all group-hover:translate-x-1">arrow_forward</span>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-theme-text mb-4 leading-tight group-hover:text-theme-accent transition-colors">
+                        ${cs.title}
+                    </h3>
+                    
+                    <p class="text-sm text-theme-muted mb-8 leading-relaxed line-clamp-3 text-justify">
+                        ${cs.overview}
+                    </p>
+                    
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        ${cs.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            renderPagination(totalPages);
+        }
+
+        function renderPagination(totalPages) {
+            let paginationHtml = '';
+            if (totalPages > 1) {
+                paginationHtml = `
+                    <div class="flex justify-center items-center gap-4 mt-16">
+                        <button onclick="changePage(${currentPage - 1})" class="p-2 rounded-full border border-theme-border flex items-center justify-center transition-all hover:border-theme-accent hover:text-theme-accent ${currentPage === 1 ? 'opacity-30 cursor-not-allowed' : ''}" ${currentPage === 1 ? 'disabled' : ''}>
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                        <span class="text-sm font-bold text-theme-muted">Page ${currentPage} of ${totalPages}</span>
+                        <button onclick="changePage(${currentPage + 1})" class="p-2 rounded-full border border-theme-border flex items-center justify-center transition-all hover:border-theme-accent hover:text-theme-accent ${currentPage === totalPages ? 'opacity-30 cursor-not-allowed' : ''}" ${currentPage === totalPages ? 'disabled' : ''}>
+                            <span class="material-symbols-outlined">chevron_right</span>
+                        </button>
+                    </div>
+                `;
+            }
+            const existingPagination = document.querySelector('.pagination-container');
+            if (existingPagination) existingPagination.remove();
+            
+            const paginationContainer = document.createElement('div');
+            paginationContainer.className = 'pagination-container';
+            paginationContainer.innerHTML = paginationHtml;
+            document.getElementById('list-view').appendChild(paginationContainer);
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            renderCaseGrid();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function getIconColors(index) {
+            const colors = [
+                { bg: '#1e2d54', color: '#4e78e3' },   // blue
+                { bg: '#142e22', color: '#4de496' },   // green
+                { bg: '#2a2446', color: '#a27eef' },   // purple
+                { bg: '#382c21', color: '#f0985e' },   // orange
+                { bg: '#162e3e', color: '#40c9ff' },   // cyan/light blue
+            ];
+            return colors[index % colors.length];
+        }
+
+        function renderBoldText(text, highlightNumbers = false, color = '') {
+            if (!text) return '';
+            let processed = text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-bold">$1</strong>')
+                           .replace(/\n/g, '<br>');
+            
+            if (highlightNumbers) {
+                const numberRegex = /(\d+%|\d+\+|\d+)/g;
+                processed = processed.replace(numberRegex, `<span style="color: ${color}; font-weight: 700;">$1</span>`);
+            }
+            return processed;
+        }
+
+        function getIconHtml(iconName) {
+            if (window.heroIcons && window.heroIcons[iconName]) {
+                return window.heroIcons[iconName];
+            }
+            // Fallback to Material Symbols if not in Heroicons
+            return `<span class="material-symbols-outlined text-2xl">${iconName}</span>`;
+        }
+
+        function selectCase(slug, push = true) {
+            const cs = caseStudies.find(c => c.slug === slug);
+            if (!cs) return;
+
+            const listView = document.getElementById('list-view');
+            const detailView = document.getElementById('detail-view');
+            const content = document.getElementById('case-detail-content');
+
+            // Special handling for Climate Tech Solution (Timeline)
+            const isClimateData = cs.slug === "climate-tech-data-ingestion";
+            
+            let challengeHtml = `
+                <div class="mt-32 pb-32">
+                    <div class="mb-16">
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-center">The Challenge</h2>
+                        <p class="text-xl text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.challenge.intro || '')}</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                        ${cs.challenge.bulletPoints.map((point, idx) => {
+                            const { bg, color } = getIconColors(idx);
+                            let title = '';
+                            let text = point.text;
+                            if (point.text.includes(':')) {
+                                const parts = point.text.split(':');
+                                title = parts[0].trim();
+                                text = parts.slice(1).join(':').trim();
+                            }
+                            const isLast = idx === cs.challenge.bulletPoints.length - 1 && cs.challenge.bulletPoints.length % 2 !== 0;
+                            return `
+                                <div class="section-card ${isLast ? 'md:col-span-2 md:max-w-[calc(50%-12px)] md:mx-auto' : ''}">
+                                    <div class="flex flex-row items-start gap-5">
+                                        <div class="spec-icon-box" style="background-color: ${bg}; color: ${color};">
+                                            ${getIconHtml(point.icon)}
+                                        </div>
+                                        <div class="flex flex-col gap-2">
+                                            ${title ? `<h4 class="text-xl font-bold text-white leading-tight">${renderBoldText(title)}</h4>` : ''}
+                                            <p class="text-theme-muted leading-relaxed text-base">
+                                                ${renderBoldText(text)}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                    ${cs.challenge.conclusion ? `<p class="mt-12 text-lg text-theme-muted max-w-3xl mx-auto leading-relaxed section-conclusion-text text-center">${renderBoldText(cs.challenge.conclusion)}</p>` : ''}
+                </div>
+            `;
+
+            let solutionHtml = "";
+            if (isClimateData) {
+                solutionHtml = `
+                <div class="mt-64 pb-32">
+                    <div class="mb-16">
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-center">The Solution</h2>
+                        <p class="text-xl text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.solution.intro || '')}</p>
+                    </div>
+                    
+                    <div class="timeline-container">
+                        <div class="timeline-line"></div>
+                        
+                        <!-- Raw Zone -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot" style="border-color: #4285F4">
+                                <div class="timeline-dot-inner" style="background-color: #4285F4"></div>
+                            </div>
+                            <div class="timeline-header-outer">
+                                <div class="timeline-header-icon" style="background-color: #1e2d54; color: #4285F4">
+                                    ${getIconHtml('ArrowDownTrayIcon')}
+                                </div>
+                                <h3 class="timeline-title" style="color: #4285F4">Raw Zone</h3>
+                            </div>
+                            <div class="timeline-content">
+                                <ul class="timeline-bullets">
+                                    <li>Stores original uploads in CSV, XLS, and PDF formats</li>
+                                    <li>Automated processes handle virus scanning, format validation, data extraction, and standardization into XLSX</li>
+                                    <li>Failed processing triggers <b>SNS Raw-Zone Data Failure </b>notifications</li>
+                                    <li>Successfully standardized XLSX files are stored in the Raw Zone's standardized area</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Bronze Zone -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot" style="border-color: #CD7F32">
+                                <div class="timeline-dot-inner" style="background-color: #CD7F32"></div>
+                            </div>
+                            <div class="timeline-header-outer">
+                                <div class="timeline-header-icon" style="background-color: #142e22; color: #CD7F32">
+                                    ${getIconHtml('FunnelIcon')}
+                                </div>
+                                <h3 class="timeline-title" style="color: #CD7F32">Bronze Zone</h3>
+                            </div>
+                            <div class="timeline-content">
+                                <ul class="timeline-bullets">
+                                    <li>Triggered by standardized file uploads</li>
+                                    <li>AWS Glue Crawler and ETL catalog metadata and enforce data quality rules</li>
+                                    <li>Data of acceptable quality is transformed into <b>LCI data without environmental factors.</b></li>
+                                    <li>Failed quality checks trigger <b>SNS Raw-Zone Data Quality Failure</b> notifications</li>
+                                    <li>Successful processing stores output in Bronze Zone, and <b>SNS Bronze-Zone LCI Data</b> notifications are sent to <b>LCI consultants</b></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Silver Zone -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot" style="border-color: #C0C0C0">
+                                <div class="timeline-dot-inner" style="background-color: #C0C0C0"></div>
+                            </div>
+                            <div class="timeline-header-outer">
+                                <div class="timeline-header-icon" style="background-color: #2a2446; color: #C0C0C0">
+                                    ${getIconHtml('ArrowTrendingUpIcon')}
+                                </div>
+                                <h3 class="timeline-title" style="color: #C0C0C0">Silver Zone</h3>
+                            </div>
+                            <div class="timeline-content">
+                                <ul class="timeline-bullets">
+                                    <li>LCI consultants upload enriched datasets with environmental factors and <b>a summary sheet of carbon emissions</b></li>
+                                    <li>AWS Glue crawlers catalog metadata and enforce quality rules</li>
+                                    <li>If the uploaded dataset fails validation, <b>SNS Silver-Zone Data Quality Failure</b> notifications are sent</li>
+                                    <li>Data passing validation is promoted to the Gold Zone</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Gold Zone -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot" style="border-color: #FFD700">
+                                <div class="timeline-dot-inner" style="background-color: #FFD700"></div>
+                            </div>
+                            <div class="timeline-header-outer">
+                                <div class="timeline-header-icon" style="background-color: #382c21; color: #FFD700">
+                                    ${getIconHtml('ServerStackIcon')}
+                                </div>
+                                <h3 class="timeline-title" style="color: #FFD700">Gold Zone</h3>
+                            </div>
+                            <div class="timeline-content">
+                                <ul class="timeline-bullets">
+                                    <li>Stores <b>final, QA-approved LCI data with environmental factors.</b></li>
+                                    <li>Manual triggers move data into Neon4j (graph) and Postgres (structured)</li>
+                                    <li>Integrity checks via LCI summary sheet trigger discrepancies notifications to stakeholders</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Section -->
+                    <div class="security-section">
+                        <h3 class="security-title">
+                            <span class="inline-block w-6 h-6 mr-2 align-text-bottom">
+                                ${getIconHtml('LockClosedIcon')}
+                            </span>
+                            Security Model
+                        </h3>
+                        <p class="security-description">
+                            <strong class="text-white">IAM roles and tenant-specific access policies</strong> enforce strict data isolation, ensuring each tenant only accesses their own data.
+                        </p>
+                    </div>
+                    ${cs.solution.conclusion ? `<p class="mt-12 text-lg text-theme-muted max-w-3xl mx-auto leading-relaxed section-conclusion-text text-center">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
+                </div>
+                `;
+            } else {
+                solutionHtml = `
+                    <div class="mt-64 pb-32">
+                        <div class="mb-16">
+                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-center">The Solution</h2>
+                            <p class="text-xl text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.solution.intro || '')}</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                            ${cs.solution.bulletPoints.map((point, idx) => {
+                                const { bg, color } = getIconColors(idx + 2); // Change offset for variety
+                                let title = '';
+                                let text = point.text;
+                                if (point.text.includes(':')) {
+                                    const parts = point.text.split(':');
+                                    title = parts[0].trim();
+                                    text = parts.slice(1).join(':').trim();
+                                }
+                                const isLast = idx === cs.solution.bulletPoints.length - 1 && cs.solution.bulletPoints.length % 2 !== 0;
+                                return `
+                                    <div class="section-card ${isLast ? 'md:col-span-2 md:max-w-[calc(50%-12px)] md:mx-auto' : ''}">
+                                        <div class="flex flex-row items-start gap-5">
+                                            <div class="spec-icon-box" style="background-color: ${bg}; color: ${color};">
+                                                ${getIconHtml(point.icon)}
+                                            </div>
+                                            <div class="flex flex-col gap-2">
+                                                ${title ? `<h4 class="text-xl font-bold text-white leading-tight">${renderBoldText(title)}</h4>` : ''}
+                                                <p class="text-theme-muted leading-relaxed text-base">
+                                                    ${renderBoldText(text)}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                        ${cs.solution.conclusion ? `<p class="mt-12 text-lg text-theme-muted max-w-3xl mx-auto leading-relaxed section-conclusion-text text-center">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
+                    </div>
+                `;
+            }
+
+            const numberRegex = /(\d+%|\d+\+|\d+)/;
+            const metrics = cs.impact.bulletPoints.filter(point => numberRegex.test(point.text));
+            const otherImpactPoints = cs.impact.bulletPoints.filter(point => !numberRegex.test(point.text));
+
+            let metricsHtml = "";
+            if (metrics.length > 0) {
+                metricsHtml = `
+                    <div class="impact-metrics-grid mb-16">
+                        ${metrics.map((point, idx) => {
+                            const { color, bg } = getIconColors(idx);
+                            const matches = point.text.match(numberRegex);
+                            const metricNum = matches ? matches[0] : "";
+                            
+                            let label = "";
+                            let description = point.text;
+                            
+                            if (point.text.includes(':')) {
+                                const parts = point.text.split(':');
+                                label = parts[0].trim();
+                                description = parts.slice(1).join(':').trim();
+                            }
+                            
+                            return `
+                                <div class="impact-metric-card">
+                                    <div class="spec-icon-box mb-6" style="background-color: ${bg}; color: ${color}; margin-left: auto; margin-right: auto;">
+                                        ${getIconHtml(point.icon)}
+                                    </div>
+                                    <div class="metric-number" style="color: ${color}">${metricNum}</div>
+                                    ${label ? `<div class="metric-label">${renderBoldText(label, true, color)}</div>` : ''}
+                                    <div class="metric-description">${renderBoldText(description, true, color)}</div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            }
+
+            let otherImpactHtml = "";
+            if (otherImpactPoints.length > 0) {
+                otherImpactHtml = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                        ${otherImpactPoints.map((point, idx) => {
+                            const { bg, color } = getIconColors(idx + metrics.length + 4);
+                            let title = '';
+                            let text = point.text;
+                            if (point.text.includes(':')) {
+                                const parts = point.text.split(':');
+                                title = parts[0].trim();
+                                text = parts.slice(1).join(':').trim();
+                            }
+                            const isLast = idx === otherImpactPoints.length - 1 && otherImpactPoints.length % 2 !== 0;
+                            return `
+                                <div class="section-card ${isLast ? 'md:col-span-2 md:max-w-[calc(50%-12px)] md:mx-auto' : ''}">
+                                    <div class="flex flex-row items-start gap-5">
+                                        <div class="spec-icon-box" style="background-color: ${bg}; color: ${color};">
+                                            ${getIconHtml(point.icon)}
+                                        </div>
+                                        <div class="flex flex-col gap-2">
+                                            ${title ? `<h4 class="text-xl font-bold text-white leading-tight">${renderBoldText(title)}</h4>` : ''}
+                                                <p class="text-theme-muted leading-relaxed text-base">
+                                                    ${renderBoldText(text)}
+                                                </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            }
+
+            let impactHtml = `
+                <div class="mt-64 mb-12">
+                    <div class="mb-16">
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-center">The Impact</h2>
+                        <p class="text-xl text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.impact.intro || '')}</p>
+                    </div>
+                    ${metricsHtml}
+                    ${otherImpactHtml}
+                    ${cs.impact.conclusion ? `<p class="mt-12 text-lg text-theme-muted max-w-3xl mx-auto leading-relaxed section-conclusion-text text-center">${renderBoldText(cs.impact.conclusion)}</p>` : ''}
+                </div>
+            `;
+
+            let techHtml = "";
+            if (cs.technicalDifferentiation) {
+                techHtml = `
+                    <div class="mt-48 pt-12 border-t border-theme-border">
+                        <div class="mb-12">
+                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-center">Technical Differentiation</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                            ${cs.technicalDifferentiation.bulletPoints.map((point, idx) => {
+                                const { bg, color } = getIconColors(idx + 6);
+                                return `
+                                <div class="section-card">
+                                    <div class="flex flex-row items-start gap-5">
+                                        <div class="spec-icon-box" style="background-color: ${bg}; color: ${color};">
+                                            <span class="material-symbols-outlined text-2xl">${point.icon}</span>
+                                        </div>
+                                        <p class="text-white font-medium leading-relaxed">
+                                            ${renderBoldText(point.text)}
+                                        </p>
+                                    </div>
+                                </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            content.innerHTML = `
+                <div class="max-w-5xl mx-auto">
+                    <!-- Back Button Row -->
+                    <div class="flex justify-start mb-12">
+                        <button onclick="showList()" class="back-button-circular">
+                            <span class="material-symbols-outlined">arrow_back</span>
+                        </button>
+                    </div>
+
+                    <!-- Header Design (Centered) -->
+                    <div class="flex flex-col items-center mb-16">
+                        <div class="flex flex-wrap justify-center gap-3 mb-8">
+                            ${cs.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}
+                        </div>
+                        <h2 class="text-4xl md:text-6xl font-display font-bold mb-10 leading-tight text-center">
+                            ${cs.title}
+                        </h2>
+                        <div class="max-w-4xl">
+                            <p class="text-xl md:text-2xl text-theme-muted leading-relaxed font-light case-overview-text text-justify">
+                                ${cs.overview}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        ${challengeHtml}
+                        ${solutionHtml}
+                        ${impactHtml}
+                        ${techHtml}
+                        ${cs.conclusion ? `<div class="mt-32 pt-16 border-t border-theme-border"><p class="text-xl text-theme-muted max-w-4xl mx-auto leading-relaxed italic section-conclusion-text text-center">${renderBoldText(cs.conclusion)}</p></div>` : ''}
+                    </div>
+
+                </div>
+            `;
+
+            listView.classList.add('hidden');
+            detailView.classList.remove('hidden');
+            
+            // Hide the old back button since we have the circular one
+            document.querySelector('.btn-back').classList.add('hidden');
+            
+            window.scrollTo(0, 0);
+
+            if (push) {
+                const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?case=' + slug;
+                window.history.pushState({view: 'detail', slug: slug}, '', newUrl);
+            }
+        }
+
+        function showList(push = true) {
+            document.getElementById('list-view').classList.remove('hidden');
+            document.getElementById('detail-view').classList.add('hidden');
+            window.scrollTo(0, 0);
+
+            if (push) {
+                const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                window.history.pushState({view: 'list'}, '', newUrl);
+            }
+        }
+
+        window.onpopstate = function(event) {
+            if (event.state && event.state.view === 'detail') {
+                selectCase(event.state.slug, false);
+            } else {
+                showList(false);
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCaseGrid();
+            const urlParams = new URLSearchParams(window.location.search);
+            const caseSlug = urlParams.get('case');
+            if (caseSlug) {
+                selectCase(caseSlug, false);
+            } else {
+                showList(false);
+            }
+        });
+
+        document.documentElement.classList.add('dark');
+    </script>
+</body>
+</html>

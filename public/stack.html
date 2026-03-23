@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     
+    <script src="js/components-loader.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -41,144 +42,13 @@
             }
         }
     </script>
-    <style>
-        :root {
-            --bg: #f9fafb;
-            --panel: #ffffff;
-            --card: rgba(255, 255, 255, 0.9);
-            --border: rgba(0, 0, 0, 0.06);
-            --text: #0f172a;
-            --muted: #64748b;
-            --accent: #5e6ad2;
-            --accent-rgb: 94, 106, 210;
-            --alt-bg: #f3f4f6;
-            --grid-color: rgba(94, 106, 210, 0.05);
-            --hero-glow: radial-gradient(circle at 50% -20%, rgba(var(--accent-rgb), 0.12), transparent 80%);
-            --nav-bg: rgba(249, 250, 251, 0.85);
-            --accent-glow: rgba(var(--accent-rgb), 0.12);
-            --layer-bg: #ffffff;
-            --layer-active-bg: #ffffff;
-            --layer-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
-            --layer-inactive-opacity: 0.5;
-            --scroll-thumb: rgba(0,0,0,0.08);
-            --logo-filter: brightness(0);
-            --surface-container-high: #f1f5f9;
-            --error: #ffb4ab;
-        }
-
-        .dark {
-            --bg: #080808;
-            --panel: #111111;
-            --card: rgba(22, 22, 22, 0.6);
-            --border: rgba(255, 255, 255, 0.08);
-            --text: #f4f4f5;
-            --muted: #a1a1aa;
-            --accent: #3b82f6;
-            --accent-rgb: 59, 130, 246;
-            --alt-bg: #0c0c0c;
-            --grid-color: rgba(255, 255, 255, 0.03);
-            --hero-glow: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(var(--accent-rgb), 0.2), transparent);
-            --nav-bg: rgba(8, 8, 8, 0.85);
-            --accent-glow: rgba(var(--accent-rgb), 0.3);
-            --layer-bg: rgba(20, 20, 20, 0.8);
-            --layer-active-bg: rgba(25, 25, 30, 0.9);
-            --layer-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            --layer-inactive-opacity: 0.2;
-            --scroll-thumb: rgba(255,255,255,0.1);
-            --logo-filter: none;
-            --surface-container-high: #1e1e1e;
-            --error: #ffb4ab;
-        }
-
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .sovereign-glow {
-            box-shadow: 0 0 32px rgba(var(--accent-rgb), 0.06);
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        .glass-nav { background: var(--nav-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
-        .logo-adaptive { filter: var(--logo-filter); transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-
-        .metric-box {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            padding: 1.5rem;
-            width: 100%;
-        }
-
-        .text-gradient { background: linear-gradient(to right, var(--text), var(--muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        
-        @keyframes pulse-slow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-        .animate-pulse-slow { animation: pulse-slow 3s infinite ease-in-out; }
-
-        /* Accent Gradient Overrides */
-        .text-theme-accent {
-            background: linear-gradient(135deg, #2563eb, #38bdf8) !important;
-            -webkit-background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
-            background-clip: text !important;
-            color: transparent !important;
-        }
-        .bg-theme-accent {
-            background: linear-gradient(135deg, #2563eb, #38bdf8) !important;
-            color: #ffffff !important;
-            border: none;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="font-sans antialiased selection:bg-theme-accent selection:text-white relative">
+<body class="font-sans antialiased selection:bg-theme-accent selection:text-white relative stack-page">
     <!-- GLOBAL GRID PATTERN -->
     <div class="fixed inset-0 z-[-1] bg-grid-pattern opacity-[0.15] pointer-events-none" style="background-size: 40px 40px;"></div>
 
-    <!-- GLOBAL NAV -->
-    <nav class="fixed w-full z-50 glass-nav">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="block flex items-center">
-                <img src="images/logo.webp" alt="Jungroo AI Labs" class="h-7 w-auto object-contain logo-adaptive">
-            </a>
-            
-            <div class="hidden md:flex items-center space-x-10 text-[11px] font-bold text-theme-muted uppercase tracking-widest">
-                <a href="/" class="hover:text-theme-text transition-colors">Home</a>
-                <a href="/stack" class="text-theme-text transition-colors">Stack</a>
-                <a href="/case-studies" class="hover:text-theme-text transition-colors">Case Studies</a>
-                <a href="/pillars" class="hover:text-theme-text transition-colors">Pillars</a>
-                <a href="/media" class="hover:text-theme-text transition-colors">Media</a>
-            </div>
-            
-            <div class="flex items-center gap-5">
-                <button id="theme-toggle" class="hidden w-9 h-9 flex items-center justify-center rounded-full border border-theme-border bg-theme-panel hover:border-theme-accent hover:scale-110 active:scale-95 transition-all shadow-sm" aria-label="Toggle dark mode">
-                    <span class="text-lg leading-none select-none">💡</span>
-                </button>
-                <a href="/contact" class="hidden md:inline-block bg-theme-text text-theme-bg px-5 py-2 text-[13px] font-semibold rounded-lg hover:opacity-90 transition-opacity">Brief Us</a>
-                <button id="mobile-menu-toggle" class="md:hidden w-9 h-9 flex flex-col justify-center items-center gap-1.5 focus:outline-none ml-2" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu">
-                    <span class="w-5 h-0.5 bg-theme-text transition-all duration-300"></span>
-                    <span class="w-5 h-0.5 bg-theme-text transition-all duration-300"></span>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- MOBILE NAV OVERLAY -->
-    <div id="mobile-menu" class="fixed inset-0 z-40 bg-theme-bg/95 backdrop-blur-md transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 text-lg font-bold uppercase tracking-widest md:hidden">
-        <a href="/" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Home</a>
-        <a href="/stack" class="mobile-nav-item text-theme-text transition-colors">Stack</a>
-        <a href="/case-studies" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Case Studies</a>
-        <a href="/pillars" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Pillars</a>
-        <a href="/media" class="mobile-nav-item text-theme-muted hover:text-theme-text transition-colors">Media</a>
-        <a href="/contact" class="text-theme-accent mt-4 hover:opacity-80 transition-opacity">Brief Us</a>
-    </div>
+    <header id="header-root"></header>
 
     <main class="pt-16">
         <!-- HERO SECTION -->
@@ -280,7 +150,7 @@
                             <span class="material-symbols-outlined">verified</span>
                         </div>
                         <h4 class="text-lg md:text-xl font-bold text-theme-text mb-3 tracking-tight text-center">Enhanced Accuracy</h4>
-                        <p class="text-sm text-theme-muted leading-relaxed font-light text-center text-justify">
+                        <p class="text-base text-theme-muted leading-relaxed font-normal text-center text-justify">
                             Domain-specific models boost accuracy by learning from industry-specific terminology, processes, and contextual nuances that generic models miss.
                         </p>
                     </div>
@@ -291,7 +161,7 @@
                             <span class="material-symbols-outlined">payments</span>
                         </div>
                         <h4 class="text-lg md:text-xl font-bold text-theme-text mb-3 tracking-tight text-center">Cost Optimization</h4>
-                        <p class="text-sm text-theme-muted leading-relaxed font-light text-center text-justify">
+                        <p class="text-base text-theme-muted leading-relaxed font-normal text-center text-justify">
                             Targeted models reduce computational overhead and licensing costs by focusing resources on relevant knowledge rather than general-purpose processing.
                         </p>
                     </div>
@@ -302,7 +172,7 @@
                             <span class="material-symbols-outlined">business_center</span>
                         </div>
                         <h4 class="text-lg md:text-xl font-bold text-theme-text mb-3 tracking-tight text-center">Enterprise Value</h4>
-                        <p class="text-sm text-theme-muted leading-relaxed font-light text-center text-justify">
+                        <p class="text-base text-theme-muted leading-relaxed font-normal text-center text-justify">
                             DSLMs unlock measurable business value by solving targeted problems that directly impact revenue, efficiency, and customer satisfaction.
                         </p>
                     </div>
@@ -337,7 +207,7 @@
                         </div>
                         <span class="material-symbols-outlined text-theme-accent group-hover:scale-110 transition-all duration-300 text-5xl">memory</span>
                     </div>
-                    <p class="text-sm text-theme-muted leading-relaxed mb-6 font-light">
+                    <p class="text-base text-theme-muted leading-relaxed mb-6 font-normal">
                         Beyond generic LLMs. Our core layer utilizes Domain Adaptive Intelligence to fine-tune models on your proprietary datasets without leaking weight gradients to public clouds.
                     </p>
                     <div class="space-y-3">
@@ -367,7 +237,7 @@
                         </div>
                         <span class="material-symbols-outlined text-theme-accent group-hover:scale-110 transition-all duration-300 text-5xl">smart_toy</span>
                     </div>
-                    <p class="text-sm text-theme-muted leading-relaxed mb-6 font-light">
+                    <p class="text-base text-theme-muted leading-relaxed mb-6 font-normal">
                         Agents that think but never stray. We implement Hard-Coded Logic Trees and deterministic execution paths with strict guardrails that prevent hallucination.
                     </p>
                     <div class="space-y-3">
@@ -397,7 +267,7 @@
                         </div>
                         <span class="material-symbols-outlined text-theme-accent group-hover:scale-110 transition-all duration-300 text-5xl">hub</span>
                     </div>
-                    <p class="text-sm text-theme-muted leading-relaxed mb-8 font-light">
+                    <p class="text-base text-theme-muted leading-relaxed mb-8 font-normal">
                         The semantic connective tissue of your organization. Our Fabric layer creates Unified Memory Banks that ground AI responses in real-time enterprise data.
                     </p>
                     <div class="space-y-3">
@@ -427,7 +297,7 @@
                         </div>
                         <span class="material-symbols-outlined text-theme-accent group-hover:scale-110 transition-all duration-300 text-5xl">dashboard_customize</span>
                     </div>
-                    <p class="text-sm text-theme-muted leading-relaxed mb-8 font-light">
+                    <p class="text-base text-theme-muted leading-relaxed mb-8 font-normal">
                         High-precision interfaces for executive decision-making. Full-stack engineering that transforms complex AI outputs into actionable dashboards.
                     </p>
                     <div class="space-y-3">
@@ -449,7 +319,7 @@
                 <div class="lg:col-span-5 text-center md:text-left">
                     <p class="text-[10px] font-bold text-theme-accent uppercase tracking-[0.3em] mb-4">Defense-in-Depth</p>
                     <h3 class="text-4xl md:text-5xl font-bold text-theme-text mb-8 leading-tight">Auditability & Governance Wrapper</h3>
-                    <p class="text-theme-muted mb-10 leading-relaxed font-light text-center text-justify md:text-left">
+                    <p class="text-theme-muted mb-10 leading-relaxed font-normal text-center text-justify md:text-left">
                         Every interaction is wrapped in a cryptographic security layer. We provide continuous compliance mapping against NIST, HIPAA, and GDPR frameworks, ensuring your sovereign intelligence remains legally and ethically compliant.
                     </p>
                     <ul class="space-y-12 mt-12">
@@ -540,33 +410,9 @@
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="max-w-7xl mx-auto px-6 py-4 border-t border-theme-border">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] font-bold uppercase tracking-widest text-theme-muted">
-                <div class="flex flex-col items-center md:items-start gap-2">
-                    <img src="images/logo.webp" alt="Jungroo" class="h-3 opacity-40 logo-adaptive">
-                    <p>© 2026 Jungroo AI Labs.</p>
-                </div>
-            </div>
-        </footer>
+        <div id="footer-root"></div>
     </main>
     <script>
-        let mobileMenuOpen = false;
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const spans = document.querySelectorAll('#mobile-menu-toggle span');
-            mobileMenuOpen = !mobileMenuOpen;
-            
-            if(mobileMenuOpen) {
-                menu.classList.remove('translate-x-full');
-                spans[0].style.transform = 'translateY(4px) rotate(45deg)';
-                spans[1].style.transform = 'translateY(-4px) rotate(-45deg)';
-            } else {
-                menu.classList.add('translate-x-full');
-                spans[0].style.transform = 'none';
-                spans[1].style.transform = 'none';
-            }
-        }
 
         // document.getElementById('theme-toggle').onclick = () => {
         //     document.documentElement.classList.toggle('dark');
