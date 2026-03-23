@@ -25,8 +25,8 @@
 
 /* Page Specific Variable Overrides */
 .stack-page {
-    --accent: #5e6ad2;
-    --accent-rgb: 94, 106, 210;
+    --accent: #3b82f6;
+    --accent-rgb: 59, 130, 246;
     --error: #ffb4ab;
 }
 
@@ -784,6 +784,113 @@ body {
     border: 1px solid var(--border);
     padding: 1.5rem;
     width: 100%;
+}
+
+/* Stack Page Layer Card Mobile Overrides */
+@media (max-width: 1023px) {
+    .stack-page .stack-layer-card {
+        padding: 1.25rem !important;
+        transform: none !important;
+    }
+    
+    .stack-page .stack-layer-card:hover {
+        transform: none !important;
+    }
+
+    .stack-page .stack-layer-header {
+        display: grid !important;
+        /* Default grid for tablet/large mobile */
+        grid-template-columns: auto 1fr auto !important;
+        gap: 0.5rem 1rem !important;
+        align-items: center !important;
+        margin-bottom: 1.25rem !important;
+    }
+
+    /* Vertical stacking for narrow mobile screens */
+    @media (max-width: 640px) {
+        .stack-page .stack-layer-header {
+            grid-template-columns: auto 1fr !important;
+            grid-template-areas: 
+                "num icon"
+                "content content" !important;
+            gap: 1rem !important;
+            align-items: flex-start !important;
+        }
+
+        .stack-page .stack-layer-num {
+            grid-area: num !important;
+            width: 3rem !important;
+            height: 3rem !important;
+        }
+
+        .stack-page .stack-layer-icon {
+            grid-area: icon !important;
+            justify-self: end !important;
+            font-size: 1.75rem !important;
+            margin-top: 0.5rem !important;
+        }
+
+        .stack-page .stack-layer-header > .grow {
+            grid-area: content !important;
+            width: 100% !important;
+        }
+
+        .stack-page .stack-layer-header h4 {
+            font-size: 1.25rem !important; /* Slightly larger once it has full width */
+            margin-top: 0.25rem !important;
+        }
+    }
+
+    .stack-page .stack-layer-num span {
+        font-size: 1.25rem !important;
+    }
+    
+    /* Hide the horizontal line on mobile to save space */
+    .stack-page .stack-layer-header .h-px.grow {
+        display: none !important;
+    }
+
+    .stack-page .stack-layer-header .text-micro {
+        margin-bottom: 4px !important;
+    }
+}
+
+/* Stack Page Mobile Typography - ensure text is fully visible */
+@media (max-width: 640px) {
+    .stack-page .text-h1 {
+        font-size: 1.75rem !important;
+        line-height: 1.15 !important;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .stack-page .text-h2 {
+        font-size: 1.5rem !important;
+        line-height: 1.2 !important;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .stack-page .text-h3 {
+        font-size: 1.1rem !important;
+        line-height: 1.3 !important;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .stack-page h1 br,
+    .stack-page h2 br,
+    .stack-page h3 br {
+        display: none;
+    }
+
+    .stack-page .text-body-lg {
+        font-size: 1rem !important;
+    }
+
+    .stack-page .text-body {
+        font-size: 0.9375rem !important;
+    }
 }
 
 /* -------------------------------------------------------------------------- */

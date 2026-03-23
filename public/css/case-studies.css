@@ -6,11 +6,11 @@
     --card: #16161a;
     --text: #ffffff;
     --muted: #dbdbdc;
-    --accent: #4c6ef5;
-    --accent-rgb: 76, 110, 245;
+    --accent: #3b82f6;
+    --accent-rgb: 59, 130, 246;
     --border: rgba(255, 255, 255, 0.08);
     --theme-border: rgba(255, 255, 255, 0.08);
-    --accent-glow: rgba(76, 110, 245, 0.15);
+    --accent-glow: rgba(59, 130, 246, 0.15);
 }
 
 .case-studies-page body {
@@ -406,9 +406,27 @@
 @media (max-width: 640px) {
     .impact-metric-card {
         max-width: 100%;
+        text-align: left;
+        align-items: flex-start;
+    }
+    .impact-metric-card .spec-icon-box {
+        margin-left: 0 !important;
+        margin-right: auto !important;
     }
     .metric-number {
         font-size: 2.5rem;
+    }
+    .metric-label,
+    .metric-description {
+        text-align: left;
+    }
+    .section-card p,
+    .timeline-bullets,
+    .security-description,
+    .case-overview-text {
+        text-align: left !important;
+        text-align-last: left !important;
+        -moz-text-align-last: left;
     }
 }
 
@@ -416,7 +434,5 @@
 .timeline-bullets,
 .security-description,
 .case-overview-text {
-    text-align: justify !important;
-    text-align-last: left !important;
-    -moz-text-align-last: left; /* Firefox support */
+    text-align: left !important;
 }
