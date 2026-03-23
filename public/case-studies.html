@@ -45,7 +45,7 @@
     <main class="pt-32 pb-12 max-w-7xl mx-auto px-6">
         <!-- LIST VIEW -->
         <div id="list-view" class="view-transition">
-            <div class="max-w-3xl mb-16 mx-auto text-center">
+            <div class="max-w-3xl mb-10 mx-auto text-center">
                 <h1 class="text-h1 font-sans font-bold accent-gradient-text mb-6">Case Studies</h1>
                 <p class="text-body-lg text-theme-muted">
                     Explore our real-world examples of complex challenges solved with care, creativity, and code. From AI solutions to digital transformations, we engineer outcomes that turn vision into value.
@@ -60,7 +60,7 @@
 
         <!-- DETAIL VIEW (Initially Hidden) -->
         <div id="detail-view" class="hidden view-transition">
-            <button onclick="showList()" class="btn-back mb-12">
+            <button onclick="showList()" class="btn-back mb-8">
                 <span class="material-symbols-outlined text-[18px]">arrow_back</span>
                 Back to Results
             </button>
@@ -215,12 +215,12 @@
             const isClimateData = cs.slug === "climate-tech-data-ingestion";
             
             let challengeHtml = `
-                <div class="py-16 md:py-32">
+                <div class="py-10 md:py-14">
                     <div class="mb-16">
                         <h2 class="text-h2 font-bold text-white mb-6 text-center">The Challenge</h2>
                         <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.challenge.intro || '')}</p>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                         ${cs.challenge.bulletPoints.map((point, idx) => {
                             const { bg, color } = getIconColors(idx);
                             let title = '';
@@ -238,7 +238,7 @@
                                             ${getIconHtml(point.icon)}
                                         </div>
                                         <div class="flex flex-col gap-2">
-                                            ${title ? `<h4 class="text-h3 font-bold text-white">${renderBoldText(title)}</h4>` : ''}
+                                            ${title ? `<h4 class="text-h4 font-bold text-white">${renderBoldText(title)}</h4>` : ''}
                                             <p class="text-body text-theme-muted">
                                                 ${renderBoldText(text)}
                                             </p>
@@ -248,14 +248,14 @@
                             `;
                         }).join('')}
                     </div>
-                    ${cs.challenge.conclusion ? `<p class="mt-12 text-body-lg text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.challenge.conclusion)}</p>` : ''}
+                    ${cs.challenge.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.challenge.conclusion)}</p>` : ''}
                 </div>
             `;
 
             let solutionHtml = "";
             if (isClimateData) {
                 solutionHtml = `
-                <div class="py-16 md:py-32">
+                <div class="py-5 md:py-10">
                     <div class="mb-16">
                         <h2 class="text-h2 font-bold text-white mb-6 text-center">The Solution</h2>
                         <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.solution.intro || '')}</p>
@@ -361,7 +361,7 @@
                             <strong class="text-white">IAM roles and tenant-specific access policies</strong> enforce strict data isolation, ensuring each tenant only accesses their own data.
                         </p>
                     </div>
-                    ${cs.solution.conclusion ? `<p class="mt-12 text-body-lg text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
+                    ${cs.solution.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
                 </div>
                 `;
             } else {
@@ -371,7 +371,7 @@
                             <h2 class="text-h2 font-bold text-white mb-6 text-center">The Solution</h2>
                             <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.solution.intro || '')}</p>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                             ${cs.solution.bulletPoints.map((point, idx) => {
                                 const { bg, color } = getIconColors(idx + 2); // Change offset for variety
                                 let title = '';
@@ -389,7 +389,7 @@
                                                 ${getIconHtml(point.icon)}
                                             </div>
                                             <div class="flex flex-col gap-2">
-                                                ${title ? `<h4 class="text-h3 font-bold text-white">${renderBoldText(title)}</h4>` : ''}
+                                                ${title ? `<h4 class="text-h4 font-bold text-white">${renderBoldText(title)}</h4>` : ''}
                                                 <p class="text-body text-theme-muted">
                                                     ${renderBoldText(text)}
                                                 </p>
@@ -399,7 +399,7 @@
                                 `;
                             }).join('')}
                         </div>
-                        ${cs.solution.conclusion ? `<p class="mt-12 text-body-lg text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
+                        ${cs.solution.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
                     </div>
                 `;
             }
@@ -411,7 +411,7 @@
             let metricsHtml = "";
             if (metrics.length > 0) {
                 metricsHtml = `
-                    <div class="impact-metrics-grid mb-16">
+                    <div class="impact-metrics-grid mb-8">
                         ${metrics.map((point, idx) => {
                             const { color, bg } = getIconColors(idx);
                             const matches = point.text.match(numberRegex);
@@ -462,7 +462,7 @@
                                             ${getIconHtml(point.icon)}
                                         </div>
                                         <div class="flex flex-col gap-2">
-                                            ${title ? `<h4 class="text-h3 font-bold text-white">${renderBoldText(title)}</h4>` : ''}
+                                            ${title ? `<h4 class="text-h4 font-bold text-white">${renderBoldText(title)}</h4>` : ''}
                                                 <p class="text-body text-theme-muted">
                                                     ${renderBoldText(text)}
                                                 </p>
@@ -476,25 +476,25 @@
             }
 
             let impactHtml = `
-                <div class="py-16 md:py-32">
+                <div class="py-10 md:py-14">
                     <div class="mb-16">
                         <h2 class="text-h2 font-bold text-white mb-6 text-center">The Impact</h2>
                         <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.impact.intro || '')}</p>
                     </div>
                     ${metricsHtml}
                     ${otherImpactHtml}
-                    ${cs.impact.conclusion ? `<p class="mt-12 text-body-lg text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.impact.conclusion)}</p>` : ''}
+                    ${cs.impact.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.impact.conclusion)}</p>` : ''}
                 </div>
             `;
 
             let techHtml = "";
             if (cs.technicalDifferentiation) {
                 techHtml = `
-                    <div class="py-16 md:py-32 border-t border-theme-border">
+                    <div class="py-10 md:py-14 border-t border-theme-border">
                         <div class="mb-12">
                             <h2 class="text-h2 font-bold text-white mb-6 text-center">Technical Differentiation</h2>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                             ${cs.technicalDifferentiation.bulletPoints.map((point, idx) => {
                                 const { bg, color } = getIconColors(idx + 6);
                                 return `
@@ -518,22 +518,22 @@
             content.innerHTML = `
                 <div class="max-w-5xl mx-auto">
                     <!-- Back Button Row -->
-                    <div class="flex justify-start mb-12">
+                    <div class="flex justify-start mb-8">
                         <button onclick="showList()" class="back-button-circular btn-primary">
                             <span class="material-symbols-outlined">arrow_back</span>
                         </button>
                     </div>
 
                     <!-- Header Design (Centered) -->
-                    <div class="flex flex-col items-center mb-16">
+                    <div class="flex flex-col items-center mb-8">
                         <div class="flex flex-wrap justify-center gap-3 mb-8">
                             ${cs.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}
                         </div>
-                        <h2 class="text-h1 font-sans font-bold mb-10 text-center">
+                        <h2 class="text-h2 font-sans font-bold mb-6 text-center">
                             ${cs.title}
                         </h2>
                         <div class="max-w-4xl">
-                            <p class="text-h3 text-theme-muted font-light case-overview-text text-justify">
+                            <p class="text-body-lg text-theme-muted font-light case-overview-text text-justify">
                                 ${cs.overview}
                             </p>
                         </div>
@@ -544,7 +544,7 @@
                         ${solutionHtml}
                         ${impactHtml}
                         ${techHtml}
-                        ${cs.conclusion ? `<div class="py-16 md:py-32 border-t border-theme-border px-6"><p class="text-body-lg text-theme-muted max-w-4xl mx-auto italic section-conclusion-text text-center">${renderBoldText(cs.conclusion)}</p></div>` : ''}
+                        ${cs.conclusion ? `<div class="py-12 md:py-20 border-t border-theme-border px-6"><p class="text-body text-theme-muted max-w-4xl mx-auto italic section-conclusion-text text-center">${renderBoldText(cs.conclusion)}</p></div>` : ''}
                     </div>
 
                 </div>
