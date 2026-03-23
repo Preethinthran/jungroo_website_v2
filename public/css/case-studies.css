@@ -5,7 +5,7 @@
     --panel: #111114;
     --card: #16161a;
     --text: #ffffff;
-    --muted: #88888e;
+    --muted: #dbdbdc;
     --accent: #4c6ef5;
     --accent-rgb: 76, 110, 245;
     --border: rgba(255, 255, 255, 0.08);
@@ -20,7 +20,7 @@
 }
 
 .case-studies-page .logo-adaptive {
-    filter: brightness(0) invert(1);
+    filter: var(--logo-filter);
     transition: none;
 }
 
@@ -38,6 +38,19 @@
 
 .case-studies-page .bg-grid-pattern {
     background-image: radial-gradient(var(--theme-border) 1px, transparent 1px);
+}
+
+/* Case Card Base Styles */
+.case-card {
+    background: var(--panel);
+    border: 1px solid var(--theme-border);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.case-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(var(--accent-rgb), 0.1);
 }
 
 /* Detail View Layouts */
@@ -61,23 +74,19 @@
 
 /* Back Button (Circular) */
 .back-button-circular {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
     width: 48px;
     height: 48px;
-    border-radius: 50%;
+    border-radius: 50% !important;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
+    padding: 0 !important;
 }
 
 .back-button-circular:hover {
-    border-color: var(--accent);
-    background-color: rgba(var(--accent-rgb), 0.1);
-    color: var(--accent);
+    transform: scale(1.1) translateY(-2px);
 }
 
 /* Tags */

@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     
     <script src="js/components-loader.js"></script>
@@ -29,7 +29,6 @@
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
                     }
                 }
             }
@@ -46,12 +45,12 @@
     <main class="pt-32 pb-12 max-w-7xl mx-auto px-6">
         <!-- LIST VIEW -->
         <div id="list-view" class="view-transition">
-            <div class="max-w-3xl mb-16">
-                <h1 class="text-4xl md:text-6xl font-display font-bold accent-gradient-text mb-6">Case Studies</h1>
-                <p class="text-lg text-theme-muted leading-relaxed">
+            <div class="max-w-3xl mb-16 mx-auto text-center">
+                <h1 class="text-h1 font-sans font-bold accent-gradient-text mb-6">Case Studies</h1>
+                <p class="text-body-lg text-theme-muted">
                     Explore our real-world examples of complex challenges solved with care, creativity, and code. From AI solutions to digital transformations, we engineer outcomes that turn vision into value.
                 </p>
-                <div class="h-1 w-20 bg-theme-accent mt-8"></div>
+                <div class="h-1.5 w-32 accent-line-gradient mt-8 rounded-full shadow-lg shadow-theme-accent/20 mx-auto"></div>
             </div>
 
             <div id="case-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -101,10 +100,19 @@
 
         function renderCaseGrid() {
             const grid = document.getElementById('case-grid');
-            const totalPages = Math.ceil(caseStudies.length / itemsPerPage);
-            const start = (currentPage - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            const currentCases = caseStudies.slice(start, end);
+            const isDesktop = window.innerWidth > 768;
+            
+            let currentCases;
+            let totalPages = 1;
+
+            if (isDesktop) {
+                currentCases = caseStudies;
+            } else {
+                totalPages = Math.ceil(caseStudies.length / itemsPerPage);
+                const start = (currentPage - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+                currentCases = caseStudies.slice(start, end);
+            }
 
             grid.innerHTML = currentCases.map(cs => `
                 <div class="case-card p-10 rounded-[32px] flex flex-col h-full cursor-pointer group" onclick="selectCase('${cs.slug}')">
@@ -115,11 +123,11 @@
                         <span class="material-symbols-outlined text-theme-muted group-hover:text-theme-accent transition-all group-hover:translate-x-1">arrow_forward</span>
                     </div>
                     
-                    <h3 class="text-xl font-bold text-theme-text mb-4 leading-tight group-hover:text-theme-accent transition-colors">
+                    <h3 class="text-h3 font-bold text-theme-text mb-4 group-hover:text-theme-accent transition-colors">
                         ${cs.title}
                     </h3>
                     
-                    <p class="text-sm text-theme-muted mb-8 leading-relaxed line-clamp-3 text-justify">
+                    <p class="text-caption text-theme-muted mb-8 line-clamp-3 text-justify">
                         ${cs.overview}
                     </p>
                     
@@ -129,19 +137,19 @@
                 </div>
             `).join('');
 
-            renderPagination(totalPages);
+            renderPagination(totalPages, isDesktop);
         }
 
-        function renderPagination(totalPages) {
+        function renderPagination(totalPages, isDesktop) {
             let paginationHtml = '';
-            if (totalPages > 1) {
+            if (!isDesktop && totalPages > 1) {
                 paginationHtml = `
                     <div class="flex justify-center items-center gap-4 mt-16">
-                        <button onclick="changePage(${currentPage - 1})" class="p-2 rounded-full border border-theme-border flex items-center justify-center transition-all hover:border-theme-accent hover:text-theme-accent ${currentPage === 1 ? 'opacity-30 cursor-not-allowed' : ''}" ${currentPage === 1 ? 'disabled' : ''}>
+                        <button onclick="changePage(${currentPage - 1})" class="btn-secondary w-10 h-10 rounded-full flex items-center justify-center ${currentPage === 1 ? 'opacity-30 cursor-not-allowed' : ''}" ${currentPage === 1 ? 'disabled' : ''}>
                             <span class="material-symbols-outlined">chevron_left</span>
                         </button>
-                        <span class="text-sm font-bold text-theme-muted">Page ${currentPage} of ${totalPages}</span>
-                        <button onclick="changePage(${currentPage + 1})" class="p-2 rounded-full border border-theme-border flex items-center justify-center transition-all hover:border-theme-accent hover:text-theme-accent ${currentPage === totalPages ? 'opacity-30 cursor-not-allowed' : ''}" ${currentPage === totalPages ? 'disabled' : ''}>
+                        <span class="text-caption font-bold text-theme-muted">Page ${currentPage} of ${totalPages}</span>
+                        <button onclick="changePage(${currentPage + 1})" class="btn-secondary w-10 h-10 rounded-full flex items-center justify-center ${currentPage === totalPages ? 'opacity-30 cursor-not-allowed' : ''}" ${currentPage === totalPages ? 'disabled' : ''}>
                             <span class="material-symbols-outlined">chevron_right</span>
                         </button>
                     </div>
@@ -150,10 +158,12 @@
             const existingPagination = document.querySelector('.pagination-container');
             if (existingPagination) existingPagination.remove();
             
-            const paginationContainer = document.createElement('div');
-            paginationContainer.className = 'pagination-container';
-            paginationContainer.innerHTML = paginationHtml;
-            document.getElementById('list-view').appendChild(paginationContainer);
+            if (paginationHtml) {
+                const paginationContainer = document.createElement('div');
+                paginationContainer.className = 'pagination-container';
+                paginationContainer.innerHTML = paginationHtml;
+                document.getElementById('list-view').appendChild(paginationContainer);
+            }
         }
 
         function changePage(page) {
@@ -205,10 +215,10 @@
             const isClimateData = cs.slug === "climate-tech-data-ingestion";
             
             let challengeHtml = `
-                <div class="mt-32 pb-32">
+                <div class="py-16 md:py-32">
                     <div class="mb-16">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-center">The Challenge</h2>
-                        <p class="text-xl text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.challenge.intro || '')}</p>
+                        <h2 class="text-h2 font-bold text-white mb-6 text-center">The Challenge</h2>
+                        <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.challenge.intro || '')}</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
                         ${cs.challenge.bulletPoints.map((point, idx) => {
@@ -228,8 +238,8 @@
                                             ${getIconHtml(point.icon)}
                                         </div>
                                         <div class="flex flex-col gap-2">
-                                            ${title ? `<h4 class="text-xl font-bold text-white leading-tight">${renderBoldText(title)}</h4>` : ''}
-                                            <p class="text-theme-muted leading-relaxed text-base">
+                                            ${title ? `<h4 class="text-h3 font-bold text-white">${renderBoldText(title)}</h4>` : ''}
+                                            <p class="text-body text-theme-muted">
                                                 ${renderBoldText(text)}
                                             </p>
                                         </div>
@@ -238,17 +248,17 @@
                             `;
                         }).join('')}
                     </div>
-                    ${cs.challenge.conclusion ? `<p class="mt-12 text-lg text-theme-muted max-w-3xl mx-auto leading-relaxed section-conclusion-text text-center">${renderBoldText(cs.challenge.conclusion)}</p>` : ''}
+                    ${cs.challenge.conclusion ? `<p class="mt-12 text-body-lg text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.challenge.conclusion)}</p>` : ''}
                 </div>
             `;
 
             let solutionHtml = "";
             if (isClimateData) {
                 solutionHtml = `
-                <div class="mt-64 pb-32">
+                <div class="py-16 md:py-32">
                     <div class="mb-16">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-center">The Solution</h2>
-                        <p class="text-xl text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.solution.intro || '')}</p>
+                        <h2 class="text-h2 font-bold text-white mb-6 text-center">The Solution</h2>
+                        <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.solution.intro || '')}</p>
                     </div>
                     
                     <div class="timeline-container">
@@ -351,15 +361,15 @@
                             <strong class="text-white">IAM roles and tenant-specific access policies</strong> enforce strict data isolation, ensuring each tenant only accesses their own data.
                         </p>
                     </div>
-                    ${cs.solution.conclusion ? `<p class="mt-12 text-lg text-theme-muted max-w-3xl mx-auto leading-relaxed section-conclusion-text text-center">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
+                    ${cs.solution.conclusion ? `<p class="mt-12 text-body-lg text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
                 </div>
                 `;
             } else {
                 solutionHtml = `
-                    <div class="mt-64 pb-32">
+                    <div class="py-16 md:py-32">
                         <div class="mb-16">
-                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-center">The Solution</h2>
-                            <p class="text-xl text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.solution.intro || '')}</p>
+                            <h2 class="text-h2 font-bold text-white mb-6 text-center">The Solution</h2>
+                            <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.solution.intro || '')}</p>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
                             ${cs.solution.bulletPoints.map((point, idx) => {
@@ -379,8 +389,8 @@
                                                 ${getIconHtml(point.icon)}
                                             </div>
                                             <div class="flex flex-col gap-2">
-                                                ${title ? `<h4 class="text-xl font-bold text-white leading-tight">${renderBoldText(title)}</h4>` : ''}
-                                                <p class="text-theme-muted leading-relaxed text-base">
+                                                ${title ? `<h4 class="text-h3 font-bold text-white">${renderBoldText(title)}</h4>` : ''}
+                                                <p class="text-body text-theme-muted">
                                                     ${renderBoldText(text)}
                                                 </p>
                                             </div>
@@ -389,7 +399,7 @@
                                 `;
                             }).join('')}
                         </div>
-                        ${cs.solution.conclusion ? `<p class="mt-12 text-lg text-theme-muted max-w-3xl mx-auto leading-relaxed section-conclusion-text text-center">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
+                        ${cs.solution.conclusion ? `<p class="mt-12 text-body-lg text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
                     </div>
                 `;
             }
@@ -452,8 +462,8 @@
                                             ${getIconHtml(point.icon)}
                                         </div>
                                         <div class="flex flex-col gap-2">
-                                            ${title ? `<h4 class="text-xl font-bold text-white leading-tight">${renderBoldText(title)}</h4>` : ''}
-                                                <p class="text-theme-muted leading-relaxed text-base">
+                                            ${title ? `<h4 class="text-h3 font-bold text-white">${renderBoldText(title)}</h4>` : ''}
+                                                <p class="text-body text-theme-muted">
                                                     ${renderBoldText(text)}
                                                 </p>
                                         </div>
@@ -466,23 +476,23 @@
             }
 
             let impactHtml = `
-                <div class="mt-64 mb-12">
+                <div class="py-16 md:py-32">
                     <div class="mb-16">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-center">The Impact</h2>
-                        <p class="text-xl text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.impact.intro || '')}</p>
+                        <h2 class="text-h2 font-bold text-white mb-6 text-center">The Impact</h2>
+                        <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.impact.intro || '')}</p>
                     </div>
                     ${metricsHtml}
                     ${otherImpactHtml}
-                    ${cs.impact.conclusion ? `<p class="mt-12 text-lg text-theme-muted max-w-3xl mx-auto leading-relaxed section-conclusion-text text-center">${renderBoldText(cs.impact.conclusion)}</p>` : ''}
+                    ${cs.impact.conclusion ? `<p class="mt-12 text-body-lg text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.impact.conclusion)}</p>` : ''}
                 </div>
             `;
 
             let techHtml = "";
             if (cs.technicalDifferentiation) {
                 techHtml = `
-                    <div class="mt-48 pt-12 border-t border-theme-border">
+                    <div class="py-16 md:py-32 border-t border-theme-border">
                         <div class="mb-12">
-                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-center">Technical Differentiation</h2>
+                            <h2 class="text-h2 font-bold text-white mb-6 text-center">Technical Differentiation</h2>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
                             ${cs.technicalDifferentiation.bulletPoints.map((point, idx) => {
@@ -509,7 +519,7 @@
                 <div class="max-w-5xl mx-auto">
                     <!-- Back Button Row -->
                     <div class="flex justify-start mb-12">
-                        <button onclick="showList()" class="back-button-circular">
+                        <button onclick="showList()" class="back-button-circular btn-primary">
                             <span class="material-symbols-outlined">arrow_back</span>
                         </button>
                     </div>
@@ -519,11 +529,11 @@
                         <div class="flex flex-wrap justify-center gap-3 mb-8">
                             ${cs.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}
                         </div>
-                        <h2 class="text-4xl md:text-6xl font-display font-bold mb-10 leading-tight text-center">
+                        <h2 class="text-h1 font-sans font-bold mb-10 text-center">
                             ${cs.title}
                         </h2>
                         <div class="max-w-4xl">
-                            <p class="text-xl md:text-2xl text-theme-muted leading-relaxed font-light case-overview-text text-justify">
+                            <p class="text-h3 text-theme-muted font-light case-overview-text text-justify">
                                 ${cs.overview}
                             </p>
                         </div>
@@ -534,7 +544,7 @@
                         ${solutionHtml}
                         ${impactHtml}
                         ${techHtml}
-                        ${cs.conclusion ? `<div class="mt-32 pt-16 border-t border-theme-border"><p class="text-xl text-theme-muted max-w-4xl mx-auto leading-relaxed italic section-conclusion-text text-center">${renderBoldText(cs.conclusion)}</p></div>` : ''}
+                        ${cs.conclusion ? `<div class="py-16 md:py-32 border-t border-theme-border px-6"><p class="text-body-lg text-theme-muted max-w-4xl mx-auto italic section-conclusion-text text-center">${renderBoldText(cs.conclusion)}</p></div>` : ''}
                     </div>
 
                 </div>
@@ -572,6 +582,15 @@
                 showList(false);
             }
         };
+
+        // Add resize listener for responsive re-rendering
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                renderCaseGrid();
+            }, 250);
+        });
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {

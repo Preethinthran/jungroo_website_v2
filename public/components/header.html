@@ -4,11 +4,11 @@
             <img src="images/logo.webp" alt="Jungroo AI Labs" class="h-7 w-auto object-contain logo-adaptive">
         </a>
         
-        <div class="hidden md:flex items-center space-x-10 text-[11px] font-bold text-theme-muted uppercase tracking-widest">
+        <div class="hidden md:flex items-center space-x-10 text-micro text-theme-muted">
             <a href="/" data-nav="home" class="nav-item hover:text-theme-text transition-colors">Home</a>
             <a href="/stack" data-nav="capabilities" class="nav-item hover:text-theme-text transition-colors">Stack</a>
             <a href="/case-studies" data-nav="case-studies" class="nav-item hover:text-theme-text transition-colors">Case Studies</a>
-            <a href="/pillars" data-nav="pillars" class="nav-item hover:text-theme-text transition-colors">Pillars</a>
+            <a href="/pillars" data-nav="pillars" class="nav-item hover:text-theme-text transition-colors">capabilities</a>
             <a href="/media" data-nav="media" class="nav-item hover:text-theme-text transition-colors">Media</a>
         </div>
         
@@ -16,7 +16,7 @@
             <button id="theme-toggle" class="hidden w-9 h-9 flex items-center justify-center rounded-full border border-theme-border bg-theme-panel hover:border-theme-accent hover:scale-110 active:scale-95 transition-all shadow-sm" aria-label="Toggle dark mode">
                 <span class="text-lg leading-none select-none">💡</span>
             </button>
-            <a href="/contact" class="hidden md:inline-block bg-theme-text text-theme-bg px-5 py-2 text-[13px] font-semibold rounded-lg hover:opacity-90 transition-opacity">Brief Us</a>
+            <a href="/contact" class="hidden md:inline-block btn-primary px-5 py-2 text-[13px] rounded-lg">Brief Us</a>
             <button id="mobile-menu-toggle" class="md:hidden w-9 h-9 flex flex-col justify-center items-center gap-1.5 focus:outline-none ml-2" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu">
                 <span class="w-5 h-0.5 bg-theme-text transition-all duration-300"></span>
                 <span class="w-5 h-0.5 bg-theme-text transition-all duration-300"></span>
@@ -26,7 +26,7 @@
 </nav>
 
 <!-- MOBILE NAV OVERLAY -->
-<div id="mobile-menu" class="fixed inset-0 z-40 bg-theme-bg/95 backdrop-blur-md transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 text-lg font-bold uppercase tracking-widest md:hidden">
+<div id="mobile-menu" class="fixed inset-0 z-40 bg-theme-bg/95 backdrop-blur-md transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center space-y-8 text-h4 uppercase tracking-widest md:hidden">
     <a href="/" data-nav="home" class="mobile-nav-item text-theme-text transition-colors">Home</a>
     <a href="/stack" data-nav="capabilities" class="mobile-nav-item hover:text-theme-text transition-colors">Stack</a>
     <a href="/case-studies" data-nav="case-studies" class="mobile-nav-item hover:text-theme-text transition-colors">Case Studies</a>

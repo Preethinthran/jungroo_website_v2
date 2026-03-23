@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     
     <script src="js/components-loader.js"></script>
@@ -54,7 +54,7 @@
     <!-- HOME VIEW -->
     <main id="view-home" class="view-section active">
         <!-- HERO SECTION -->
-        <header class="relative pt-32 pb-12 md:pt-56 md:pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center text-center z-10">
+        <header class="relative pt-24 pb-10 md:pt-40 md:pb-16 px-6 max-w-7xl mx-auto flex flex-col items-center text-center z-10">
             <div class="absolute top-0 left-0 w-full h-[600px] bg-hero-glow pointer-events-none z-[-1]"></div>
             <div class="absolute top-0 left-0 w-full h-[600px] bg-grid-pattern opacity-[0.4] dark:opacity-[0.1] pointer-events-none z-[-2]" style="background-size: 60px 60px;"></div>
             
@@ -63,48 +63,48 @@
                 Sovereign Intelligence Partner
             </div>
             
-            <h1 class="text-4xl md:text-6xl lg:text-[64px] font-bold tracking-tight leading-[1.1] mb-8 max-w-5xl text-gradient">
-                Full-Stack Sovereign AI Systems for Enterprises.
+            <h1 class="text-h1 font-bold mb-8 max-w-5xl text-theme-text">
+                <span class="bg-gradient-to-r from-[#66a6ff] to-[#3b82f6] bg-clip-text text-transparent">Full-Stack & Sovereign</span> AI Systems for Enterprises.
             </h1>
-            <p class="text-lg md:text-xl text-theme-muted font-normal max-w-4xl leading-relaxed mb-12">
+            <p class="text-body-lg text-theme-muted font-normal max-w-4xl mb-12">
                 We bring private intelligence systems to your infrastructure. Sovereign models, robust agentic workflows, and full-stack applications—built, deployed, and governed entirely within your boundaries to meet the rigorous standards of the <span class="font-bold">most regulated domains</span>.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 mb-12">
-                <a href="/case-studies" class="bg-theme-text text-theme-bg px-10 py-4 text-center text-[15px] font-bold rounded-xl shadow-lg hover:opacity-90 transition-all">Case Studies</a>
-                <a href="/stack" class="bg-theme-panel border border-theme-border text-theme-text px-10 py-4 text-center text-[15px] font-bold rounded-xl hover:border-theme-accent transition-all">Explore Stack</a>
+                <a href="/case-studies" class="btn-primary px-10 py-4 text-center text-[15px] rounded-xl">Case Studies</a>
+                <a href="/stack" class="btn-secondary px-10 py-4 text-center text-[15px] rounded-xl">Explore Stack</a>
             </div>
         </header>
 
         <!-- STACK SECTION (Sovereign Intelligence Architecture) -->
-        <section id="capabilities" class="pt-8 pb-12 md:pt-12 md:pb-16 border-t border-theme-border bg-theme-bg overflow-hidden">
+        <section id="capabilities" class="py-10 md:py-16 border-t border-theme-border bg-theme-bg overflow-hidden">
             <div class="max-w-7xl mx-auto px-6 relative z-10">
                 <!-- Section Intro: Research Quote -->
-                <div class="max-w-4xl mx-auto mb-16 pt-0 text-center">
-                    <p class="text-lg md:text-2xl text-theme-text font-light leading-relaxed italic">
+                <div class="max-w-4xl mx-auto mb-10 pt-0 text-center">
+                    <p class="text-h3 text-theme-text font-light italic">
                         "Research indicates that an overwhelming <span class="text-theme-accent font-semibold">68% of organizations</span> struggle to move their AI projects beyond the pilot stage. Why? Because isolated algorithms cannot survive in complex, highly regulated enterprise environments without secure, full-stack integration."
                     </p>
                 </div>
 
                 <!-- Strategic Summary: Sovereign AI Leadership -->
-                <div class="mb-16 text-center flex flex-col items-center">
-                    <div class="max-w-3xl mb-16 mx-auto text-center">
-                        <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-theme-text mb-6">
-                            Your Path to <span class="text-theme-accent">Sovereign AI Leadership</span>
+                <div class="mb-12 mt-16 text-center flex flex-col items-center">
+                    <div class="max-w-6xl mb-12 mx-auto text-center">
+                        <h2 class="text-h2 font-bold text-theme-text mb-6">
+                            Your Path to <span class="bg-gradient-to-r from-[#66a6ff] to-[#3b82f6] bg-clip-text text-transparent">Sovereign AI Leadership</span>
                         </h2>
-                        <p class="text-lg text-theme-muted font-light leading-relaxed max-w-2xl mx-auto">
+                        <p class="text-body-lg text-theme-muted font-light max-w-6xl mx-auto px-4 md:px-0 text-justify">
                             Jungroo's 4-layer AI stack is more than technical infrastructure. We do not build fragile AI wrappers.We engineer an end-to-end, zero-trust architecture designed to turn fragmented data into a defensible operational asset. It's a strategic foundation for organizations that refuse to compromise on security and performance.
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 w-full">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 w-full">
                         <!-- Card 1: Complete Control -->
                         <div class="group p-8 bg-theme-panel/40 border border-theme-border rounded-2xl hover:border-theme-accent/50 transition-all duration-300 flex flex-col items-center text-center">
                             <div class="w-12 h-12 bg-theme-accent/10 border border-theme-accent/20 rounded-xl flex items-center justify-center text-theme-accent mb-6 group-hover:scale-110 transition-transform mx-auto">
                                 <span class="material-symbols-outlined">security</span>
                             </div>
-                            <h3 class="text-xl font-bold text-theme-text mb-3">Complete Control</h3>
-                            <p class="text-base text-theme-muted font-normal leading-relaxed text-justify">
+                            <h3 class="text-h3 font-bold text-theme-text mb-3">Complete Control</h3>
+                            <p class="text-body text-theme-muted font-normal text-justify">
                                 On-premise or VPC deployment ensures your data never leaves your environment, providing total sovereignty over your intelligence assets.
                             </p>
                         </div>
@@ -114,8 +114,8 @@
                             <div class="w-12 h-12 bg-theme-accent/10 border border-theme-accent/20 rounded-xl flex items-center justify-center text-theme-accent mb-6 group-hover:scale-110 transition-transform mx-auto">
                                 <span class="material-symbols-outlined">psychology</span>
                             </div>
-                            <h3 class="text-xl font-bold text-theme-text mb-3">Domain Expertise</h3>
-                            <p class="text-base text-theme-muted font-normal leading-relaxed text-justify">
+                            <h3 class="text-h3 font-bold text-theme-text mb-3">Domain Expertise</h3>
+                            <p class="text-body text-theme-muted font-normal text-justify">
                                 Models trained specifically on your industry data for unmatched accuracy, moving beyond generic outputs to specialized enterprise value.
                             </p>
                         </div>
@@ -125,16 +125,16 @@
                             <div class="w-12 h-12 bg-theme-accent/10 border border-theme-accent/20 rounded-xl flex items-center justify-center text-theme-accent mb-6 group-hover:scale-110 transition-transform mx-auto">
                                 <span class="material-symbols-outlined">trending_up</span>
                             </div>
-                            <h3 class="text-xl font-bold text-theme-text mb-3">Strategic Value</h3>
-                            <p class="text-base text-theme-muted font-normal leading-relaxed text-justify">
+                            <h3 class="text-h3 font-bold text-theme-text mb-3">Strategic Value</h3>
+                            <p class="text-body text-theme-muted font-normal text-justify">
                                 Move beyond pilots to a production-ready intelligence engine that scales with your business objectives and regulatory requirements.
                             </p>
                         </div>
                     </div>
 
                     <!-- Strategic Quote -->
-                    <div class="max-w-4xl mx-auto text-center border-t border-b border-theme-border/30 py-12 px-6">
-                        <p class="text-lg md:text-2xl text-theme-text font-light italic leading-relaxed">
+                    <div class="max-w-4xl mx-auto text-center border-t border-b border-theme-border/30 py-8 px-6">
+                        <p class="text-h3 text-theme-text font-light italic">
                             "Domain-Specific Language Models are rapidly becoming the gold standard for enterprise intelligence as we move through 2026, making early adoption a strategic imperative."
                         </p>
                     </div>
@@ -144,12 +144,12 @@
 
                 <!-- Architecture Schematic View -->
                 <div class="pt-8">
-                    <div class="max-w-3xl mx-auto text-center mb-12">
+                    <div class="max-w-3xl mx-auto text-center mb-10">
                         <div class="inline-flex items-center gap-2 border border-theme-border rounded-full px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] bg-theme-panel shadow-sm mb-4">
                             <span class="w-2 h-2 rounded-full bg-theme-accent animate-pulse shadow-[0_0_8px_var(--accent)]"></span>
                             The Sovereign Intelligence Architecture
                         </div>
-                        <h2 class="text-3xl md:text-5xl font-black tracking-tight text-theme-text mb-2 uppercase">The 4-Layer Stack</h2>
+                        <h2 class="text-h2 font-black text-theme-text mb-2 uppercase">The 4-Layer Stack</h2>
                     </div>
                     
                     <div class="architecture-grid-wrapper max-w-4xl mx-auto w-full">
@@ -162,14 +162,14 @@
         </section>
 
         <!-- PILLARS SECTION -->
-        <section id="pillars" class="pt-12 md:pt-16 pb-24 md:pb-32 border-t border-theme-border bg-theme-altBg relative overflow-hidden">
+        <section id="pillars" class="py-10 md:py-16 border-t border-theme-border bg-theme-altBg relative overflow-hidden">
             <div class="absolute top-[61%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-zinc-500/10 rounded-full hidden lg:block"></div>
             <div class="absolute top-[61%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-zinc-500/15 rounded-full hidden lg:block"></div>
 
             <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
-                <div class="text-center mb-16 max-w-4xl mx-auto">
-                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-theme-text mb-6">The 5 Pillars of Excellence</h2>
-                    <p class="text-lg md:text-xl font-light leading-relaxed text-theme-muted max-w-2xl mx-auto text-center text-justify md:text-center">
+                <div class="text-center mb-10 max-w-4xl mx-auto">
+                    <h2 class="text-h2 font-bold text-theme-text mb-6">The 5 Pillars of Excellence</h2>
+                    <p class="text-body-lg font-light text-theme-muted max-w-2xl mx-auto text-center text-justify md:text-center">
                         High-stakes delivery for security-first organizations. Our architecture funnels complexity into measurable business value for regulated domains.
                     </p>
                 </div>
@@ -178,14 +178,14 @@
                     <div class="flex flex-col gap-8 order-2 lg:order-1">
                         <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden text-left">
                             <div class="text-3xl mb-4 text-left">🏛️</div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-2 text-center md:text-left">Sovereign AI</h3>
-                            <p class="text-base font-normal leading-relaxed text-theme-muted mb-4 text-justify">Operate private intelligence within a Zero-Trust architecture. We guarantee strict data residency compliance, ensuring your most sensitive PII and financial datasets never cross an external perimeter.</p>
+                            <h3 class="text-h4 font-bold text-theme-text mb-2 text-center md:text-left">Sovereign AI</h3>
+                            <p class="text-body font-normal text-theme-muted mb-4 text-justify">Operate private intelligence within a Zero-Trust architecture. We guarantee strict data residency compliance, ensuring your most sensitive PII and financial datasets never cross an external perimeter.</p>
                             <div class="text-[10px] font-bold uppercase tracking-widest text-theme-accent border-t border-theme-border pt-3">Air-Gapped Reasoning</div>
                         </div>
                         <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden text-left">
                             <div class="text-3xl mb-4 text-left">💠</div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-2 text-center md:text-left">Full-Stack Engineering</h3>
-                            <p class="text-base font-normal leading-relaxed text-theme-muted mb-4 text-justify">Robust backend architectures, complex data pipelines, and highly secure web and native mobile front-ends. Engage us for end-to-end deployment or to build the bulletproof application layer for your existing models.</p>
+                            <h3 class="text-h4 font-bold text-theme-text mb-2 text-center md:text-left">Full-Stack Engineering</h3>
+                            <p class="text-body font-normal text-theme-muted mb-4 text-justify">Robust backend architectures, complex data pipelines, and highly secure web and native mobile front-ends. Engage us for end-to-end deployment or to build the bulletproof application layer for your existing models.</p>
                             <div class="text-[10px] font-bold uppercase tracking-widest text-theme-accent border-t border-theme-border pt-3">End-to-End Secure Applications</div>
                         </div>
                     </div>
@@ -194,10 +194,10 @@
                         <div class="pillar-hub w-full max-w-[420px] bg-theme-panel border-2 border-theme-accent p-10 md:p-12 rounded-[48px] shadow-2xl relative overflow-hidden text-center">
                             <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(94,106,210,0.1),transparent_70%)] pointer-events-none"></div>
                             <div class="text-center relative z-10">
-                                <div class="inline-block bg-theme-accent dark:bg-indigo-600 text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">The Velocity Engine</div>
+                                <div class="inline-block bg-theme-accent dark:bg-indigo-600 text-white px-4 py-1 rounded-full text-micro mb-6">The Velocity Engine</div>
                                 <div class="text-5xl mb-6">🚀</div>
-                                <h3 class="text-2xl font-bold tracking-tight text-theme-text mb-4 uppercase">AI Transformation</h3>
-                                <p class="text-base font-normal leading-relaxed text-theme-muted mb-8 text-justify">
+                                <h3 class="text-h3 font-bold text-theme-text mb-4 uppercase">AI Transformation</h3>
+                                <p class="text-body font-normal text-theme-muted mb-8 text-justify">
                                     We bridge the gap between boardroom strategy and production execution—shipping high-velocity, defensible moats that are pre-aligned with NIST, HIPAA, and emerging AI risk frameworks.
                                 </p>
                             </div>
@@ -207,14 +207,14 @@
                     <div class="flex flex-col gap-8 order-3">
                         <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden text-left">
                             <div class="text-3xl mb-4 text-left">🤖</div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-2 text-center md:text-left">Voice-Native & Agentic Workflows</h3>
-                            <p class="text-base font-normal leading-relaxed text-theme-muted mb-4 text-justify">Human-parity voice and reasoning agents bound by strict, deterministic guardrails. We automate complex telephony and digital workflows with high-fidelity reasoning—every action is capped, logged, and instantly auditable.</p>
+                            <h3 class="text-h4 font-bold text-theme-text mb-2 text-center md:text-left">Voice-Native & Agentic Workflows</h3>
+                            <p class="text-body font-normal text-theme-muted mb-4 text-justify">Human-parity voice and reasoning agents bound by strict, deterministic guardrails. We automate complex telephony and digital workflows with high-fidelity reasoning—every action is capped, logged, and instantly auditable.</p>
                             <div class="text-[10px] font-bold uppercase tracking-widest text-theme-accent border-t border-theme-border pt-3">The Autonomous Workforce</div>
                         </div>
                         <div class="pillar-satellite bg-theme-panel border border-theme-border p-8 rounded-[32px] shadow-sm relative overflow-hidden text-left">
                             <div class="text-3xl mb-4 text-left">🧬</div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-2 text-center md:text-left">Proprietary Assets</h3>
-                            <p class="text-base font-normal leading-relaxed text-theme-muted mb-4 text-justify">Transform your siloed data into a mathematical moat. From predictive analytics and adaptive learning to automated legal reasoning, we build the proprietary IP your competitors cannot buy off a shelf.</p>
+                            <h3 class="text-h4 font-bold text-theme-text mb-2 text-center md:text-left">Proprietary Assets</h3>
+                            <p class="text-body font-normal text-theme-muted mb-4 text-justify">Transform your siloed data into a mathematical moat. From predictive analytics and adaptive learning to automated legal reasoning, we build the proprietary IP your competitors cannot buy off a shelf.</p>
                             <div class="text-[10px] font-bold uppercase tracking-widest text-theme-accent border-t border-theme-border pt-3">Defensible IP Design</div>
                         </div>
                     </div>
@@ -223,9 +223,9 @@
         </section>
  
         <!-- CASE STUDIES PREVIEW -->
-        <section id="case-studies-preview" class="pt-12 pb-24 md:pb-32 border-t border-theme-border bg-theme-bg relative overflow-hidden">
+        <section id="case-studies-preview" class="py-10 md:py-16 border-t border-theme-border bg-theme-bg relative overflow-hidden">
             <div class="max-w-7xl mx-auto px-6 relative z-10">
-                <div class="bg-theme-panel/60 backdrop-blur-xl border border-white/5 rounded-[24px] p-8 md:p-20 shadow-2xl overflow-hidden relative">
+                <div class="bg-theme-panel/60 backdrop-blur-xl border border-white/5 rounded-[24px] p-6 md:p-12 shadow-2xl overflow-hidden relative">
                     <!-- Decorative gradient background inside the panel -->
                     <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-theme-accent/5 to-transparent pointer-events-none"></div>
                     
@@ -233,9 +233,9 @@
                         <div class="flex flex-col justify-center relative">
                             <div class="flex items-center gap-3 mb-6">
                                 <div class="w-8 h-px bg-gradient-to-r from-white/10 to-white/50"></div>
-                                <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-theme-muted">Portfolio</span>
+                                <span class="text-micro text-theme-muted">Portfolio</span>
                             </div>
-                            <h2 class="text-5xl md:text-[5.5rem] font-extrabold tracking-tighter leading-[1.1] mb-8 bg-gradient-to-r from-[#66a6ff] to-[#0050d0] bg-clip-text text-transparent text-left">
+                            <h2 class="text-h1 font-bold mb-8 bg-gradient-to-r from-[#66a6ff] to-[#0050d0] bg-clip-text text-transparent text-left">
                                 Case Studies
                             </h2>
                             <!-- Vertical divider for desktop -->
@@ -243,12 +243,12 @@
                         </div>
                         
                         <div class="flex flex-col justify-center">
-                            <p class="text-lg md:text-xl font-medium leading-[1.7] text-white/85 mb-12 text-left">
+                            <p class="text-body-lg font-medium text-white/85 mb-12 text-justify">
                                 Each of our case study is a <strong class="text-white font-semibold">real-world example</strong> of complex challenges solved with <strong class="text-white font-semibold">care, creativity, and code</strong>. We don't just deliver software—we <strong class="text-white font-semibold">engineer outcomes</strong>. We have worked across industries like education, fintech, enterprise tech to build robust, future-ready products using cutting-edge tools in AI/ML, data engineering, ETL pipelines, cloud platforms and full-stack development. Explore how we <strong class="text-white font-semibold">turn vision into value</strong>—across domains, disciplines, and technologies.
                             </p>
                             
-                            <div class="flex justify-start">
-                                <a href="/case-studies" class="group relative px-6 py-3.5 bg-theme-accent text-white text-sm md:text-base font-bold rounded-lg transition-all duration-300 hover:translate-y-[-2px] hover:shadow-[0_10px_25px_rgba(74,123,247,0.3)] overflow-hidden inline-block">
+                            <div class="flex justify-center">
+                                <a href="/case-studies" class="btn-primary px-6 py-3.5 text-sm md:text-base rounded-lg">
                                     <span class="flex items-center gap-2">
                                         READ OUR CASE STUDIES
                                         <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
@@ -262,14 +262,14 @@
         </section>
 
         <!-- MEDIA & MENTIONS -->
-        <section id="media" class="py-16 md:py-32 border-t border-theme-border bg-theme-bg">
+        <section id="media" class="py-10 md:py-16 border-t border-theme-border bg-theme-bg">
             <div class="max-w-7xl mx-auto px-6 relative z-10">
-                <div class="max-w-3xl mx-auto text-center mb-20">
-                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-theme-text mb-6">Media & Mentions</h2>
-                    <p class="text-lg md:text-xl font-light leading-relaxed text-theme-muted">Global recognition showcasing our journey and impact.</p>
+                <div class="max-w-3xl mx-auto text-center mb-12">
+                    <h2 class="text-h2 font-bold text-theme-text mb-4">Media & Mentions</h2>
+                    <p class="text-body-lg font-light text-theme-muted">Global recognition showcasing our journey and impact.</p>
                 </div>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Card 1: CNBC Young Turks -->
                     <div class="media-card group">
                         <a href="https://www.youtube.com/watch?v=4IRCTkKdFkI" target="_blank" class="block">
@@ -281,8 +281,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Jungroo Learning's feature in CNBC Young Turks Show</h3>
-                            <p class="text-sm font-light leading-relaxed text-theme-muted text-center text-justify md:text-left">Jungroo was recognized on CNBC’s Young Turks as one of India’s most promising edtech startups, showcasing how we're using AI to personalize learning experiences for every student.</p>
+                            <h3 class="text-h4 font-bold text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Jungroo Learning's feature in CNBC Young Turks Show</h3>
+                            <p class="text-caption font-light text-theme-muted text-center text-justify md:text-left">Jungroo was recognized on CNBC’s Young Turks as one of India’s most promising edtech startups, showcasing how we're using AI to personalize learning experiences for every student.</p>
                         </a>
                     </div>
 
@@ -297,8 +297,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Our Co-founder on the sidelines of "AI for Good" award</h3>
-                            <p class="text-sm font-light leading-relaxed text-theme-muted text-center text-justify md:text-left">At the prestigious “AI for Good” summit, our co-founder shared insights into how Jungroo is leveraging AI to bridge educational gaps and deliver scalable, equitable learning solutions.</p>
+                            <h3 class="text-h4 font-bold text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Our Co-founder on the sidelines of "AI for Good" award</h3>
+                            <p class="text-caption font-light text-theme-muted text-center text-justify md:text-left">At the prestigious “AI for Good” summit, our co-founder shared insights into how Jungroo is leveraging AI to bridge educational gaps and deliver scalable, equitable learning solutions.</p>
                         </a>
                     </div>
 
@@ -313,8 +313,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Jungroo Learning's partnership with NGO Bhumi</h3>
-                            <p class="text-sm font-light leading-relaxed text-theme-muted text-center text-justify md:text-left">In collaboration with Bhumi, Jungroo helped assess thousands of children to better understand their learning levels--bringing data-driven education to grassroots initiatives.</p>
+                            <h3 class="text-h4 font-bold text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Jungroo Learning's partnership with NGO Bhumi</h3>
+                            <p class="text-caption font-light text-theme-muted text-center text-justify md:text-left">In collaboration with Bhumi, Jungroo helped assess thousands of children to better understand their learning levels--bringing data-driven education to grassroots initiatives.</p>
                         </a>
                     </div>
 
@@ -324,8 +324,8 @@
                             <div class="aspect-video w-full bg-theme-altBg rounded-3xl mb-8 flex items-center justify-center overflow-hidden">
                                 <img src="images/government.webp" alt="India AI" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
                             </div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Featured on the cover story in India AI website by the government</h3>
-                            <p class="text-sm font-light leading-relaxed text-theme-muted text-center text-justify md:text-left">Jungroo was spotlighted by the Government of India on the India AI portal for its innovative use of artificial intelligence in transforming the educational landscape.</p>
+                            <h3 class="text-h4 font-bold text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Featured on the cover story in India AI website by the government</h3>
+                            <p class="text-caption font-light text-theme-muted text-center text-justify md:text-left">Jungroo was spotlighted by the Government of India on the India AI portal for its innovative use of artificial intelligence in transforming the educational landscape.</p>
                         </a>
                     </div>
 
@@ -335,8 +335,8 @@
                             <div class="aspect-video w-full bg-theme-altBg rounded-3xl mb-8 flex items-center justify-center overflow-hidden">
                                 <img src="images/nasscom.webp" alt="Nasscom Article" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500">
                             </div>
-                            <h3 class="text-lg font-bold tracking-tight text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Article in NASSCOM's blog about Jungroo Learning's work</h3>
-                            <p class="text-sm font-light leading-relaxed text-theme-muted text-center text-justify md:text-left">NASSCOM featured Jungroo’s journey as a case study in how deep tech and purposeful design can reshape foundational learning in schools across the country.</p>
+                            <h3 class="text-h4 font-bold text-theme-text mb-4 group-hover:text-theme-accent transition-colors text-center md:text-left">Article in NASSCOM's blog about Jungroo Learning's work</h3>
+                            <p class="text-caption font-light text-theme-muted text-center text-justify md:text-left">NASSCOM featured Jungroo’s journey as a case study in how deep tech and purposeful design can reshape foundational learning in schools across the country.</p>
                         </a>
                     </div>
 
@@ -358,13 +358,13 @@
                 </div>
             </div>
         </section>
-        <section id="awards" class="py-16 md:py-32 border-t border-theme-border bg-theme-altBg">
+        <section id="awards" class="py-10 md:py-16 border-t border-theme-border bg-theme-altBg">
             <div class="max-w-7xl mx-auto px-6 text-center">
-                <div class="max-w-3xl mx-auto mb-16">
-                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-theme-text mb-6">Awards & Recognition</h2>
-                    <p class="text-lg md:text-xl font-light leading-relaxed text-theme-muted">Elite acknowledgments for our commitment to excellence.</p>
+                <div class="max-w-3xl mx-auto mb-12">
+                    <h2 class="text-h2 font-bold text-theme-text mb-4">Awards & Recognition</h2>
+                    <p class="text-body-lg font-light text-theme-muted">Elite acknowledgments for our commitment to excellence.</p>
                 </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
                     <div class="award-card flex flex-col items-center group">
                         <div class="w-full h-64 mb-10 flex items-center justify-center bg-theme-panel border border-theme-border rounded-3xl overflow-hidden p-10 transition-all duration-500 group-hover:scale-[1.02] group-hover:border-theme-accent/30 shadow-2xl relative">
                             <div class="absolute inset-0 bg-gradient-to-br from-theme-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -405,11 +405,11 @@
         </section>
 
         <!-- WHAT OUR CLIENTS SAY -->
-        <section id="testimonials" class="py-16 md:py-32 border-t border-theme-border bg-theme-bg overflow-hidden">
+        <section id="testimonials" class="py-10 md:py-16 border-t border-theme-border bg-theme-bg overflow-hidden">
             <div class="max-w-7xl mx-auto px-6">
-                <div class="max-w-3xl mx-auto text-center mb-20 relative z-30">
-                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-theme-text mb-6">What Our Clients Say</h2>
-                    <p class="text-lg md:text-xl font-light leading-relaxed text-theme-muted">See what our partners and clients have to say about our delivery.</p>
+                <div class="max-w-3xl mx-auto text-center mb-12 relative z-30">
+                    <h2 class="text-h2 font-bold text-theme-text mb-4">What Our Clients Say</h2>
+                    <p class="text-body-lg font-light text-theme-muted">See what our partners and clients have to say about our delivery.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-h-[700px] overflow-hidden relative">
@@ -422,35 +422,35 @@
                         <div class="animate-scroll-vertical" style="--scroll-duration: 40s;">
                             <!-- Testimonials -->
                             <div class="testimonial-card testimonial-unique text-center" style="--pulse-delay: 0s;">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"It was a pleasure working with the team - their dedication and transparency is rare."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Baz Khuti</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Founder, Sustain 360 Inc, USA</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"It was a pleasure working with the team - their dedication and transparency is rare."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Baz Khuti</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Founder, Sustain 360 Inc, USA</p>
                             </div>
                             <div class="testimonial-card testimonial-unique text-center">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Jungroo built a multi-tenant system that allows us to manage content delivery across various platforms and tenants from a single system."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Siva Vaddi</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Vice President, Infinity Learn, India</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"Jungroo built a multi-tenant system that allows us to manage content delivery across various platforms and tenants from a single system."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Siva Vaddi</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Vice President, Infinity Learn, India</p>
                             </div>
                             <div class="testimonial-card testimonial-unique text-center" style="--pulse-delay: 1s;">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Our main challenge was identifying students' levels without bombarding them with multiple assessments. Here Jungroo’s AI assessment helped us reduce the assessment time and the iterations."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Murali Mallikarjunan</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Content Manager, Bhumi, India</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"Our main challenge was identifying students' levels without bombarding them with multiple assessments. Here Jungroo’s AI assessment helped us reduce the assessment time and the iterations."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Murali Mallikarjunan</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Content Manager, Bhumi, India</p>
                             </div>
                             <!-- Duplicates -->
                             <div class="testimonial-card testimonial-dup text-center" style="--pulse-delay: 0s;">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"It was a pleasure working with the team - their dedication and transparency is rare."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Baz Khuti</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Founder, Sustain 360 Inc, USA</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"It was a pleasure working with the team - their dedication and transparency is rare."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Baz Khuti</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Founder, Sustain 360 Inc, USA</p>
                             </div>
                             <div class="testimonial-card testimonial-dup text-center">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Jungroo built a multi-tenant system that allows us to manage content delivery across various platforms and tenants from a single system."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Siva Vaddi</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Vice President, Infinity Learn, India</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"Jungroo built a multi-tenant system that allows us to manage content delivery across various platforms and tenants from a single system."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Siva Vaddi</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Vice President, Infinity Learn, India</p>
                             </div>
                             <div class="testimonial-card testimonial-dup text-center">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Our main challenge was identifying students' levels without bombarding them with multiple assessments. Here Jungroo’s AI assessment helped us reduce the assessment time and the iterations."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Murali Mallikarjunan</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Content Manager, Bhumi, India</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"Our main challenge was identifying students' levels without bombarding them with multiple assessments. Here Jungroo’s AI assessment helped us reduce the assessment time and the iterations."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Murali Mallikarjunan</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Content Manager, Bhumi, India</p>
                             </div>
                         </div>
                     </div>
@@ -459,35 +459,35 @@
                     <div class="overflow-hidden h-[700px] hidden md:block px-4">
                         <div class="animate-scroll-vertical" style="--scroll-duration: 40s;">
                             <div class="testimonial-card testimonial-unique text-center" style="--pulse-delay: 0.5s;">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Jungroo’s expertise in AI and full-stack development bridged the gap between innovation and integration for us."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Surendra Ganne</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Founder, Incepta.ai, UAE</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"Jungroo’s expertise in AI and full-stack development bridged the gap between innovation and integration for us."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Surendra Ganne</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Founder, Incepta.ai, UAE</p>
                             </div>
                             <div class="testimonial-card testimonial-unique text-center">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"What surprised me most wasn’t their tech skills—it was how they listened. Jungroo’s team spent considerable time to understand the actual pain points."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Rama Vaddi</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Vice President, SmartGig Technologies, India</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"What surprised me most wasn’t their tech skills—it was how they listened. Jungroo’s team spent considerable time to understand the actual pain points."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Rama Vaddi</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Vice President, SmartGig Technologies, India</p>
                             </div>
                             <div class="testimonial-card testimonial-unique text-center">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Their work gave me insights into the classroom that I wouldn't have gotten otherwise. Really innovative."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Balaji Alwar</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Program Manager, Central Square Foundation, India</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"Their work gave me insights into the classroom that I wouldn't have gotten otherwise. Really innovative."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Balaji Alwar</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Program Manager, Central Square Foundation, India</p>
                             </div>
                             <!-- Duplicates -->
                             <div class="testimonial-card testimonial-dup text-center">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Jungroo’s expertise in AI and full-stack development bridged the gap between innovation and integration for us."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Surendra Ganne</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Founder, Incepta.ai, UAE</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"Jungroo’s expertise in AI and full-stack development bridged the gap between innovation and integration for us."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Surendra Ganne</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Founder, Incepta.ai, UAE</p>
                             </div>
                             <div class="testimonial-card testimonial-dup text-center">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"What surprised me most wasn’t their tech skills—it was how they listened. Jungroo’s team spent considerable time to understand the actual pain points."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Rama Vaddi</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Vice President, SmartGig Technologies, India</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"What surprised me most wasn’t their tech skills—it was how they listened. Jungroo’s team spent considerable time to understand the actual pain points."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Rama Vaddi</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Vice President, SmartGig Technologies, India</p>
                             </div>
                             <div class="testimonial-card testimonial-dup text-center">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"Their work gave me insights into the classroom that I wouldn't have gotten otherwise. Really innovative."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Balaji Alwar</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Program Manager, Central Square Foundation, India</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"Their work gave me insights into the classroom that I wouldn't have gotten otherwise. Really innovative."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Balaji Alwar</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Program Manager, Central Square Foundation, India</p>
                             </div>
                         </div>
                     </div>
@@ -496,35 +496,35 @@
                     <div class="overflow-hidden h-[700px] hidden lg:block px-4">
                         <div class="animate-scroll-vertical" style="--scroll-duration: 40s;">
                             <div class="testimonial-card testimonial-unique text-center" style="--pulse-delay: 1.5s;">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"I’ve worked with ‘agile’ teams before, but Jungroo’s updates were genuinely transparent. No fluff, no blame—just honesty."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Founder</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Mergable Technologies, UAE</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"I’ve worked with ‘agile’ teams before, but Jungroo’s updates were genuinely transparent. No fluff, no blame—just honesty."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Founder</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Mergable Technologies, UAE</p>
                             </div>
                             <div class="testimonial-card testimonial-unique text-center">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"No one could have understood us better than Jungroo. Kudos to Cibe and his team for being this quick and supportive throughout."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Manasi Kashikar</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Co-founder, Mindchamp, India</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"No one could have understood us better than Jungroo. Kudos to Cibe and his team for being this quick and supportive throughout."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Manasi Kashikar</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Co-founder, Mindchamp, India</p>
                             </div>
                             <div class="testimonial-card testimonial-unique text-center">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"They’re not just vendors; they’re partners who truly care about the end result."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Aravind Thangam P</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">CEO, Zen Tax Clinic, India</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"They’re not just vendors; they’re partners who truly care about the end result."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Aravind Thangam P</h3>
+                                <p class="text-micro font-semibold text-theme-muted">CEO, Zen Tax Clinic, India</p>
                             </div>
                             <!-- Duplicates -->
                             <div class="testimonial-card testimonial-dup text-center">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"I’ve worked with ‘agile’ teams before, but Jungroo’s updates were genuinely transparent. No fluff, no blame—just honesty."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Founder</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Mergable Technologies, UAE</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"I’ve worked with ‘agile’ teams before, but Jungroo’s updates were genuinely transparent. No fluff, no blame—just honesty."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Founder</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Mergable Technologies, UAE</p>
                             </div>
                             <div class="testimonial-card testimonial-dup text-center">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"No one could have understood us better than Jungroo. Kudos to Cibe and his team for being this quick and supportive throughout."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Manasi Kashikar</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">Co-founder, Mindchamp, India</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"No one could have understood us better than Jungroo. Kudos to Cibe and his team for being this quick and supportive throughout."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Manasi Kashikar</h3>
+                                <p class="text-micro font-semibold text-theme-muted">Co-founder, Mindchamp, India</p>
                             </div>
                             <div class="testimonial-card testimonial-dup text-center">
-                                <p class="text-theme-text font-medium italic mb-6 leading-relaxed">"They’re not just vendors; they’re partners who truly care about the end result."</p>
-                                <h3 class="text-theme-accent font-bold text-base">Aravind Thangam P</h3>
-                                <p class="text-theme-muted text-xs font-semibold uppercase tracking-wider">CEO, Zen Tax Clinic, India</p>
+                                <p class="text-body font-medium italic mb-6 text-theme-text">"They’re not just vendors; they’re partners who truly care about the end result."</p>
+                                <h3 class="text-body font-bold text-theme-accent">Aravind Thangam P</h3>
+                                <p class="text-micro font-semibold text-theme-muted">CEO, Zen Tax Clinic, India</p>
                             </div>
                         </div>
                     </div>
@@ -533,14 +533,14 @@
         </section>
 
         <!-- MEET OUR FOUNDERS -->
-        <section id="founders" class="py-16 md:py-32 border-t border-theme-border bg-theme-altBg">
+        <section id="founders" class="py-10 md:py-16 border-t border-theme-border bg-theme-altBg">
             <div class="max-w-7xl mx-auto px-6">
-                <div class="max-w-3xl mx-auto text-center mb-20">
-                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-theme-text mb-6">Meet Our Founders</h2>
-                    <p class="text-lg md:text-xl font-light leading-relaxed text-theme-muted">The leadership driving sovereign intelligence forward.</p>
+                <div class="max-w-3xl mx-auto text-center mb-12">
+                    <h2 class="text-h2 font-bold text-theme-text mb-4">Meet Our Founders</h2>
+                    <p class="text-body-lg font-light text-theme-muted">The leadership driving sovereign intelligence forward.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                     <!-- Sethuraman T A - CEO -->
                     <div class="founder-card bg-theme-panel border border-theme-border rounded-[40px] p-8 md:p-12 transition-all duration-500">
                         <div class="flex flex-col items-center text-center">
@@ -548,8 +548,8 @@
                                 <img src="images/ceo.webp" alt="Sethuraman T A" class="w-full h-full object-cover rounded-full border-4 border-theme-border transition-all duration-500 relative z-10">
                             </div>
                             <div class="flex-1">
-                                <div class="inline-block bg-theme-altBg border border-theme-border px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest text-theme-muted mb-4">Meet CEO</div>
-                                <h3 class="text-xl md:text-2xl font-bold tracking-tight text-theme-text mb-4">Sethuraman T A</h3>
+                                <div class="inline-block bg-theme-altBg border border-theme-border px-4 py-1.5 rounded-full text-micro text-theme-muted mb-4">Meet CEO</div>
+                                <h3 class="text-h3 font-bold text-theme-text mb-4">Sethuraman T A</h3>
                                 
                                 <div class="flex flex-col gap-3 mb-6">
                                     <a href="mailto:sethu@jungroo.com" class="flex items-center justify-center gap-2 text-theme-muted hover:text-theme-accent transition-colors">
@@ -562,8 +562,8 @@
                                     </a>
                                 </div>
                                 
-                                <p class="text-sm font-light leading-relaxed text-theme-muted italic mb-4">"Sethuraman is driven by a passion for creating impact through technology. His core focus lies in value creation and excellence in execution. From grassroots education to enterprise systems, he prioritizes solving systemic challenges through product innovation."</p>
-                                <p class="text-sm font-bold text-theme-text">At Jungroo, he turns vision into execution.</p>
+                                <p class="text-caption font-light text-theme-muted italic mb-4">"Sethuraman is driven by a passion for creating impact through technology. His core focus lies in value creation and excellence in execution. From grassroots education to enterprise systems, he prioritizes solving systemic challenges through product innovation."</p>
+                                <p class="text-caption font-bold text-theme-text">At Jungroo, he turns vision into execution.</p>
                             </div>
                         </div>
                     </div>
@@ -574,8 +574,8 @@
                             <div class="w-48 h-48 md:w-56 md:h-56 shrink-0 relative mb-8">
                                 <img src="images/cto.webp" alt="Cibe Hariharan" class="w-full h-full object-cover object-[30%_5%] rounded-full border-4 border-theme-border transition-all duration-500 relative z-10">                            </div>
                             <div class="flex-1">
-                                <div class="inline-block bg-theme-altBg border border-theme-border px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest text-theme-muted mb-4">Meet CTO</div>
-                                <h3 class="text-xl md:text-2xl font-bold tracking-tight text-theme-text mb-4">Cibe Hariharan</h3>
+                                <div class="inline-block bg-theme-altBg border border-theme-border px-4 py-1.5 rounded-full text-micro text-theme-muted mb-4">Meet CTO</div>
+                                <h3 class="text-h3 font-bold text-theme-text mb-4">Cibe Hariharan</h3>
                                 
                                 <div class="flex flex-col gap-3 mb-6">
                                     <a href="mailto:cibe@jungroo.com" class="flex items-center justify-center gap-2 text-theme-muted hover:text-theme-accent transition-colors">
@@ -588,8 +588,8 @@
                                     </a>
                                 </div>
                                 
-                                <p class="text-sm font-light leading-relaxed text-theme-muted italic mb-4">"Cibe Hariharan is fueled by his belief in the limitless possibilities technology offers. He is a technical leader with deep AI/ML expertise, over 10 years of experience building scalable systems, and is an IEEE-published author and ex-Amazon engineer with a Master’s in Theoretical Engineering."</p>
-                                <p class="text-sm font-bold text-theme-text">At Jungroo, he excels at transforming insights into scalable products — from ideation to deployment for millions of users.</p>
+                                <p class="text-caption font-light text-theme-muted italic mb-4">"Cibe Hariharan is fueled by his belief in the limitless possibilities technology offers. He is a technical leader with deep AI/ML expertise, over 10 years of experience building scalable systems, and is an IEEE-published author and ex-Amazon engineer with a Master’s in Theoretical Engineering."</p>
+                                <p class="text-caption font-bold text-theme-text">At Jungroo, he excels at transforming insights into scalable products — from ideation to deployment for millions of users.</p>
                             </div>
                         </div>
                     </div>
@@ -598,31 +598,31 @@
         </section>
 
         <!-- CONTACT -->
-        <section id="contact" class="py-32 border-t border-theme-border bg-theme-bg relative overflow-hidden text-center">
+        <section id="contact" class="py-10 md:py-16 border-t border-theme-border bg-theme-bg relative overflow-hidden text-center">
             <div class="max-w-7xl mx-auto px-6 relative z-10">
-                <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-theme-text mb-8">Deploy with Precision.</h2>
-                <p class="text-lg md:text-xl font-light leading-relaxed text-theme-muted lg:text-center text-left max-w-3xl mx-auto mb-16">We partner with a limited cohort of enterprises to ensure world-class outcomes. Connect with our leadership to brief us on your roadmap.</p>
-                <div class="w-full grid md:grid-cols-3 gap-12 border-t border-theme-border pt-12">
+                <h2 class="text-h2 font-bold text-theme-text mb-6">Deploy with Precision.</h2>
+                <p class="text-body-lg font-light text-theme-muted lg:text-center text-left max-w-3xl mx-auto mb-10">We partner with a limited cohort of enterprises to ensure world-class outcomes. Connect with our leadership to brief us on your roadmap.</p>
+                <div class="w-full grid md:grid-cols-3 gap-8 border-t border-theme-border pt-10">
                     <div class="flex flex-col items-center">
-                        <h3 class="text-[10px] font-bold uppercase tracking-widest text-theme-muted mb-4">CONTACT</h3>
+                        <h3 class="text-micro text-theme-muted mb-4">CONTACT</h3>
                         <a href="mailto:hello@jungroo.com" class="flex items-center justify-center gap-3 text-2xl font-bold hover:text-theme-accent transition-colors group">
                             <img src="images/outlook.svg" alt="Mail" class="w-6 h-6 opacity-80 group-hover:opacity-100 transition-opacity">
                             <span>hello@jungroo.com</span>
                         </a>
                     </div>
                     <div class="flex flex-col items-center">
-                        <h3 class="text-[10px] font-bold uppercase tracking-widest text-theme-muted mb-4">Leadership</h3>
-                        <h4 class="text-base font-bold text-theme-text">Sethuraman T A</h4>
-                        <p class="text-[10px] font-bold uppercase tracking-widest text-theme-muted">CEO</p>
+                        <h3 class="text-micro text-theme-muted mb-4">Leadership</h3>
+                        <h4 class="text-body font-bold text-theme-text">Sethuraman T A</h4>
+                        <p class="text-micro text-theme-muted">CEO</p>
                         <a href="mailto:sethu@jungroo.com" class="flex items-center justify-center gap-2 text-sm font-medium text-theme-muted hover:text-theme-accent transition-colors mt-2 group">
                             <img src="images/outlook.svg" alt="Mail" class="w-4 h-4 opacity-80 group-hover:opacity-100 transition-opacity">
                             <span>sethu@jungroo.com</span>
                         </a>
                     </div>
                     <div class="flex flex-col items-center">
-                        <h3 class="text-[10px] font-bold uppercase tracking-widest text-theme-muted mb-4">Engineering</h3>
-                        <h4 class="text-base font-bold text-theme-text">Cibe Hariharan</h4>
-                        <p class="text-[10px] font-bold uppercase tracking-widest text-theme-muted">CTO</p>
+                        <h3 class="text-micro text-theme-muted mb-4">Engineering</h3>
+                        <h4 class="text-body font-bold text-theme-text">Cibe Hariharan</h4>
+                        <p class="text-micro text-theme-muted">CTO</p>
                         <a href="mailto:cibe@jungroo.com" class="flex items-center justify-center gap-2 text-sm font-medium text-theme-muted hover:text-theme-accent transition-colors mt-2 group">
                             <img src="images/outlook.svg" alt="Mail" class="w-4 h-4 opacity-80 group-hover:opacity-100 transition-opacity">
                             <span>cibe@jungroo.com</span>
