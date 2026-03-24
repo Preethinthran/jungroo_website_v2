@@ -5,43 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jungroo AI Labs | Sovereign Intelligence Partner</title>
     <link rel="icon" type="image/png" href="images/logo.png">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    
-    <script src="js/components-loader.js"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        theme: {
-                            bg: 'var(--bg)',
-                            panel: 'var(--panel)',
-                            card: 'var(--card)',
-                            border: 'var(--border)',
-                            text: 'var(--text)',
-                            muted: 'var(--muted)',
-                            accent: 'var(--accent)',
-                            accentGlow: 'var(--accent-glow)',
-                            altBg: 'var(--alt-bg)'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    backgroundImage: {
-                        'hero-glow': 'var(--hero-glow)',
-                        'grid-pattern': 'linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px)'
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="css/tailwind.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/components-loader.js" defer></script>
 </head>
 <body class="font-sans antialiased selection:bg-theme-accent selection:text-white relative home-page">
 
@@ -386,7 +356,7 @@
                     <div class="award-card flex flex-col items-center group">
                         <div class="w-full h-64 mb-10 flex items-center justify-center bg-theme-panel border border-theme-border rounded-3xl overflow-hidden p-10 transition-all duration-500 group-hover:scale-[1.02] group-hover:border-theme-accent/30 shadow-2xl relative">
                             <div class="absolute inset-0 bg-gradient-to-br from-theme-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            <img src="images/elevate.webp" alt="Elevate Grant Winner" class="w-full h-full object-contain relative z-10 transition-transform duration-500 group-hover:scale-110">
+                            <img src="images/elevate.webp" alt="Elevate Grant Winner" loading="lazy" class="w-full h-full object-contain relative z-10 transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <h3 class="text-sm font-bold text-theme-text uppercase tracking-widest mb-3 group-hover:text-theme-accent transition-colors">WINNER OF ELEVATE GRANT</h3>
                         <p class="text-xs text-theme-muted font-light tracking-wide">Government of Karnataka</p>
@@ -395,7 +365,7 @@
                     <div class="award-card flex flex-col items-center group">
                         <div class="w-full h-64 mb-10 flex items-center justify-center bg-theme-panel border border-theme-border rounded-3xl overflow-hidden p-10 transition-all duration-500 group-hover:scale-[1.02] group-hover:border-theme-accent/30 shadow-2xl relative">
                             <div class="absolute inset-0 bg-gradient-to-br from-theme-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                            <img src="images/millenium.webp" alt="Millennium Alliance Grant Awardee" class="w-full h-full object-contain relative z-10 transition-transform duration-500 group-hover:scale-110">
+                            <img src="images/millenium.webp" alt="Millennium Alliance Grant Awardee" loading="lazy" class="w-full h-full object-contain relative z-10 transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <h3 class="text-base font-bold text-theme-text uppercase tracking-widest mb-3 group-hover:text-theme-accent transition-colors leading-tight">MILLENNIUM ALLIANCE GRANT AWARDEE</h3>
                         <p class="text-xs text-theme-muted font-light tracking-wide">Millennium Alliance</p>
@@ -545,7 +515,7 @@
                     <div class="founder-card bg-theme-panel border border-theme-border rounded-[40px] p-8 md:p-12 transition-all duration-500">
                         <div class="flex flex-col items-center text-center">
                             <div class="w-48 h-48 md:w-56 md:h-56 shrink-0 relative mb-8">
-                                <img src="images/ceo.webp" alt="Sethuraman T A" class="w-full h-full object-cover rounded-full border-4 border-theme-border transition-all duration-500 relative z-10">
+                                <img src="images/ceo.webp" alt="Sethuraman T A" loading="lazy" class="w-full h-full object-cover rounded-full border-4 border-theme-border transition-all duration-500 relative z-10">
                             </div>
                             <div class="flex-1">
                                 <div class="inline-block bg-theme-altBg border border-theme-border px-4 py-1.5 rounded-full text-micro text-theme-muted mb-4">Meet CEO</div>
@@ -572,7 +542,7 @@
                     <div class="founder-card bg-theme-panel border border-theme-border rounded-[40px] p-8 md:p-12 transition-all duration-500">
                         <div class="flex flex-col items-center text-center">
                             <div class="w-48 h-48 md:w-56 md:h-56 shrink-0 relative mb-8">
-                                <img src="images/cto.webp" alt="Cibe Hariharan" class="w-full h-full object-cover object-[30%_5%] rounded-full border-4 border-theme-border transition-all duration-500 relative z-10">                            </div>
+                                <img src="images/cto.webp" alt="Cibe Hariharan" loading="lazy" class="w-full h-full object-cover object-[30%_5%] rounded-full border-4 border-theme-border transition-all duration-500 relative z-10">                            </div>
                             <div class="flex-1">
                                 <div class="inline-block bg-theme-altBg border border-theme-border px-4 py-1.5 rounded-full text-micro text-theme-muted mb-4">Meet CTO</div>
                                 <h3 class="text-h3 font-bold text-theme-text mb-4">Cibe Hariharan</h3>

@@ -4,39 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Case Studies | Jungroo AI Labs</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    
-    <script src="js/components-loader.js"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        theme: {
-                            bg: 'var(--bg)',
-                            panel: 'var(--panel)',
-                            card: 'var(--card)',
-                            text: 'var(--text)',
-                            muted: 'var(--muted)',
-                            accent: 'var(--accent)',
-                            border: 'var(--theme-border)',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <script src="js/heroicons-data.js"></script>
+    <link rel="stylesheet" href="css/tailwind.css">
+    <script src="js/heroicons-data.js" defer></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/case-studies.css">
+    <script src="js/components-loader.js" defer></script>
 </head>
 <body class="font-sans antialiased dark case-studies-page">
     
@@ -60,10 +36,6 @@
 
         <!-- DETAIL VIEW (Initially Hidden) -->
         <div id="detail-view" class="hidden view-transition">
-            <button onclick="showList()" class="btn-back mb-8">
-                <span class="material-symbols-outlined text-[18px]">arrow_back</span>
-                Back to Results
-            </button>
             
             <div id="case-detail-content">
                 <!-- Detail content injected here -->
@@ -248,7 +220,7 @@
                             `;
                         }).join('')}
                     </div>
-                    ${cs.challenge.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl section-conclusion-text text-left">${renderBoldText(cs.challenge.conclusion)}</p>` : ''}
+                    ${cs.challenge.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center" style="text-align: center !important;">${renderBoldText(cs.challenge.conclusion)}</p>` : ''}
                 </div>
             `;
 
@@ -361,7 +333,7 @@
                             <strong class="text-white">IAM roles and tenant-specific access policies</strong> enforce strict data isolation, ensuring each tenant only accesses their own data.
                         </p>
                     </div>
-                    ${cs.solution.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl section-conclusion-text text-left">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
+                    ${cs.solution.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center" style="text-align: center !important;">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
                 </div>
                 `;
             } else {
@@ -399,7 +371,7 @@
                                 `;
                             }).join('')}
                         </div>
-                        ${cs.solution.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl section-conclusion-text text-left">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
+                        ${cs.solution.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center" style="text-align: center !important;">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
                     </div>
                 `;
             }
@@ -483,7 +455,7 @@
                     </div>
                     ${metricsHtml}
                     ${otherImpactHtml}
-                    ${cs.impact.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl section-conclusion-text text-left">${renderBoldText(cs.impact.conclusion)}</p>` : ''}
+                    ${cs.impact.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center" style="text-align: center !important;">${renderBoldText(cs.impact.conclusion)}</p>` : ''}
                 </div>
             `;
 
@@ -533,7 +505,7 @@
                             ${cs.title}
                         </h2>
                         <div class="max-w-4xl">
-                            <p class="text-body-lg text-theme-muted font-light case-overview-text text-center">
+                            <p class="text-body-lg text-theme-muted font-light case-overview-text text-center" style="text-align: center !important; text-align-last: center !important;">
                                 ${cs.overview}
                             </p>
                         </div>
@@ -544,7 +516,7 @@
                         ${solutionHtml}
                         ${impactHtml}
                         ${techHtml}
-                        ${cs.conclusion ? `<div class="py-12 border-t border-theme-border"><p class="text-body text-theme-muted max-w-4xl italic section-conclusion-text text-left">${renderBoldText(cs.conclusion)}</p></div>` : ''}
+                        ${cs.conclusion ? `<div class="py-12 border-t border-theme-border"><p class="text-body text-theme-muted max-w-4xl mx-auto italic section-conclusion-text text-center" style="text-align: center !important;">${renderBoldText(cs.conclusion)}</p></div>` : ''}
                     </div>
 
                 </div>
@@ -552,9 +524,6 @@
 
             listView.classList.add('hidden');
             detailView.classList.remove('hidden');
-            
-            // Hide the old back button since we have the circular one
-            document.querySelector('.btn-back').classList.add('hidden');
             
             window.scrollTo(0, 0);
 

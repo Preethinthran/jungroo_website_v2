@@ -44,7 +44,7 @@ function toggleMobileMenu() {
 
 // Initial load
 document.addEventListener('DOMContentLoaded', () => {
-    loadComponent('header-root', '/components/header.html').then(() => {
+    loadComponent('header-root', '/components/header.html?v=1.2').then(() => {
         // Highlight active nav item based on current path
         const path = window.location.pathname;
         const navItems = document.querySelectorAll('.nav-item, .mobile-nav-item');

@@ -422,8 +422,7 @@
     }
     .section-card p,
     .timeline-bullets,
-    .security-description,
-    .case-overview-text {
+    .security-description {
         text-align: left !important;
         text-align-last: left !important;
         -moz-text-align-last: left;
@@ -432,7 +431,6 @@
 
 .section-card p,
 .timeline-bullets,
-.security-description,
-.case-overview-text {
+.security-description {
     text-align: left !important;
 }
