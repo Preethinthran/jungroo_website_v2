@@ -45,14 +45,51 @@
             --bg: #f9fafb; --panel: #ffffff; --text: #0f172a; --muted: #64748b; --accent: #3b82f6;
             --accent-rgb: 59, 130, 246; --border: rgba(0, 0, 0, 0.06);
             --grid-color: rgba(94, 106, 210, 0.05);
+            --theme-bg: #080808; --theme-panel: #111111; --theme-text: #f4f4f5; --theme-muted: #dbdbdc; --theme-accent: #3b82f6; --theme-border: rgba(255, 255, 255, 0.08);
         }
         .dark {
             --bg: #080808; --panel: #111111; --text: #f4f4f5; --muted: #dbdbdc; --accent: #3b82f6;
             --accent-rgb: 59, 130, 246; --border: rgba(255, 255, 255, 0.08);
             --grid-color: rgba(255, 255, 255, 0.03);
         }
-        html { font-family: Inter, sans-serif; background-color: var(--bg); color: var(--text); }
+
+        /* Tailwind Base Reset for CLS */
+        *,::after,::before { box-sizing: border-box; border: 0 solid #e5e7eb; }
+        html { font-family: Inter, sans-serif; background-color: var(--bg); color: var(--text); -webkit-text-size-adjust: 100%; -moz-tab-size: 4; tab-size: 4; }
         body { margin: 0; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+        
+        /* Critical Layout Utilities */
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .fixed { position: fixed; }
+        .inset-0 { inset: 0; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+        .text-center { text-align: center; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .max-w-7xl { max-width: 80rem; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .pt-16 { padding-top: 4rem; }
+        .pt-24 { padding-top: 6rem; }
+        .pb-10 { padding-bottom: 2.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .w-full { width: 100%; }
+        .z-50 { z-index: 50; }
+        .z-10 { z-index: 10; }
+        .z-\[-1\] { z-index: -1; }
+        
+        @media (min-width: 768px) {
+            .md\:flex { display: flex; }
+            .md\:hidden { display: none; }
+            .md\:pt-40 { padding-top: 10rem; }
+            .md\:pb-16 { padding-bottom: 4rem; }
+            .md\:px-20 { padding-left: 5rem; padding-right: 5rem; }
+        }
+
         .bg-grid-pattern { background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px); }
         .text-theme-text { color: var(--text); }
         .text-theme-muted { color: var(--muted); }
@@ -62,6 +99,7 @@
         .logo-adaptive { filter: var(--logo-filter); transition: filter 0.5s ease; }
         .btn-primary { background: linear-gradient(135deg, #66a6ff 0%, #3b82f6 100%); color: white !important; font-weight: 700; border: none; display: inline-flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
         #header-root { min-height: 70px; }
+
     </style>
 
     <!-- Async Fonts & CSS -->
@@ -487,7 +525,7 @@
         </section>
 
         <footer id="footer-root" class="border-t border-theme-border py-16 text-center text-micro text-theme-muted bg-theme-panel mt-auto">
-        <img src="images/logo.webp" alt="Jungroo" class="h-4 mx-auto mb-8 opacity-40 logo-adaptive" loading="lazy" />
+        <img src="images/logo.webp" alt="Jungroo" width="212" height="49" class="h-4 mx-auto mb-8 opacity-40 logo-adaptive" loading="lazy" />
         &copy; 2018-2026 Jungroo AI Labs.
     </footer>
     </main>
