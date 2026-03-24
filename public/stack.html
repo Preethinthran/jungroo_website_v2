@@ -5,12 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sovereign Arch | Architecture Deep Dive</title>
     <link rel="icon" type="image/png" href="images/logo.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <!-- Resource Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="css/tailwind.css">
-    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Critical Font Preloads -->
+    <link rel="preload" href="fonts/Inter-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/Inter-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/MaterialSymbolsOutlined.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Critical CSS Preloads -->
+    <link rel="preload" href="css/tailwind.css" as="style">
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="css/fonts.css" as="style">
+
+    <link rel="preload" as="image" href="images/logo.webp" fetchpriority="high">
+    
+    <!-- Critical CSS -->
+    <style>
+        :root {
+            --bg: #f9fafb; --panel: #ffffff; --text: #0f172a; --muted: #64748b; --accent: #3b82f6;
+            --accent-rgb: 59, 130, 246; --border: rgba(0, 0, 0, 0.06);
+            --grid-color: rgba(94, 106, 210, 0.05);
+        }
+        .dark {
+            --bg: #080808; --panel: #111111; --text: #f4f4f5; --muted: #dbdbdc; --accent: #3b82f6;
+            --accent-rgb: 59, 130, 246; --border: rgba(255, 255, 255, 0.08);
+            --grid-color: rgba(255, 255, 255, 0.03);
+        }
+        html { font-family: Inter, sans-serif; background-color: var(--bg); color: var(--text); }
+        body { margin: 0; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+        .bg-grid-pattern { background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px); }
+        .text-theme-text { color: var(--text); }
+        .text-theme-muted { color: var(--muted); }
+
+        /* Layout Criticals */
+        .glass-nav { background: var(--nav-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .logo-adaptive { filter: var(--logo-filter); transition: filter 0.5s ease; }
+        .btn-primary { background: linear-gradient(135deg, #66a6ff 0%, #3b82f6 100%); color: white !important; font-weight: 700; }
+    </style>
+
+    <!-- Async Fonts & CSS -->
+    <link rel="stylesheet" href="css/fonts.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/tailwind.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'">
+    
+    <noscript>
+        <link rel="stylesheet" href="css/fonts.css">
+        <link rel="stylesheet" href="css/tailwind.css">
+        <link rel="stylesheet" href="css/style.css">
+    </noscript>
+
     <script src="js/components-loader.js" defer></script>
 </head>
 <body class="font-sans antialiased selection:bg-theme-accent selection:text-white relative stack-page">
@@ -83,7 +129,7 @@
                 <!-- Image/Diagram container -->
                 <div class="relative group">
                     <div class="absolute -inset-1 bg-gradient-to-r from-theme-accent/20 to-indigo-500/20 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                    <img src="images/DSLM-dark.webp" alt="Domain-Adaptive Intelligence Diagram" loading="lazy" class="relative w-full rounded-2xl shadow-2xl border border-theme-border bg-theme-panel/50 backdrop-blur-sm">
+                    <img src="images/DSLM-dark.webp" alt="Domain-Adaptive Intelligence Diagram" loading="lazy" width="800" height="450" class="relative w-full rounded-2xl shadow-2xl border border-theme-border bg-theme-panel/50 backdrop-blur-sm">
                 </div>
                 
                 <!-- Text content -->

@@ -3,39 +3,64 @@ const fs = require('fs');
 const path = require('path');
 
 const imgDir = path.join(__dirname, '../public/images');
-const files = fs.readdirSync(imgDir);
+
+// Targeted optimization rules
+const rules = {
+  'logo.webp': { width: 424, quality: 85 }, // 2x for a ~212px display
+  'logo.png': { width: 424, quality: 85 },
+  'ceo.webp': { width: 600, quality: 80 },
+  'cto.webp': { width: 600, quality: 80 },
+  'cnbc.jpg': { width: 800, quality: 75, format: 'webp' },
+  'ai-good.jpg': { width: 800, quality: 75, format: 'webp' },
+  'bhumi.jpg': { width: 800, quality: 75, format: 'webp' },
+  'innovated.jpg': { width: 800, quality: 75, format: 'webp' },
+  'awards_default': { width: 600, quality: 80 },
+  'default': { width: 1200, quality: 80 }
+};
 
 async function optimizeImages() {
+  const files = fs.readdirSync(imgDir);
+  
   for (const file of files) {
     const ext = path.extname(file).toLowerCase();
-    const fullPath = path.join(imgDir, file);
-    const stat = fs.statSync(fullPath);
-    
-    // Skip small images or non-image files
-    if (stat.size < 300000 && !['.png', '.jpg', '.jpeg', '.webp'].includes(ext)) {
-       continue;
-    }
+    if (!['.png', '.jpg', '.jpeg', '.webp'].includes(ext)) continue;
 
-    // Only process very large files (> 300KB)
-    if (stat.size > 300000) {
-      console.log(`Optimizing ${file} (${(stat.size / 1024 / 1024).toFixed(2)} MB)...`);
-      const newFileName = file.replace(ext, '.webp');
-      const newPath = path.join(imgDir, newFileName);
+    const fullPath = path.join(imgDir, file);
+    const rule = rules[file] || (file.includes('award') || file.includes('millenium') || file.includes('elevate') ? rules['awards_default'] : rules['default']);
+    
+    console.log(`Processing ${file}...`);
+    
+    try {
+      const metadata = await sharp(fullPath).metadata();
+      const targetFormat = rule.format || 'webp';
+      const newFileName = file.replace(ext, `.${targetFormat}`);
+      const newPath = path.join(imgDir, `opt_${newFileName}`); // Use prefix to avoid overwriting during process
+
+      let pipeline = sharp(fullPath);
       
-      try {
-        await sharp(fullPath)
-          .webp({ quality: 80, effort: 6 })
-          .resize({ width: 1920, withoutEnlargement: true })
-          .toFile(newPath + '.tmp');
-          
-        // Replace original or rename
-        fs.renameSync(newPath + '.tmp', newPath);
-        if (newFileName !== file) {
-            console.log(`Created ${newFileName}, keeping original for backup but remember to update HTML.`);
-        }
-      } catch (err) {
-        console.error(`Error processing ${file}:`, err);
+      if (rule.width && metadata.width > rule.width) {
+        pipeline = pipeline.resize({ width: rule.width, withoutEnlargement: true });
       }
+
+      if (targetFormat === 'webp') {
+        pipeline = pipeline.webp({ quality: rule.quality, effort: 6 });
+      } else if (targetFormat === 'png') {
+        pipeline = pipeline.png({ quality: rule.quality });
+      }
+
+      await pipeline.toFile(newPath);
+      
+      const oldSize = fs.statSync(fullPath).size;
+      const newSize = fs.statSync(newPath).size;
+      
+      console.log(`  Optimized ${file}: ${(oldSize/1024).toFixed(1)}KB -> ${(newSize/1024).toFixed(1)}KB (${Math.round((1 - newSize/oldSize) * 100)}% reduction)`);
+      
+      // Replace original
+      fs.unlinkSync(fullPath);
+      fs.renameSync(newPath, path.join(imgDir, newFileName));
+      
+    } catch (err) {
+      console.error(`  Error processing ${file}:`, err);
     }
   }
 }
