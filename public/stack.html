@@ -3,8 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sovereign Arch | Architecture Deep Dive</title>
-    <link rel="icon" type="image/png" href="images/logo.png">
+    <title>Sovereign Arch | Architecture Deep Dive | Jungroo AI Labs</title>
+    <meta name="description" content="A deep dive into Jungroo's 4-layer Sovereign AI stack. Learn how we architect secure, high-performance intelligence infrastructure for enterprises.">
+    <link rel="canonical" href="https://jungroo.com/stack">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jungroo.com/stack">
+    <meta property="og:title" content="Sovereign Arch | Architecture Deep Dive | Jungroo AI Labs">
+    <meta property="og:description" content="Engineered to cross the Valley of Death. Explore our 4-layer stack: Sovereign AI Models, Agentic Intelligence, Knowledge Fabric, and Application Interface.">
+    <meta property="og:image" content="https://jungroo.com/images/logo.webp">
+    <meta property="og:site_name" content="Jungroo AI Labs">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://jungroo.com/stack">
+    <meta name="twitter:title" content="Sovereign Arch | Architecture Deep Dive | Jungroo AI Labs">
+    <meta name="twitter:description" content="Deep dive into our 4-layer AI stack.">
+    <meta name="twitter:image" content="https://jungroo.com/images/logo.webp">
+    <link rel="icon" type="image/png" href="images/logo_infinity.png">
     
     <!-- Resource Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -63,7 +80,21 @@
     <!-- GLOBAL GRID PATTERN -->
     <div class="fixed inset-0 z-[-1] bg-grid-pattern opacity-[0.15] pointer-events-none" style="background-size: 40px 40px;"></div>
 
-    <header id="header-root"></header>
+    <header id="header-root">
+        <nav class="fixed w-full z-50 glass-nav">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="/" class="block flex items-center">
+                    <img src="images/logo.webp" fetchpriority="high" width="212" height="49" alt="Jungroo AI Labs" class="h-7 w-auto object-contain logo-adaptive">
+                </a>
+                <div class="flex items-center gap-5 md:hidden">
+                    <button class="w-9 h-9 flex flex-col justify-center items-center gap-1.5 focus:outline-none ml-2" onclick="toggleMobileMenu()">
+                        <span class="w-5 h-0.5 bg-theme-text transition-all duration-300"></span>
+                        <span class="w-5 h-0.5 bg-theme-text transition-all duration-300"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
 
     <main class="pt-16">
         <!-- HERO SECTION -->

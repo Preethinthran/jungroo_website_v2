@@ -7,7 +7,7 @@ const imgDir = path.join(__dirname, '../public/images');
 // Targeted optimization rules
 const rules = {
   'logo.webp': { width: 424, quality: 85 }, // 2x for a ~212px display
-  'logo.png': { width: 424, quality: 85 },
+  'logo_infinity.png': { width: 424, quality: 85 },
   'ceo.webp': { width: 600, quality: 80 },
   'cto.webp': { width: 600, quality: 80 },
   'cnbc.jpg': { width: 800, quality: 75, format: 'webp' },
