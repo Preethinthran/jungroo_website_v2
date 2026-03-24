@@ -44,20 +44,30 @@ function toggleMobileMenu() {
 
 // Initial load
 document.addEventListener('DOMContentLoaded', () => {
-    loadComponent('header-root', '/components/header.html?v=1.2').then(() => {
-        // Highlight active nav item based on current path
-        const path = window.location.pathname;
-        const navItems = document.querySelectorAll('.nav-item, .mobile-nav-item');
-        navItems.forEach(item => {
-            const href = item.getAttribute('href');
-            if (path === href || (path === '/' && href === '/')) {
-                item.classList.add('text-theme-text');
-                item.classList.remove('text-theme-muted');
-            } else {
-                item.classList.remove('text-theme-text');
-                item.classList.add('text-theme-muted');
-            }
-        });
+    // Header and Footer are now inlined for better performance (LCP optimization)
+    // We still keep the active nav highlighting logic
+    const path = window.location.pathname;
+    const navItems = document.querySelectorAll('.nav-item, .mobile-nav-item');
+    navItems.forEach(item => {
+        const href = item.getAttribute('href');
+        // Handle both / and /index.html etc.
+        const cleanPath = path === '/' ? '/' : path.replace('.html', '');
+        const cleanHref = href === '/' ? '/' : href.replace('.html', '');
+        
+        if (cleanPath === cleanHref) {
+            item.classList.add('text-theme-text');
+            item.classList.remove('text-theme-muted');
+        } else {
+            item.classList.remove('text-theme-text');
+            item.classList.add('text-theme-muted');
+        }
     });
-    loadComponent('footer-root', '/components/footer.html');
+
+    // Handle initial scroll if hash exists
+    if (window.location.hash) {
+        setTimeout(() => {
+            const el = document.querySelector(window.location.hash);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+    }
 });
