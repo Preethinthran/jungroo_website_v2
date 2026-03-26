@@ -23,13 +23,15 @@
     <meta name="twitter:image" content="https://jungroo.com/images/logo.webp">
     <link rel="icon" type="image/png" href="images/logo_infinity.png">
     <!-- Resource Hints -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
     
     <!-- Critical Font Preloads -->
     <link rel="preload" href="fonts/Inter-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/Inter-700-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/MaterialSymbolsOutlined.woff2" as="font" type="font/woff2" crossorigin>
+
     
     <!-- Critical CSS Preloads -->
     <link rel="preload" href="css/tailwind.css" as="style">
@@ -93,6 +95,11 @@
 
         .text-theme-text { color: var(--text); }
         .text-theme-muted { color: var(--muted); }
+        .text-theme-accent { color: var(--accent); }
+        .font-normal { font-weight: 400; }
+        .font-bold { font-weight: 700; }
+        .font-light { font-weight: 300; }
+
 
         /* Layout Criticals */
         .glass-nav { background: var(--nav-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); transition: background-color 0.5s ease; position: fixed; width: 100%; z-index: 50; }
@@ -102,18 +109,12 @@
 
     </style>
 
-    <!-- Async Fonts & CSS -->
-    <link rel="stylesheet" href="css/fonts.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="css/tailwind.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="css/case-studies.css" media="print" onload="this.media='all'">
-    
-    <noscript>
-        <link rel="stylesheet" href="css/fonts.css">
-        <link rel="stylesheet" href="css/tailwind.css">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/case-studies.css">
-    </noscript>
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/case-studies.css">
+
 
     <script src="js/heroicons-data.js" defer></script>
     <script src="js/components-loader.js" defer></script>
@@ -187,7 +188,8 @@
         &copy; 2018-2026 Jungroo AI Labs.
     </footer>
 
-    <script src="js/case-studies-data.js"></script>
+    <script src="js/case-studies-data.js" defer></script>
+
     <script>
         // Pagination state
         const itemsPerPage = 6;
