@@ -72,6 +72,23 @@ body {
     overflow-x: hidden;
 }
 
+/* Mobile performance: skip offscreen rendering without changing visuals */
+@media (max-width: 767px) {
+    .home-page #capabilities,
+    .home-page #pillars,
+    .home-page #case-studies-preview,
+    .home-page #media,
+    .home-page #awards,
+    .home-page #testimonials,
+    .home-page #founders,
+    .home-page #contact,
+    .home-page footer {
+        content-visibility: auto;
+        contain-intrinsic-size: 800px 1000px;
+    }
+}
+
+
 
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;

@@ -24,16 +24,10 @@
     <link rel="icon" type="image/png" href="images/logo_infinity.png">
     
     <!-- Resource Hints -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-
-    
     <!-- Critical Font Preloads -->
-    <link rel="preload" href="fonts/Inter-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/Inter-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/MaterialSymbolsOutlined.woff2" as="font" type="font/woff2" crossorigin>
-
+    <link rel="preload" href="fonts/Inter-300-normal.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
+    <link rel="preload" href="fonts/Inter-400-normal.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
+    <link rel="preload" href="fonts/Inter-700-normal.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
     
     <!-- Critical CSS Preloads -->
     <link rel="preload" href="css/tailwind.css" as="style">
@@ -55,6 +49,10 @@
             --accent-rgb: 48, 102, 248; --border: rgba(255, 255, 255, 0.08);
             --grid-color: rgba(255, 255, 255, 0.03);
         }
+
+        @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300; font-display: swap; src: url('fonts/Inter-300-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/Inter-400-normal.woff2') format('woff2'); }
+        @font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/Inter-700-normal.woff2') format('woff2'); }
 
         /* Tailwind Base Reset for CLS */
         *,::after,::before { box-sizing: border-box; border: 0 solid #e5e7eb; }
@@ -133,7 +131,7 @@
                 <a href="/" class="block flex items-center">
                     <img src="images/logo.webp" 
                          srcset="images/logo-212.webp 1x, images/logo.webp 2x"
-                         fetchpriority="high" width="212" height="49" alt="Jungroo AI Labs" class="h-7 w-auto object-contain logo-adaptive">
+                         fetchpriority="high" width="212" height="49" decoding="async" alt="Jungroo AI Labs" class="h-7 w-auto object-contain logo-adaptive">
                 </a>
                 <div class="flex items-center gap-5 md:hidden">
                     <button id="mobile-menu-toggle" class="w-9 h-9 flex flex-col justify-center items-center gap-1.5 focus:outline-none ml-2" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu">
@@ -228,7 +226,7 @@
                 <!-- Image/Diagram container -->
                 <div class="relative group">
                     <div class="absolute -inset-1 bg-gradient-to-r from-theme-accent/20 to-indigo-500/20 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                    <img src="images/DSLM-dark.webp" alt="Domain-Adaptive Intelligence Diagram" loading="lazy" width="800" height="450" class="relative w-full rounded-2xl shadow-2xl border border-theme-border bg-theme-panel/50 backdrop-blur-sm">
+                    <img src="images/DSLM-dark.webp" alt="Domain-Adaptive Intelligence Diagram" loading="lazy" decoding="async" fetchpriority="low" width="800" height="450" class="relative w-full rounded-2xl shadow-2xl border border-theme-border bg-theme-panel/50 backdrop-blur-sm">
                 </div>
                 
                 <!-- Text content -->
@@ -533,7 +531,7 @@
         </section>
 
         <footer id="footer-root" class="border-t border-theme-border py-16 text-center text-micro text-theme-muted bg-theme-panel mt-auto">
-        <img src="images/logo-212.webp" alt="Jungroo" width="212" height="49" class="h-8 mx-auto mb-8 opacity-80 logo-adaptive" loading="lazy" />
+        <img src="images/logo-212.webp" alt="Jungroo" width="212" height="49" class="h-8 mx-auto mb-8 opacity-80 logo-adaptive" loading="lazy" decoding="async" fetchpriority="low" />
         &copy; 2018-2026 Jungroo AI Labs.
     </footer>
     </main>
