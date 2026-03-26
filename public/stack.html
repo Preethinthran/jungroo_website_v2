@@ -25,6 +25,7 @@
     
     <!-- Resource Hints -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
     
@@ -109,10 +110,15 @@
 
     </style>
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="css/fonts.css">
-    <link rel="stylesheet" href="css/tailwind.css">
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Core CSS (Non-blocking) -->
+    <link rel="stylesheet" href="css/fonts.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/tailwind.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="css/fonts.css">
+        <link rel="stylesheet" href="css/tailwind.css">
+        <link rel="stylesheet" href="css/style.css">
+    </noscript>
 
 
     <script src="js/components-loader.js" defer></script>
