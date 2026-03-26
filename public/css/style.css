@@ -7,8 +7,8 @@
     --border: rgba(0, 0, 0, 0.06);
     --text: #0f172a;
     --muted: #64748b;
-    --accent: #364af6d7;
-    --accent-rgb: 10, 33, 243;
+    --accent: #3066f8;
+    --accent-rgb: 48, 102, 248;
     --alt-bg: #f3f4f6;
     --grid-color: rgba(94, 106, 210, 0.05);
     --hero-glow: radial-gradient(circle at 50% -20%, rgba(var(--accent-rgb), 0.12), transparent 80%);
@@ -25,8 +25,8 @@
 
 /* Page Specific Variable Overrides */
 .stack-page {
-    --accent: #3b82f6;
-    --accent-rgb: 59, 130, 246;
+    --accent: #3066f8;
+    --accent-rgb: 48, 102, 248;
     --error: #ffb4ab;
 }
 
@@ -38,8 +38,8 @@
     --border: rgba(255, 255, 255, 0.08);
     --text: #f4f4f5;
     --muted: #dbdbdc;
-    --accent: #3b82f6;
-    --accent-rgb: 59, 130, 246;
+    --accent: #3066f8;
+    --accent-rgb: 48, 102, 248;
     --alt-bg: #0c0c0c;
     --grid-color: rgba(255, 255, 255, 0.03);
     --hero-glow: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(var(--accent-rgb), 0.2), transparent);
@@ -127,7 +127,7 @@ body {
 /* -------------------------------------------------------------------------- */
 
 .btn-primary {
-    background: linear-gradient(135deg, #66a6ff 0%, #3b82f6 100%);
+    background: #3066f8;
     color: white !important;
     font-weight: 700;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -999,14 +999,11 @@ body {
 }
 
 .accent-gradient-text {
-    background: linear-gradient(to right, #66a6ff, #0050d0);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #3066f8;
 }
 
 .accent-line-gradient {
-    background: linear-gradient(to right, #3b82f6, #66a6ff);
+    background: #3066f8;
 }
 
 /* Case Studies Page specific Case Card styles */
@@ -1063,15 +1060,12 @@ body {
 /* -------------------------------------------------------------------------- */
 
 .text-theme-accent, .schematic-number, .schematic-icon-box .material-symbols-outlined {
-    background: linear-gradient(135deg, #2563eb, #38bdf8) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
-    color: transparent !important;
+    color: #3066f8 !important;
+    -webkit-text-fill-color: #3066f8 !important;
 }
 
 .bg-theme-accent, .cta-schematic-button {
-    background: linear-gradient(135deg, #2563eb, #38bdf8) !important;
+    background: #3066f8 !important;
     color: #ffffff !important;
     border: none;
 }

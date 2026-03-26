@@ -41,13 +41,13 @@
     <!-- Critical CSS -->
     <style>
         :root {
-            --bg: #f9fafb; --panel: #ffffff; --text: #0f172a; --muted: #64748b; --accent: #3b82f6;
-            --accent-rgb: 59, 130, 246; --border: rgba(0, 0, 0, 0.06);
-            --theme-bg: #080808; --theme-panel: #111111; --theme-text: #f4f4f5; --theme-muted: #dbdbdc; --theme-accent: #3b82f6; --theme-border: rgba(255, 255, 255, 0.08);
+            --bg: #f9fafb; --panel: #ffffff; --text: #0f172a; --muted: #64748b; --accent: #3066f8;
+            --accent-rgb: 48, 102, 248; --border: rgba(0, 0, 0, 0.06);
+            --theme-bg: #080808; --theme-panel: #111111; --theme-text: #f4f4f5; --theme-muted: #dbdbdc; --theme-accent: #3066f8; --theme-border: rgba(255, 255, 255, 0.08);
         }
         .dark {
-            --bg: #080808; --panel: #111111; --text: #f4f4f5; --muted: #dbdbdc; --accent: #3b82f6;
-            --accent-rgb: 59, 130, 246; --border: rgba(255, 255, 255, 0.08);
+            --bg: #080808; --panel: #111111; --text: #f4f4f5; --muted: #dbdbdc; --accent: #3066f8;
+            --accent-rgb: 48, 102, 248; --border: rgba(255, 255, 255, 0.08);
         }
         
         /* Tailwind Base Reset for CLS */
@@ -67,6 +67,7 @@
         .mx-auto { margin-left: auto; margin-right: auto; }
         .max-w-7xl { max-width: 80rem; }
         .max-w-5xl { max-width: 64rem; }
+        .max-w-4xl { max-width: 56rem; }
         .max-w-3xl { max-width: 48rem; }
         .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
         .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
@@ -77,6 +78,9 @@
         .w-full { width: 100%; }
         .z-50 { z-index: 50; }
         .z-40 { z-index: 40; }
+        .pt-10 { padding-top: 2.5rem; }
+        .pt-24 { padding-top: 6rem; }
+        .pt-32 { padding-top: 8rem; }
         
         @media (min-width: 768px) {
             .md\:flex { display: flex; }
@@ -93,7 +97,7 @@
         /* Layout Criticals */
         .glass-nav { background: var(--nav-bg); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); transition: background-color 0.5s ease; position: fixed; width: 100%; z-index: 50; }
         .logo-adaptive { filter: var(--logo-filter); transition: filter 0.5s ease; }
-        .btn-primary { background: linear-gradient(135deg, #66a6ff 0%, #3b82f6 100%); color: white !important; font-weight: 700; border: none; display: inline-flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+        .btn-primary { background: #3066f8; color: white !important; font-weight: 700; border: none; display: inline-flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
         #header-root { min-height: 70px; }
 
     </style>
@@ -153,7 +157,7 @@
         </div>
     </header>
 
-    <main class="pt-24 md:pt-28 pb-12 max-w-7xl mx-auto px-6">
+    <main class="pt-20 md:pt-24 pb-12 max-w-7xl mx-auto px-6">
         <!-- LIST VIEW -->
         <div id="list-view" class="view-transition">
             <div class="max-w-3xl mb-10 mx-auto text-center">
@@ -191,19 +195,17 @@
 
         function getCaseIcon(slug) {
             const icons = {
-                'climate-tech-data-ingestion': 'ServerStackIcon',
-                'educational-diagnostics-ai': 'AcademicCapIcon',
-                'cms-infinity-learn': 'CubeIcon',
-                'subjective-evaluation-tool': 'PencilSquareIcon',
-                'gst-adjudication-ai': 'ScaleIcon',
-                'math-practice-buddy': 'AcademicCapIcon',
-                'nrlm-digitization': 'BuildingLibraryIcon',
-                'report-designer': 'ChartBarIcon',
-                'data-migration-tool': 'ArrowDownTrayIcon',
-                'order-management-infinity': 'CreditCardIcon',
-                'omnichannel-chatbot': 'ChatBubbleLeftRightIcon',
-                'assessment-system-lead': 'DocumentMagnifyingGlassIcon',
-                'admission-system-lead': 'UserPlusIcon'
+                'legal-reasoning-adjudication': 'ScaleIcon',
+                'national-digital-disbursement': 'BuildingLibraryIcon',
+                'omni-channel-agentic-orchestration': 'ChatBubbleLeftRightIcon',
+                'sovereign-data-fabric': 'ServerStackIcon',
+                'probabilistic-analysis-reasoning': 'AcademicCapIcon',
+                'scale-native-asset-backbone': 'CubeIcon',
+                'network-agnostic-assessment-engine': 'DocumentMagnifyingGlassIcon',
+                'api-first-transactional-engine': 'CreditCardIcon',
+                'dynamic-report-builder': 'ChartBarIcon',
+                'full-funnel-admission-engine': 'UserPlusIcon',
+                'legacy-modernization-rails': 'ArrowDownTrayIcon'
             };
             return icons[slug] || 'DocumentTextIcon';
         }
@@ -232,7 +234,7 @@
                         </div>
                         <span class="material-symbols-outlined text-theme-muted group-hover:text-theme-accent transition-all group-hover:translate-x-1">arrow_forward</span>
                     </div>
-                    
+                    ${cs.category ? `<div class="text-micro text-theme-accent font-bold uppercase tracking-widest mb-3">${cs.category}</div>` : ''}
                     <h3 class="text-h3 font-bold text-theme-text mb-4 group-hover:text-theme-accent transition-colors">
                         ${cs.title}
                     </h3>
@@ -321,169 +323,60 @@
             const detailView = document.getElementById('detail-view');
             const content = document.getElementById('case-detail-content');
 
-            // Special handling for Climate Tech Solution (Timeline)
-            const isClimateData = cs.slug === "climate-tech-data-ingestion";
-            
-            let challengeHtml = `
-                <div class="py-8">
-                    <div class="mb-8">
-                        <h2 class="text-h2 font-bold text-white mb-4 text-center">The Challenge</h2>
-                        <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.challenge.intro || '')}</p>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                        ${cs.challenge.bulletPoints.map((point, idx) => {
-                            const { bg, color } = getIconColors(idx);
-                            let title = '';
-                            let text = point.text;
-                            if (point.text.includes(':')) {
-                                const parts = point.text.split(':');
-                                title = parts[0].trim();
-                                text = parts.slice(1).join(':').trim();
-                            }
-                            const isLast = idx === cs.challenge.bulletPoints.length - 1 && cs.challenge.bulletPoints.length % 2 !== 0;
-                            return `
-                                <div class="section-card ${isLast ? 'md:col-span-2 md:max-w-[calc(50%-12px)] md:mx-auto' : ''}">
-                                    <div class="flex flex-row items-start gap-5">
-                                        <div class="spec-icon-box" style="background-color: ${bg}; color: ${color};">
-                                            ${getIconHtml(point.icon)}
-                                        </div>
-                                        <div class="flex flex-col gap-2">
-                                            ${title ? `<h4 class="text-h4 font-bold text-white">${renderBoldText(title)}</h4>` : ''}
-                                            <p class="text-body text-theme-muted">
-                                                ${renderBoldText(text)}
-                                            </p>
+            let challengeHtml = '';
+            if (cs.challenge) {
+                const hasBullets = cs.challenge.bulletPoints && cs.challenge.bulletPoints.length > 0;
+                challengeHtml = `
+                    <div class="py-8">
+                        <div class="${hasBullets || cs.challenge.conclusion ? 'mb-8' : ''}">
+                            <h2 class="text-h2 font-bold text-white mb-4 text-center">The Challenge</h2>
+                            <p class="text-body-lg text-theme-muted max-w-5xl mx-auto section-intro-text text-center">${renderBoldText(cs.challenge.intro || '')}</p>
+                        </div>
+                        ${hasBullets ? `
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                            ${cs.challenge.bulletPoints.map((point, idx) => {
+                                const { bg, color } = getIconColors(idx);
+                                let title = '';
+                                let text = point.text;
+                                if (point.text.includes(':')) {
+                                    const parts = point.text.split(':');
+                                    title = parts[0].trim();
+                                    text = parts.slice(1).join(':').trim();
+                                }
+                                const isLast = idx === cs.challenge.bulletPoints.length - 1 && cs.challenge.bulletPoints.length % 2 !== 0;
+                                return `
+                                    <div class="section-card ${isLast ? 'md:col-span-2 md:max-w-[calc(50%-12px)] md:mx-auto' : ''}">
+                                        <div class="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-4 md:gap-5">
+                                            <div class="spec-icon-box" style="background-color: ${bg}; color: ${color};">
+                                                ${getIconHtml(point.icon)}
+                                            </div>
+                                            <div class="flex flex-col gap-2">
+                                                ${title ? `<h4 class="text-h4 font-bold text-white">${renderBoldText(title)}</h4>` : ''}
+                                                 <p class="text-body text-theme-muted text-justify">
+                                                    ${renderBoldText(text)}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            `;
-                        }).join('')}
+                                `;
+                            }).join('')}
+                        </div>` : ''}
+                        ${cs.challenge.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-5xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.challenge.conclusion)}</p>` : ''}
                     </div>
-                    ${cs.challenge.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center" style="text-align: center !important;">${renderBoldText(cs.challenge.conclusion)}</p>` : ''}
-                </div>
-            `;
+                `;
+            }
 
             let solutionHtml = "";
-            if (isClimateData) {
-                solutionHtml = `
-                <div class="py-8">
-                    <div class="mb-8">
-                        <h2 class="text-h2 font-bold text-white mb-4 text-center">The Solution</h2>
-                        <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.solution.intro || '')}</p>
-                    </div>
-                    
-                    <div class="timeline-container">
-                        <div class="timeline-line"></div>
-                        
-                        <!-- Raw Zone -->
-                        <div class="timeline-item">
-                            <div class="timeline-dot" style="border-color: #4285F4">
-                                <div class="timeline-dot-inner" style="background-color: #4285F4"></div>
-                            </div>
-                            <div class="timeline-header-outer">
-                                <div class="timeline-header-icon" style="background-color: #1e2d54; color: #4285F4">
-                                    ${getIconHtml('ArrowDownTrayIcon')}
-                                </div>
-                                <h3 class="timeline-title" style="color: #4285F4">Raw Zone</h3>
-                            </div>
-                            <div class="timeline-content">
-                                <ul class="timeline-bullets">
-                                    <li>Stores original uploads in CSV, XLS, and PDF formats</li>
-                                    <li>Automated processes handle virus scanning, format validation, data extraction, and standardization into XLSX</li>
-                                    <li>Failed processing triggers <b>SNS Raw-Zone Data Failure </b>notifications</li>
-                                    <li>Successfully standardized XLSX files are stored in the Raw Zone's standardized area</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Bronze Zone -->
-                        <div class="timeline-item">
-                            <div class="timeline-dot" style="border-color: #CD7F32">
-                                <div class="timeline-dot-inner" style="background-color: #CD7F32"></div>
-                            </div>
-                            <div class="timeline-header-outer">
-                                <div class="timeline-header-icon" style="background-color: #142e22; color: #CD7F32">
-                                    ${getIconHtml('FunnelIcon')}
-                                </div>
-                                <h3 class="timeline-title" style="color: #CD7F32">Bronze Zone</h3>
-                            </div>
-                            <div class="timeline-content">
-                                <ul class="timeline-bullets">
-                                    <li>Triggered by standardized file uploads</li>
-                                    <li>AWS Glue Crawler and ETL catalog metadata and enforce data quality rules</li>
-                                    <li>Data of acceptable quality is transformed into <b>LCI data without environmental factors.</b></li>
-                                    <li>Failed quality checks trigger <b>SNS Raw-Zone Data Quality Failure</b> notifications</li>
-                                    <li>Successful processing stores output in Bronze Zone, and <b>SNS Bronze-Zone LCI Data</b> notifications are sent to <b>LCI consultants</b></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Silver Zone -->
-                        <div class="timeline-item">
-                            <div class="timeline-dot" style="border-color: #C0C0C0">
-                                <div class="timeline-dot-inner" style="background-color: #C0C0C0"></div>
-                            </div>
-                            <div class="timeline-header-outer">
-                                <div class="timeline-header-icon" style="background-color: #2a2446; color: #C0C0C0">
-                                    ${getIconHtml('ArrowTrendingUpIcon')}
-                                </div>
-                                <h3 class="timeline-title" style="color: #C0C0C0">Silver Zone</h3>
-                            </div>
-                            <div class="timeline-content">
-                                <ul class="timeline-bullets">
-                                    <li>LCI consultants upload enriched datasets with environmental factors and <b>a summary sheet of carbon emissions</b></li>
-                                    <li>AWS Glue crawlers catalog metadata and enforce quality rules</li>
-                                    <li>If the uploaded dataset fails validation, <b>SNS Silver-Zone Data Quality Failure</b> notifications are sent</li>
-                                    <li>Data passing validation is promoted to the Gold Zone</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Gold Zone -->
-                        <div class="timeline-item">
-                            <div class="timeline-dot" style="border-color: #FFD700">
-                                <div class="timeline-dot-inner" style="background-color: #FFD700"></div>
-                            </div>
-                            <div class="timeline-header-outer">
-                                <div class="timeline-header-icon" style="background-color: #382c21; color: #FFD700">
-                                    ${getIconHtml('ServerStackIcon')}
-                                </div>
-                                <h3 class="timeline-title" style="color: #FFD700">Gold Zone</h3>
-                            </div>
-                            <div class="timeline-content">
-                                <ul class="timeline-bullets">
-                                    <li>Stores <b>final, QA-approved LCI data with environmental factors.</b></li>
-                                    <li>Manual triggers move data into Neon4j (graph) and Postgres (structured)</li>
-                                    <li>Integrity checks via LCI summary sheet trigger discrepancies notifications to stakeholders</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Security Section -->
-                    <div class="security-section">
-                        <h3 class="security-title">
-                            <span class="inline-block w-6 h-6 mr-2 align-text-bottom">
-                                ${getIconHtml('LockClosedIcon')}
-                            </span>
-                            Security Model
-                        </h3>
-                        <p class="security-description">
-                            <strong class="text-white">IAM roles and tenant-specific access policies</strong> enforce strict data isolation, ensuring each tenant only accesses their own data.
-                        </p>
-                    </div>
-                    ${cs.solution.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center" style="text-align: center !important;">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
-                </div>
-                `;
-            } else {
+            if (cs.solution) {
                 solutionHtml = `
                     <div class="py-8">
-                        <div class="mb-8">
+                        <div class="${cs.solution.bulletPoints.length > 0 || cs.solution.conclusion ? 'mb-8' : ''}">
                             <h2 class="text-h2 font-bold text-white mb-4 text-center">The Solution</h2>
-                            <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.solution.intro || '')}</p>
+                            <p class="text-body-lg text-theme-muted max-w-5xl mx-auto section-intro-text text-center">${renderBoldText(cs.solution.intro || '')}</p>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                             ${cs.solution.bulletPoints.map((point, idx) => {
-                                const { bg, color } = getIconColors(idx + 2); // Change offset for variety
+                                const { bg, color } = getIconColors(idx + 2);
                                 let title = '';
                                 let text = point.text;
                                 if (point.text.includes(':')) {
@@ -494,13 +387,13 @@
                                 const isLast = idx === cs.solution.bulletPoints.length - 1 && cs.solution.bulletPoints.length % 2 !== 0;
                                 return `
                                     <div class="section-card ${isLast ? 'md:col-span-2 md:max-w-[calc(50%-12px)] md:mx-auto' : ''}">
-                                        <div class="flex flex-row items-start gap-5">
+                                        <div class="flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-4 md:gap-5">
                                             <div class="spec-icon-box" style="background-color: ${bg}; color: ${color};">
                                                 ${getIconHtml(point.icon)}
                                             </div>
                                             <div class="flex flex-col gap-2">
                                                 ${title ? `<h4 class="text-h4 font-bold text-white">${renderBoldText(title)}</h4>` : ''}
-                                                <p class="text-body text-theme-muted">
+                                                 <p class="text-body text-theme-muted text-justify">
                                                     ${renderBoldText(text)}
                                                 </p>
                                             </div>
@@ -509,154 +402,86 @@
                                 `;
                             }).join('')}
                         </div>
-                        ${cs.solution.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center" style="text-align: center !important;">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
+                        ${cs.solution.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-5xl mx-auto section-conclusion-text text-center">${renderBoldText(cs.solution.conclusion)}</p>` : ''}
                     </div>
                 `;
             }
 
-            const numberRegex = /(\d+%|\d+\+|\d+)/;
-            const metrics = cs.impact.bulletPoints.filter(point => numberRegex.test(point.text));
-            const otherImpactPoints = cs.impact.bulletPoints.filter(point => !numberRegex.test(point.text));
-
-            let metricsHtml = "";
-            if (metrics.length > 0) {
-                metricsHtml = `
-                    <div class="impact-metrics-grid mb-8">
-                        ${metrics.map((point, idx) => {
-                            const { color, bg } = getIconColors(idx);
-                            const matches = point.text.match(numberRegex);
-                            const metricNum = matches ? matches[0] : "";
-                            
-                            let label = "";
-                            let description = point.text;
-                            
-                            if (point.text.includes(':')) {
-                                const parts = point.text.split(':');
-                                label = parts[0].trim();
-                                description = parts.slice(1).join(':').trim();
-                            }
-                            
-                            return `
-                                <div class="impact-metric-card">
-                                    <div class="spec-icon-box mb-6" style="background-color: ${bg}; color: ${color}; margin-left: auto; margin-right: auto;">
-                                        ${getIconHtml(point.icon)}
-                                    </div>
-                                    <div class="metric-number" style="color: ${color}">${metricNum}</div>
-                                    ${label ? `<div class="metric-label">${renderBoldText(label, true, color)}</div>` : ''}
-                                    <div class="metric-description">${renderBoldText(description, true, color)}</div>
-                                </div>
-                            `;
-                        }).join('')}
+            // Impact Table rendering
+            let impactHtml = "";
+            if (cs.impactTable) {
+                const table = cs.impactTable;
+                impactHtml = `
+                    <div class="py-8">
+                        <div class="mb-8">
+                            <h2 class="text-h2 font-bold text-white mb-4 text-center">${table.title || 'Systemic Impact'}</h2>
+                            ${table.subtitle ? `<p class="text-body-lg text-theme-muted text-center">${table.subtitle}</p>` : ''}
+                        </div>
+                        <div class="impact-table-wrapper custom-scrollbar">
+                            <table class="impact-table">
+                                <thead>
+                                    <tr>
+                                        ${table.headers.map((h, i) => `<th class="${i === 0 ? 'metric-col' : i === 1 ? 'before-col' : 'after-col'}">${h}</th>`).join('')}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${table.rows.map(row => `
+                                        <tr>
+                                            <td class="metric-col">${renderBoldText(row[0])}</td>
+                                            <td class="before-col">${renderBoldText(row[1])}</td>
+                                            <td class="after-col">${renderBoldText(row[2])}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            } else if (cs.impact) {
+                // Legacy fallback for old impact format
+                impactHtml = `
+                    <div class="py-8">
+                        <div class="">
+                            <h2 class="text-h2 font-bold text-white mb-4 text-center">The Impact</h2>
+                            <p class="text-body-lg text-theme-muted max-w-4xl mx-auto section-intro-text text-justify">${renderBoldText(cs.impact.intro || '')}</p>
+                        </div>
                     </div>
                 `;
             }
-
-            let otherImpactHtml = "";
-            if (otherImpactPoints.length > 0) {
-                otherImpactHtml = `
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-                        ${otherImpactPoints.map((point, idx) => {
-                            const { bg, color } = getIconColors(idx + metrics.length + 4);
-                            let title = '';
-                            let text = point.text;
-                            if (point.text.includes(':')) {
-                                const parts = point.text.split(':');
-                                title = parts[0].trim();
-                                text = parts.slice(1).join(':').trim();
-                            }
-                            const isLast = idx === otherImpactPoints.length - 1 && otherImpactPoints.length % 2 !== 0;
-                            return `
-                                <div class="section-card ${isLast ? 'md:col-span-2 md:max-w-[calc(50%-12px)] md:mx-auto' : ''}">
-                                    <div class="flex flex-row items-start gap-5">
-                                        <div class="spec-icon-box" style="background-color: ${bg}; color: ${color};">
-                                            ${getIconHtml(point.icon)}
-                                        </div>
-                                        <div class="flex flex-col gap-2">
-                                            ${title ? `<h4 class="text-h4 font-bold text-white">${renderBoldText(title)}</h4>` : ''}
-                                                <p class="text-body text-theme-muted">
-                                                    ${renderBoldText(text)}
-                                                </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-                        }).join('')}
-                    </div>
-                `;
-            }
-
-            let impactHtml = `
-                <div class="py-8">
-                    <div class="mb-8">
-                        <h2 class="text-h2 font-bold text-white mb-4 text-center">The Impact</h2>
-                        <p class="text-body-lg text-theme-muted max-w-3xl mx-auto section-intro-text text-center">${renderBoldText(cs.impact.intro || '')}</p>
-                    </div>
-                    ${metricsHtml}
-                    ${otherImpactHtml}
-                    ${cs.impact.conclusion ? `<p class="mt-8 text-body text-theme-muted max-w-3xl mx-auto section-conclusion-text text-center" style="text-align: center !important;">${renderBoldText(cs.impact.conclusion)}</p>` : ''}
-                </div>
-            `;
 
             let techHtml = "";
-            if (cs.technicalDifferentiation) {
-                techHtml = `
-                    <div class="py-8 border-t border-theme-border">
-                        <div class="mb-8">
-                            <h2 class="text-h2 font-bold text-white mb-4 text-center">Technical Differentiation</h2>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                            ${cs.technicalDifferentiation.bulletPoints.map((point, idx) => {
-                                const { bg, color } = getIconColors(idx + 6);
-                                return `
-                                <div class="section-card">
-                                    <div class="flex flex-row items-start gap-5">
-                                        <div class="spec-icon-box" style="background-color: ${bg}; color: ${color};">
-                                            ${getIconHtml(point.icon)}
-                                        </div>
-                                        <p class="text-white font-medium leading-relaxed">
-                                            ${renderBoldText(point.text)}
-                                        </p>
-                                    </div>
-                                </div>
-                                `;
-                            }).join('')}
-                        </div>
-                    </div>
-                `;
-            }
 
             content.innerHTML = `
-                <div class="max-w-5xl mx-auto">
-                    <!-- Back Button Row -->
-                    <div class="flex justify-start mb-8">
+                <div class="relative w-full pt-4 md:pt-0">
+                    <!-- Back Button Row - Positioned at corner in desktop -->
+                    <div class="hidden md:block md:absolute md:-left-4 lg:-left-12 md:top-0 md:mb-0">
                         <button onclick="showList()" class="back-button-circular btn-primary">
                             <span class="material-symbols-outlined">arrow_back</span>
                         </button>
                     </div>
 
-                    <!-- Header Design -->
-                    <div class="flex flex-col items-center mb-8">
-                        <div class="flex flex-wrap justify-center gap-3 mb-6">
-                            ${cs.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}
+                    <div class="max-w-5xl mx-auto">
+                        <!-- Header Design -->
+                        <div class="flex flex-col items-center mb-8">
+                            <div class="flex flex-wrap justify-center gap-3 mb-4">
+                                ${cs.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}
+                            </div>
+                            <h2 class="text-h2 font-sans font-bold mb-4 text-center">
+                                ${cs.title}
+                            </h2>
+                            <div class="max-w-5xl mx-auto">
+                                <p class="text-body-lg text-theme-muted font-light case-overview-text text-center">
+                                    ${cs.overview}
+                                </p>
+                            </div>
                         </div>
-                        <h2 class="text-h2 font-sans font-bold mb-6 text-center">
-                            ${cs.title}
-                        </h2>
-                        <div class="max-w-4xl">
-                            <p class="text-body-lg text-theme-muted font-light case-overview-text text-center" style="text-align: center !important; text-align-last: center !important;">
-                                ${cs.overview}
-                            </p>
+
+                        <div class="space-y-0">
+                            ${challengeHtml}
+                            ${solutionHtml}
+                            ${impactHtml}
                         </div>
                     </div>
-
-                    <div class="space-y-4">
-                        ${challengeHtml}
-                        ${solutionHtml}
-                        ${impactHtml}
-                        ${techHtml}
-                        ${cs.conclusion ? `<div class="py-12 border-t border-theme-border"><p class="text-body text-theme-muted max-w-4xl mx-auto italic section-conclusion-text text-center" style="text-align: center !important;">${renderBoldText(cs.conclusion)}</p></div>` : ''}
-                    </div>
-
                 </div>
             `;
 

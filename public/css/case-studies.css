@@ -6,11 +6,11 @@
     --card: #16161a;
     --text: #ffffff;
     --muted: #dbdbdc;
-    --accent: #3b82f6;
-    --accent-rgb: 59, 130, 246;
+    --accent: #3066f8;
+    --accent-rgb: 48, 102, 248;
     --border: rgba(255, 255, 255, 0.08);
     --theme-border: rgba(255, 255, 255, 0.08);
-    --accent-glow: rgba(59, 130, 246, 0.15);
+    --accent-glow: rgba(48, 102, 248, 0.15);
 }
 
 .case-studies-page body {
@@ -420,7 +420,6 @@
     .metric-description {
         text-align: left;
     }
-    .section-card p,
     .timeline-bullets,
     .security-description {
         text-align: left !important;
@@ -429,8 +428,126 @@
     }
 }
 
-.section-card p,
 .timeline-bullets,
 .security-description {
     text-align: left !important;
+}
+
+/* ─── Impact Comparison Table ─────────────────────────────── */
+.impact-table-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 1.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #11111a;
+}
+
+.impact-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.impact-table thead {
+    background: rgba(48, 102, 248, 0.08);
+}
+
+.impact-table th {
+    padding: 1.1rem 1.5rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.impact-table th.metric-col {
+    color: #ffffff;
+}
+
+.impact-table th.before-col {
+    color: #f87171;
+}
+
+.impact-table th.after-col {
+    color: #4ade80;
+}
+
+.impact-table tbody tr {
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.impact-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.impact-table tbody tr:hover {
+    background: rgba(48, 102, 248, 0.04);
+}
+
+.impact-table td {
+    padding: 1rem 1.5rem;
+    vertical-align: top;
+    line-height: 1.6;
+}
+
+.impact-table td.metric-col {
+    color: #ffffff;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.impact-table td.before-col {
+    color: #a3a3a3;
+    font-style: italic;
+}
+
+.impact-table td.after-col {
+    color: #4ade80;
+    font-weight: 600;
+}
+
+/* Mobile responsive for impact table */
+@media (max-width: 640px) {
+    .impact-table-wrapper {
+        border-radius: 1rem;
+    }
+
+    .impact-table {
+        font-size: 0.85rem;
+    }
+
+    .impact-table th,
+    .impact-table td {
+        padding: 0.75rem 1rem;
+    }
+
+    .impact-table td.metric-col {
+        white-space: normal;
+    }
+}
+/* Utility classes */
+.text-justify {
+    text-align: justify;
+    text-justify: inter-word;
+    text-align-last: left;
+    -moz-text-align-last: left;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    word-spacing: -0.02em;
+    line-height: 1.7; /* Better readability */
+}
+
+@media (max-width: 768px) {
+    .text-justify {
+        text-align: left;
+        text-align-last: left;
+        hyphens: none;
+        -webkit-hyphens: none;
+        word-spacing: normal;
+    }
 }
